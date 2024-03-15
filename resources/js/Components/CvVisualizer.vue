@@ -4,7 +4,7 @@ import { ref, onMounted, onUpdated } from "vue";
 
 let props = defineProps({
     updated: Boolean,
-    cv_id: Number,
+    cv_id: String,
 });
 
 const emit = defineEmits(['view-updated']);

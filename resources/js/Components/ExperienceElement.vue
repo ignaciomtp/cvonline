@@ -5,18 +5,19 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import TextTextArea from '@/Components/TextTextArea.vue';
+
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     experience: Object,
+    resume_id: String,
 });
 
 const emit = defineEmits(['experience-deleted', 'bd-updated']);
 
 const form = useForm({
 	id: props.experience.id || 0,
-    resume_id: props.experience.resume_id || 0,
+    resume_id: props.resume_id || 0,
     title: props.experience.title || '',
     company_name: props.experience.company_name || '',
     company_city: props.experience.company_city || '',
@@ -191,7 +192,7 @@ const deleteExp = () => {
 
 				   			<input 
 			                    id="resume_id"
-			                    type="number"
+			                    type="text"
 			                    class="mt-1 block w-full"
 			                    v-model="form.resume_id"
 			                    required
@@ -207,15 +208,15 @@ const deleteExp = () => {
 				   	<div class="p-1 m-1">
 						<InputLabel for="job_description" value="Descripción" />
 
-		                <TextTextArea
+		                <textarea
 		                    id="job_description"
 		                    
-		                    class="mt-1 block w-full"
+		                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full"
 		                    v-model="form.job_description"
 		                    required
 		                    autofocus
 		                    autocomplete="job_description"
-		                />
+		                ></textarea>
 
 		                <InputError class="mt-2" :message="form.errors.job_description" />
 				   	</div>

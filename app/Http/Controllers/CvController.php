@@ -12,6 +12,7 @@ use App\Models\Resume;
 use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
 {
@@ -149,6 +150,119 @@ class CvController extends Controller
             'skills' => $skills,
         ]);
 
+    }
+
+    public function updateCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->title = $request->title;
+        $cv->save();
+
+        return Redirect::route('editcv', ['id' => $cv->id]);
+    }
+
+
+    public function createPdfCv($id) {
+
+        $user = auth()->user();
+
+        setlocale(LC_TIME, 'es_ES.UTF-8','esp');
+
+        $cv = Resume::find($id);
+
+        $experiences = $cv->experiences()->get()->all();
+
+        foreach($experiences as $exp) {
+            //$formattedStart = date("F Y", strtotime($exp->date_start));
+
+            $formattedStart = strftime("%B %G", strtotime($exp->date_start));
+
+            //$formattedFinish = date("F Y", strtotime($exp->date_finish));
+
+            $formattedFinish = strftime("%B %G", strtotime($exp->date_finish));
+
+            $exp->date_start = $formattedStart;
+            $exp->date_finish = $formattedFinish;
+        }
+
+        $formations = $cv->formations()->where('type', 'académica')->get()->all();
+
+        foreach($formations as $for) {
+            $formattedFinish = strftime("%G", strtotime($for->date_finish));
+            $for->date_finish = $formattedFinish;
+        }
+
+        $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
+
+        $skills = $cv->skills()->get()->all();
+
+        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills'));
+
+        return $pdf->stream('cv1.pdf');   
+
+
+
+/*
+        $content = $pdf->download()->getOriginalContent();
+        Storage::put('public/pdfs/'.$user->name.'.pdf', $content);
+
+        return Redirect::route('dashboard');
+*/
+    }    
+
+    public function addExperience(Request $request) {
+        $request->validate([
+            'title' => 'required',
+            'company_name' => 'required',
+            'company_city' => 'required',
+            'date_start' => 'required',
+            'date_finish' => 'required',
+            'job_description' => 'required'
+        ], );
+
+        $exp = new Experience;
+        $exp->title = $request->title;
+        $exp->company_name = $request->company_name;
+        $exp->company_city = $request->company_city;
+        $exp->date_start = $request->date_start;
+        $exp->date_finish = $request->date_finish;
+        $exp->job_description = $request->job_description;
+        //$exp->resume_id = $request->resume_id;
+
+        $exp->save();
+
+        $cv = Resume::find($request->resume_id);
+        $cv->experiences()->attach($exp);
+
+        return $exp;
+
+    }
+
+    public function updateExperience(Request $request) {
+/*        $request->validate([
+            'id' => 'required',
+            'title' => 'required',
+            'company_name' => 'required',
+            'company_city' => 'required',
+            'date_start' => 'required',
+            'date_finish' => 'required',
+            'job_description' => 'required'
+        ]);
+*/
+        $exp = Experience::findOrFail($request->id);
+        $exp->title = $request->title;
+        $exp->company_name = $request->company_name;
+        $exp->company_city = $request->company_city;
+        $exp->date_start = $request->date_start;
+        $exp->date_finish = $request->date_finish;
+        $exp->job_description = $request->job_description;
+        //$exp->resume_id = $request->resume_id;
+
+        $exp->save();
+
+        //return Redirect::route('editcv', ['id' => $exp->resume_id]);
+
+        return $exp;
     }
 
 
