@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mis-cvs', [CvController::class, 'viewCvs'])->name('miscvs');
     Route::get('/new-cv', [CvController::class, 'createNewCv'])->name('createnewcv');
     Route::post('/savenewcv', [CvController::class, 'saveNewCv'])->name('savenewcv');
+    Route::get('/editcv/{id}', [CvController::class, 'editCv'])->name('editcv');
 });
 
 require __DIR__.'/auth.php';

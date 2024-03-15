@@ -78,5 +78,78 @@ class CvController extends Controller
         return Inertia::render('CvEditor');
     }
 
+    public function editCv($id) {
+        $cv = Resume::find($id);
+
+        $experiences = $cv->experiences()->get()->all();
+
+        if(!$experiences) {
+
+            $var = new \stdClass();
+            $var->id = 0;
+            $var->title = '';
+            $var->company_name = '';
+            $var->company_city = '';
+            $var->date_start = '';
+            $var->date_finish = '';
+            $var->job = '';
+
+            $experiences = [$var];
+        }
+
+        $formations = $cv->formations()->where('type', 'académica')->get()->all();
+
+        if(!$formations) {
+
+            $var = new \stdClass();
+            $var->id = 0;
+            $var->name = '';
+            $var->title = '';
+            $var->institution = '';
+            $var->institution_city = '';
+            $var->date_start = '';
+            $var->date_finish = '';
+
+            $formations = [$var];
+        }
+
+        $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
+
+        if(!$complementary_formations) {
+
+            $var = new \stdClass();
+            $var->id = 0;
+            $var->name = '';
+            $var->type = 'complementaria';
+            $var->title = '';
+            $var->institution = '';
+            $var->institution_city = '';
+            //$var->year = 0;
+            $var->hours = 0;
+
+            $complementary_formations = [$var];
+        }
+
+        $skills = $cv->skills()->get()->all();
+
+        if(!$skills) {
+            $var = new \stdClass();
+            $var->id = 0;
+            $var->name = '';
+            $var->level = 0;
+
+            $skills = [$var];
+        }
+
+        return Inertia::render('CvEditor', [
+            'cv' => $cv, 
+            'experiences' => $experiences, 
+            'formations' => $formations,
+            'complementary_formations' => $complementary_formations,
+            'skills' => $skills,
+        ]);
+
+    }
+
 
 }

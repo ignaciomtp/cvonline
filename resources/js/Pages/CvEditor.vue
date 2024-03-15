@@ -49,75 +49,74 @@ router.on('success', (event) => {
 
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex flex-row flex-wrap mx-auto sm:px-6 lg:px-8">
+
+                <div class="w-full sm:w-2/3 md:w-2/3 p-3 mb-4">
+                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-800 dark:text-gray-400">
+                        <li class="me-2">
+                            <a @click="setSectionVisible('datos-personales')" class="tab-link active-dark" id="datos-personales">Datos Personales</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('experiencia')" class="tab-link inactive-dark" id="experiencia">Experiencia</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('formacion')" class="tab-link inactive-dark" id="formacion">Formación</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('formacion-complementaria')" class="tab-link inactive-dark" id="formacion-complementaria">Formación Complementaria</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('habilidades')" class="tab-link inactive-dark" id="Habilidades">Habilidades</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('idiomas')" class="tab-link inactive-dark" id="idiomas">Idiomas</a>
+                        </li>
+                    </ul>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'datos-personales'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Datos Personales
+
+
+                        </div> <!-- Fin pirmer tab -->
+
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'experiencia'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Experiencia
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Formación</div>
+
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion-complementaria'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Formación Complementaria</div>
+
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'habilidades'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Habilidades</div>
+
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'idiomas'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Idiomas</div>
+
+                    </div>                   
+                </div>  <!-- Fin 1ª sección -->
                 
+                <div class="w-full sm:w-1/3 md:w-1/3 p-1 borde bg-black ">
+                    
+
+                </div>
 
 
-<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-800 dark:text-gray-400">
-    <li class="me-2">
-        <a @click="setSectionVisible('datos-personales')" class="tab-link active-dark" id="datos-personales">Datos Personales</a>
-    </li>
-    <li class="me-2">
-        <a @click="setSectionVisible('experiencia')" class="tab-link inactive-dark" id="experiencia">Experiencia</a>
-    </li>
-    <li class="me-2">
-        <a @click="setSectionVisible('formacion')" class="tab-link inactive-dark" id="formacion">Formación</a>
-    </li>
-    <li class="me-2">
-        <a @click="setSectionVisible('formacion-complementaria')" class="tab-link inactive-dark" id="formacion-complementaria">Formación Complementaria</a>
-    </li>
-    <li class="me-2">
-        <a @click="setSectionVisible('habilidades')" class="tab-link inactive-dark" id="Habilidades">Habilidades</a>
-    </li>
-    <li class="me-2">
-        <a @click="setSectionVisible('idiomas')" class="tab-link inactive-dark" id="idiomas">Idiomas</a>
-    </li>
-    <li>
-        <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
-    </li>
-</ul>
 
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'datos-personales'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Datos Personales
-
-
-    </div> <!-- Fin pirmer tab -->
-
-</div>
-
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'experiencia'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Experiencia
-
-<!-- Modal toggle -->
-<div class="flex justify-center m-5">
-    <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
-    Show delete confirmation
-    </button>
-</div>
-
-    </div>
-
-</div>
-
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Formación</div>
-
-</div>
-
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion-complementaria'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Formación Complementaria</div>
-
-</div>
-
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'habilidades'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Habilidades</div>
-
-</div>
-
-<div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'idiomas'}">
-    <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Idiomas</div>
-
-</div>
 
             </div>
         </div>

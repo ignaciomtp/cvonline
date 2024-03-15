@@ -10,7 +10,7 @@ class Formation extends Model
     use HasFactory;
 
     public function resumes() {
-        return $this->hasMany(Resume::class);
+        return $this->belongsToMany(Resume::class);
     }
 
 }

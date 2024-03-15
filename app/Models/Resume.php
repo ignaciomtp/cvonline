@@ -27,19 +27,19 @@ class Resume extends Model
     }
 
     public function experiences() {
-        return $this->hasMany(Experience::class);
+        return $this->belongsToMany(Experience::class);
     }
 
     public function formations() {
-        return $this->hasMany(Formation::class);
+        return $this->belongsToMany(Formation::class);
     }
 
     public function skills() {
-        return $this->hasMany(Skill::class);
+        return $this->belongsToMany(Skill::class);
     }
 
     public function languages() {
-        return $this->hasMany(Language::class);
+        return $this->belongsToMany(Language::class);
     }
 
 }
