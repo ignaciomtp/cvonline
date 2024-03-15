@@ -86,8 +86,8 @@ onMounted(() => {
 
 
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('editor')" :active="route().current('editor')">
-                                    Editor
+                                <NavLink :href="route('miscvs')" :active="route().current('miscvs')">
+                                    Mis CVs
                                 </NavLink>
                             </div>
 

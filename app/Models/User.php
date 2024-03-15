@@ -21,6 +21,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'surname',
+        'phone',
+        'job',
+        'address',
+        'zip',
+        'city',
+        'province',
+        'country',
+        'photo',
+        'web',
     ];
 
     /**
@@ -42,4 +53,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function resumes() {
+        return $this->hasMany(Resume::class);
+    }
+
+    
 }
