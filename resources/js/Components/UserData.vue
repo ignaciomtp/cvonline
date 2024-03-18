@@ -176,23 +176,23 @@ const submit = () => {
             </div>
 
             <div class="p-2 m-2 row-span-2">
-                <InputLabel for="photoF" value="Foto" />
+                <InputLabel for="photo" value="Foto" />
 
                 <div v-if="props.user.photo">
-                    <img :src="'storage/' + props.user.photo" width="100">
+                    <img :src="'storage/images/' + props.user.photo" width="100">
                 </div>
 
 
                 <TextInput
-                    id="photoF"
+                    id="photo"
                     type="file"
                     class="mt-1 block w-full"
                     
                     @input="form.photo = $event.target.files[0]"
-                    autocomplete="photoF"
+                    autocomplete="photo"
                 />
 
-                <InputError class="mt-2" :message="form.errors.photoF" />
+                <InputError class="mt-2" :message="form.errors.photo" />
             </div>
 
             <div class="p-2 m-2 col-span-2 col-start-3">

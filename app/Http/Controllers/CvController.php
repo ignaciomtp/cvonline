@@ -27,12 +27,12 @@ class CvController extends Controller
         $newData = $request->all();
         $nameImage = '';
 
-        if($request->hasFile('photoF')) {
+        if($request->hasFile('photo')) {
             //$path = $request->file('photo')->store('public/files');
 
-            $image = $request->file('photoF');
+            $image = $request->file('photo');
             $nameImage = time().'.'.$image->getClientOriginalName();
-            $image->move(app()->basePath('storage/app/public'), $nameImage);
+            $image->move(app()->basePath('storage/app/public/images'), $nameImage);
 
             $newData['photo'] = $nameImage;
         }

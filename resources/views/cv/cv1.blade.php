@@ -118,15 +118,15 @@ body {
       </div>
 
       <div class="block-10 ib mr-4">
-        <img src="{{ public_path('storage/' . $user->photo) }}" height="100">
+        <img src="{{ public_path('storage/images/' . $user->photo) }}" height="100">
       </div>
 
-      <div class="block-50 ib ml-2">
+      <div class="block-50 ib ml-2 ">
         <div class="nametitle " >
           {{ $user->name }} {{ $user->surname }}
         </div>
         <div class="jobtitle">
-          {{ $user->job_title }}
+          {{ $user->job }}
         </div>
       </div>
 
@@ -135,7 +135,7 @@ body {
     <div class="clr"></div>
 
     <div class="">
-     {{ $user->job }}
+     Lorem fistrum apetecan a gramenawer te va a hasé pupitaa llevame al sircoo jarl hasta luego Lucas ese hombree. Mamaar por la gloria de mi madre condemor te voy a borrar el cerito a wan está la cosa muy malar amatomaa ese pedazo de.
     </div>
 
     <div class="section mt-3 mb-2">
