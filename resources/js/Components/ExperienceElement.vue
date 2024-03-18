@@ -1,23 +1,33 @@
 <script setup>
+import ChevronDown from '@/Components/ChevronDown.vue';
+import ChevronUp from '@/Components/ChevronUp.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { ref } from "vue";
 
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     experience: Object,
     resume_id: String,
+    deployed: Boolean,
 });
 
-const emit = defineEmits(['experience-deleted', 'bd-updated']);
+const deployed = ref(false);
+
+const toggleDeployed = () => {
+	deployed.value = !deployed.value;
+}
+
+const emit = defineEmits(['element-deleted', 'bd-updated', 'experience-added', 'cancel-add']);
 
 const form = useForm({
 	id: props.experience.id || 0,
-    resume_id: props.resume_id || 0,
+    resume_id: props.resume_id || '',
     title: props.experience.title || '',
     company_name: props.experience.company_name || '',
     company_city: props.experience.company_city || '',
@@ -51,6 +61,7 @@ const submit = () => {
 		form.id = response.data.id;
 
 		emit('bd-updated');
+		if(formRoute == 'addexperience') emit('experience-added', 'experiences');
 
 	})
 	.catch(function (error) {
@@ -68,17 +79,39 @@ const deleteExp = () => {
 	.then( response => {
 	   console.log(response);
 
-	   emit('experience-deleted', response.data);
+	   const item = {
+		 section: 'experiences',
+		 id: response.data
+	   };
+
+	   emit('bd-updated');
+	   emit('element-deleted', item);
 	})
 	.catch( error => {
 	   console.log(error);
 	})
 }
 
+const cancelAdd = () => {
+	emit('cancel-add', 'experiences');
+}
+
 </script>
 
 <template>
-	<div class="m-1">
+
+
+<div id="accordion-collapse" data-accordion="collapse">
+  <h2 id="accordion-collapse-heading-1">
+    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+      <span>{{ form.title }} - {{ form.company_name }}</span>
+      <svg data-accordion-icon class="w-3 h-3 shrink-0" :class="{rotated: !deployed}"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h2>
+  <div id="accordion-collapse-body-1" :class="{hidden: !deployed}" aria-labelledby="accordion-collapse-heading-1">
+	<div class=" bg-white dark:bg-gray-900">
 		<form @submit.prevent="submit">
 			<div class="flex">
 				<div class="flex-auto w-33 ">
@@ -175,25 +208,24 @@ const deleteExp = () => {
 					</div>
 
 					<div class="flex w-full ">
-				   		<div class="flex-auto w-1/2 invisible" v-if="experience.id != 0">
+				   		<div class="flex-auto w-1/2 " v-if="experience.id != 0">
 				   			<InputLabel for="id" value="id" />
-
-			                <TextInput
+			                <input 
 			                    id="id"
 			                    type="number"
-			                    class="mt-1 block w-full"
+			                    class="mt-1 block w-full text-black"
 			                    v-model="form.id"
-			                    autofocus
-			                    autocomplete="id"
+			                    required
+			                    readonly 
 			                />
 				   		</div>
-				   		<div class="flex-auto w-1/2 invisible">
+				   		<div class="flex-auto w-1/2 ">
 				   			<InputLabel for="resume_id" value="id cv" />
 
 				   			<input 
 			                    id="resume_id"
 			                    type="text"
-			                    class="mt-1 block w-full"
+			                    class="mt-1 block w-full text-black"
 			                    v-model="form.resume_id"
 			                    required
 			                    readonly 
@@ -223,9 +255,20 @@ const deleteExp = () => {
 
 				   	<div>
 				   		<div class="flex items-center justify-start pt-3 m-2 row-start-4">
-	                        <PrimaryButton v-if="props.experience.id == 0" class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-	                            Añadir al Currículum
-	                        </PrimaryButton>
+				   			<div v-if="props.experience.id == 0" class="flex">
+		                        <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+		                            Añadir al Currículum
+		                        </PrimaryButton>
+		                        <div style="float: right;" >
+	                        		<button 
+								        type="button"
+								        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+								        @click="cancelAdd"
+								    >
+								        Cancelar
+								    </button>
+								</div>
+							</div>
 
 	                        <div v-if="props.experience.id > 0" class="flex">
 	                        	<SecondaryButton  class="ms-4" type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
@@ -254,4 +297,19 @@ const deleteExp = () => {
 
 		</form>
 	</div>
+  </div>
+  
+</div>
+
+
+
 </template>
+
+<style>
+
+.rotated {
+    --tw-rotate: 180deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+</style>

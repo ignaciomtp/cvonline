@@ -266,4 +266,15 @@ class CvController extends Controller
     }
 
 
+    public function deleteExperience($id) {
+        $exp = Experience::findOrFail($id);
+
+        $exp->resumes()->detach();
+
+        Experience::destroy($id);
+
+        return $id;
+    }
+
+
 }
