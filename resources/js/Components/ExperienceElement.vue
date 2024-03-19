@@ -8,6 +8,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { ref } from "vue";
+import ClasicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import { useForm } from '@inertiajs/vue3';
 
@@ -18,6 +19,9 @@ const props = defineProps({
 });
 
 const deployed = ref(false);
+
+const editor = ref(ClasicEditor);
+const editorConfig = {};
 
 const toggleDeployed = () => {
 	deployed.value = !deployed.value;
@@ -174,15 +178,9 @@ const cancelAdd = () => {
 				   	<div class="p-1 m-1">
 						<InputLabel for="job_description" value="Descripción" />
 
-		                <textarea
-		                    id="job_description"
-		                    
-		                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full"
-		                    v-model="form.job_description"
-		                    required
-		                    autofocus
-		                    autocomplete="job_description"
-		                ></textarea>
+
+
+		                <ckeditor :editor="editor" v-model="form.job_description" :config="editorConfig" id="job_description"></ckeditor>
 
 		                <InputError class="mt-2" :message="form.errors.job_description" />
 				   	</div>			
@@ -322,6 +320,11 @@ const cancelAdd = () => {
 
 .roundedxl {
 	border-radius: 0.75rem;
+}
+
+
+.ck-content {
+	@apply bg-gray-50 border px-6 border-gray-300 text-gray-900 text-sm rounded-b-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full !important;
 }
 
 </style>

@@ -142,18 +142,18 @@ body {
        Experiencia Profesional
     </div>
 
-    <ul>
+
       @foreach($experiences as $exp)
-      <li>
+      <div class="m-2">
         <div class="sectioncontent">
           <span class="font-weight-bold">{{ $exp->title }}</span> en {{ $exp->company_name }}, {{ $exp->company_city }} ({{ $exp->date_start }} - {{ $exp->date_finish }})
-          <p>
-            {{ $exp->job_description }}
+          <p class="m-0">
+            {!! $exp->job_description !!}
           </p>
         </div>
-      </li>
+      </div>
       @endforeach
-    </ul>
+
     
 
     <div class="section mt-3 mb-2">

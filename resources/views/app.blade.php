@@ -18,6 +18,10 @@
         @inertiaHead
 
 
+        <script src="{{ config('app.url') }}/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
+        <script src="{{ config('app.url') }}/node_modules/@ckeditor/ckeditor5-vue/dist/ckeditor.js"></script>
+
+
         <script>
             // On page load or when changing themes, best to add inline in `head` to avoid FOUC
             if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
