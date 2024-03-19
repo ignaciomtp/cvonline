@@ -103,7 +103,7 @@ const cancelAdd = () => {
 
 <div id="accordion-collapse" data-accordion="collapse">
   <h2 id="accordion-collapse-heading-1">
-    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 rounded-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" :class="{roundedtop: deployed, roundedxl: !deployed}" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
       <span>{{ form.title }} - {{ form.company_name }}</span>
       <svg data-accordion-icon class="w-3 h-3 shrink-0" :class="{rotated: !deployed}"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
@@ -111,7 +111,7 @@ const cancelAdd = () => {
     </button>
   </h2>
   <div id="accordion-collapse-body-1" :class="{hidden: !deployed}" aria-labelledby="accordion-collapse-heading-1">
-	<div class=" bg-white dark:bg-gray-900">
+	<div class=" bg-white dark:bg-gray-900 rounded-b-lg p-2">
 		<form @submit.prevent="submit">
 			<div class="flex">
 				<div class="flex-auto w-33 ">
@@ -171,8 +171,24 @@ const cancelAdd = () => {
 
 			</div>
 
+				   	<div class="p-1 m-1">
+						<InputLabel for="job_description" value="Descripción" />
+
+		                <textarea
+		                    id="job_description"
+		                    
+		                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full"
+		                    v-model="form.job_description"
+		                    required
+		                    autofocus
+		                    autocomplete="job_description"
+		                ></textarea>
+
+		                <InputError class="mt-2" :message="form.errors.job_description" />
+				   	</div>			
+
 			<div class="flex">
-				<div class="flex-auto w-33">
+				<div class="flex-auto w-32">
 					<div class="flex">
 					   	<div class="p-1 m-1 flex-auto w-1/2">
 							<InputLabel for="date_start" value="Fecha Inicio" />
@@ -207,7 +223,12 @@ const cancelAdd = () => {
 					   	</div>					
 					</div>
 
-					<div class="flex w-full ">
+
+
+				</div>
+
+				<div class="flex-auto w-14">
+					<div class="flex w-full invisible">
 				   		<div class="flex-auto w-1/2 " v-if="experience.id != 0">
 				   			<InputLabel for="id" value="id" />
 			                <input 
@@ -219,7 +240,7 @@ const cancelAdd = () => {
 			                    readonly 
 			                />
 				   		</div>
-				   		<div class="flex-auto w-1/2 ">
+				   		<div class="flex-auto w-1/2 invisible">
 				   			<InputLabel for="resume_id" value="id cv" />
 
 				   			<input 
@@ -232,58 +253,39 @@ const cancelAdd = () => {
 			                />
 				   		</div>
 				   	</div>
-
 				</div>
 
+				<div class="flex-auto w-64 text-right ">
 
-				<div class="flex-auto w-66 ">
-				   	<div class="p-1 m-1">
-						<InputLabel for="job_description" value="Descripción" />
+				   		<div class="flex items-center  pt-3 m-2 ">
+				   			<div v-if="props.experience.id == 0" class="flex justify-between w-full">
+		                        
 
-		                <textarea
-		                    id="job_description"
-		                    
-		                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full"
-		                    v-model="form.job_description"
-		                    required
-		                    autofocus
-		                    autocomplete="job_description"
-		                ></textarea>
-
-		                <InputError class="mt-2" :message="form.errors.job_description" />
-				   	</div>
-
-				   	<div>
-				   		<div class="flex items-center justify-start pt-3 m-2 row-start-4">
-				   			<div v-if="props.experience.id == 0" class="flex">
-		                        <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-		                            Añadir al Currículum
-		                        </PrimaryButton>
-		                        <div style="float: right;" >
-	                        		<button 
-								        type="button"
-								        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-								        @click="cancelAdd"
-								    >
-								        Cancelar
-								    </button>
-								</div>
+		                        <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Guardar y añadir al cv</button>
+		                        
+                        		<button 
+							        type="button"
+							        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+							        @click="cancelAdd"
+							    >
+							        Cancelar
+							    </button>
+								
 							</div>
 
-	                        <div v-if="props.experience.id > 0" class="flex">
-	                        	<SecondaryButton  class="ms-4" type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-		                            Actualizar
-		                        </SecondaryButton>
+	                        <div v-if="props.experience.id > 0" class="flex justify-between w-full">
 
-		                        <div style="float: right;" >
-		                        	<button 
-								        type="button"
-								        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-								        @click="deleteExp"
-								    >
-								        Quitar
-								    </button>
-		                        </div>	                        
+
+		                        <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Actualizar</button>
+
+	                        	<button 
+							        type="button"
+							        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+							        @click="deleteExp"
+							    >
+							        Borrar
+							    </button>
+		                                                
 	                        </div>
 	                        
 	                    </div>
@@ -291,7 +293,7 @@ const cancelAdd = () => {
 	                    <progress v-if="form.progress" :value="form.progress.percentage" max="100">
 	                      {{ form.progress.percentage }}%
 	                    </progress>
-				   	</div>
+				   	
 				</div>
 			</div>
 
@@ -310,6 +312,16 @@ const cancelAdd = () => {
 .rotated {
     --tw-rotate: 180deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.roundedtop {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+.roundedxl {
+	border-radius: 0.75rem;
 }
 
 </style>
