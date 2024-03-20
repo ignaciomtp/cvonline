@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\FormationController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -48,9 +49,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
 
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
+
     Route::post('/editcv/addexperience/', [ExperienceController::class, 'addExperience'])->name('addexperience');
     Route::post('/editcv/updateexperience/', [ExperienceController::class, 'updateExperience'])->name('updateexperience');
     Route::delete('/editcv/deleteexperience/{id}', [ExperienceController::class, 'deleteExperience'])->name('deleteexperience');
+
+    Route::post('/editcv/addformation/', [FormationController::class, 'addFormation'])->name('addformation');
+    Route::post('/editcv/updateformation/', [FormationController::class, 'updateFormation'])->name('updateformation');
+    Route::delete('/editcv/deleteformation/{id}', [FormationController::class, 'deleteFormation'])->name('deleteformation');
 
 
 });

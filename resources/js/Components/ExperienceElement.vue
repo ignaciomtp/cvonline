@@ -7,7 +7,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { ref } from "vue";
+
+import { ref, reactive, onMounted } from "vue";
 import ClasicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import { useForm } from '@inertiajs/vue3';
@@ -15,17 +16,18 @@ import { useForm } from '@inertiajs/vue3';
 const props = defineProps({
     experience: Object,
     resume_id: String,
-    deployed: Boolean,
 });
 
-const deployed = ref(false);
+
+const contentHidden = ref(true);
 
 const editor = ref(ClasicEditor);
 const editorConfig = {};
 
 const toggleDeployed = () => {
-	deployed.value = !deployed.value;
+	contentHidden.value = !contentHidden.value;
 }
+
 
 const emit = defineEmits(['element-deleted', 'bd-updated', 'experience-added', 'cancel-add']);
 
@@ -75,30 +77,27 @@ const submit = () => {
 };
 
 const deleteExp = () => {
-	console.log(props.experience.id);
 
-	axios.post('deleteexperience/' + props.experience.id, {
-	  _method: 'DELETE'
-	})
-	.then( response => {
-	   console.log(response);
 
-	   const item = {
-		 section: 'experiences',
-		 id: response.data
-	   };
+	const item = {
+		 section: 'experience',
+		 id: props.experience.id
+	};
 
-	   emit('bd-updated');
-	   emit('element-deleted', item);
-	})
-	.catch( error => {
-	   console.log(error);
-	})
+   
+   emit('element-deleted', item);
+	
 }
 
 const cancelAdd = () => {
 	emit('cancel-add', 'experiences');
 }
+
+onMounted(() => {
+	contentHidden.value = true;
+
+
+});
 
 </script>
 
@@ -107,14 +106,14 @@ const cancelAdd = () => {
 
 <div id="accordion-collapse" data-accordion="collapse">
   <h2 id="accordion-collapse-heading-1">
-    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" :class="{roundedtop: deployed, roundedxl: !deployed}" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" :class="{roundedtop: !contentHidden, roundedxl: contentHidden}" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
       <span>{{ form.title }} - {{ form.company_name }}</span>
-      <svg data-accordion-icon class="w-3 h-3 shrink-0" :class="{rotated: !deployed}"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+      <svg data-accordion-icon class="w-3 h-3 shrink-0" :class="{rotated: contentHidden}"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
       </svg>
     </button>
   </h2>
-  <div id="accordion-collapse-body-1" :class="{hidden: !deployed}" aria-labelledby="accordion-collapse-heading-1">
+  <div id="accordion-collapse-body-1" :class="{hidden: contentHidden}" aria-labelledby="accordion-collapse-heading-1">
 	<div class=" bg-white dark:bg-gray-900 rounded-b-lg p-2">
 		<form @submit.prevent="submit">
 			<div class="flex">
@@ -300,7 +299,6 @@ const cancelAdd = () => {
   </div>
   
 </div>
-
 
 
 </template>

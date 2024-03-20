@@ -1,22 +1,33 @@
 <script setup>
+import ChevronDown from '@/Components/ChevronDown.vue';
+import ChevronUp from '@/Components/ChevronUp.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import TextTextArea from '@/Components/TextTextArea.vue';
 import { useForm } from '@inertiajs/vue3';
+import { ref, reactive, onMounted } from "vue";
 
 const props = defineProps({
     formation: Object,
+    resume_id: String,
 });
 
-const emit = defineEmits(['formation-deleted', 'bd-updated']);
+const contentHidden = ref(true);
+
+const toggleDeployed = () => {
+    contentHidden.value = !contentHidden.value;
+}
+
+
+const emit = defineEmits(['formation-added', 'element-deleted', 'bd-updated', 'cancel-add']);
 
 const form = useForm({
     id: props.formation.id || 0,
-    resume_id: props.formation.resume_id || 0,
+    resume_id: props.resume_id || '',
+    name: props.formation.name || '',
     title: props.formation.title || '',
     institution: props.formation.institution || '',
     institution_city: props.formation.institution_city || '',
@@ -28,6 +39,7 @@ const submit = () => {
     const formRoute = props.formation.id == 0 ? 'addformation' : 'updateformation';
 
     let formation = {
+        name: form.name,
         title: form.title,
         resume_id: form.resume_id,
         institution: form.institution,
@@ -46,6 +58,7 @@ const submit = () => {
         form.id = response.data.id;
 
         emit('bd-updated');
+        if(formRoute == 'addformation') emit('formation-added', 'formations');
 
     })
     .catch(function (error) {
@@ -54,30 +67,46 @@ const submit = () => {
     
 };
 
-const deleteExp = () => {
-    console.log(props.formation.id);
+const deleteFormation = () => {
+    const item = {
+         section: 'formation',
+         id: props.formation.id
+    };
 
-    axios.post('deleteformation/' + props.formation.id, {
-      _method: 'DELETE'
-    })
-    .then( response => {
-       console.log(response);
-
-       emit('formation-deleted', response.data);
-    })
-    .catch( error => {
-       console.log(error);
-    })
+   
+   emit('formation-deleted', item);
 }
+
+const cancelAdd = () => {
+    emit('cancel-add', 'formations');
+}
+
+
+onMounted(() => {
+    contentHidden.value = true;
+
+
+});
 
 </script>
 
-
 <template>
-    <div class="m-1">
+
+
+<div id="accordion-collapse" data-accordion="collapse">
+  <h2 id="accordion-collapse-heading-1">
+    <button type="button" @click="toggleDeployed" class="flex items-center justify-between w-full p-4 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:bg-gray-700 gap-3" :class="{roundedtop: !contentHidden, roundedxl: contentHidden}" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+      <span>{{ form.title }} {{ form.name }}</span>
+      <svg data-accordion-icon class="w-3 h-3 shrink-0" :class="{rotated: contentHidden}"  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h2>
+  <div id="accordion-collapse-body-1" :class="{hidden: contentHidden}" aria-labelledby="accordion-collapse-heading-1">
+    <div class=" bg-white dark:bg-gray-900 rounded-b-lg p-2">
         <form @submit.prevent="submit">
             <div class="flex">
-                <div class="flex-auto w-33 ">
+                <div class="flex-auto w-25 ">
                     <div class="p-1 m-1">
                         <InputLabel for="title" value="Título" />
 
@@ -95,8 +124,25 @@ const deleteExp = () => {
                     </div>
                 </div>
 
+                <div class="flex-auto w-25">
+                    <div class="p-1 m-1">
+                        <InputLabel for="name" value="Especialidad" />
 
-                <div class="flex-auto w-33 ">
+                        <TextInput
+                            id="name"
+                            type="text"
+                            class="mt-1 block w-full"
+                            v-model="form.name"
+                            required
+                            autofocus
+                            autocomplete="name"
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.name" />
+                    </div>                    
+                </div>
+
+                <div class="flex-auto w-25 ">
                     <div class="p-1 m-1">
                         <InputLabel for="institution" value="Centro" />
 
@@ -114,7 +160,7 @@ const deleteExp = () => {
                     </div>
                 </div>
 
-                <div class="flex-auto w-33 ">
+                <div class="flex-auto w-25 ">
                     <div class="p-1 m-1">
                         <InputLabel for="institution_city" value="Localidad" />
 
@@ -135,9 +181,9 @@ const deleteExp = () => {
             </div>
 
             <div class="flex">
-                <div class="flex-auto w-33">
+                <div class="flex-auto w-32">
                     <div class="flex">
-                        <div class="p-1 m-1 flex-auto w-1/4">
+                        <div class="p-1 m-1 flex-auto w-1/2">
                             <InputLabel for="date_start" value="Fecha Inicio" />
 
                             <TextInput
@@ -153,7 +199,7 @@ const deleteExp = () => {
                             <InputError class="mt-2" :message="form.errors.date_start" />
                         </div>
 
-                        <div class="p-1 m-1 flex-auto w-1/4">
+                        <div class="p-1 m-1 flex-auto w-1/2">
                             <InputLabel for="date_finish" value="Fecha Fin" />
 
                             <TextInput
@@ -169,59 +215,67 @@ const deleteExp = () => {
                             <InputError class="mt-2" :message="form.errors.date_finish" />
                         </div>                  
 
-                        <div class="flex-auto w-1/4 invisible" v-if="formation.id != 0">
-                            <InputLabel for="id" value="id" />
-
-                            <TextInput
-                                id="id"
-                                type="number"
-                                class="mt-1 block w-full"
-                                v-model="form.id"
-                                autofocus
-                                autocomplete="id"
-                                readonly
-                            />
-                        </div>
-                        <div class="flex-auto w-1/4 invisible">
-                            <InputLabel for="resume_id" value="id cv" />
-
-                            <input 
-                                id="resume_id"
-                                type="number"
-                                class="mt-1 block w-full"
-                                v-model="form.resume_id"
-                                required
-                                readonly 
-                            />
-                        </div>
+                        
                     </div>
 
                 </div>
 
+                <div class="flex-auto w-14">
+                        <div class="flex w-full invisible" v-if="formation.id != 0">
+                            <InputLabel for="id" value="id" />
 
-                <div class="flex-auto w-66 ">
+                            <input
+                                id="id"
+                                type="text"
+                                class="mt-1 block w-full text-black"
+                                v-model="form.id"
+                                readonly
+                            />
+                        </div>
+                        <div class="flex w-full invisible">
+                            <InputLabel for="resume_id" value="id cv" />
+
+                            <input 
+                                id="resume_id"
+                                type="text"
+                                class="mt-1 block w-full text-black"
+                                v-model="form.resume_id"
+                                required
+                                readonly 
+                            />
+                        </div>                    
+                </div>
+
+                <div class="flex-auto w-64 text-right">
+                        <div class="flex items-center  pt-3 m-2 ">
+                            <div v-if="props.formation.id == 0" class="flex justify-between w-full">
+                                
+
+                                <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Guardar y añadir al cv</button>
+                                
+                                <button 
+                                    type="button"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                    @click="cancelAdd"
+                                >
+                                    Cancelar
+                                </button>
+                                
+                            </div>
+
+                            <div v-if="props.formation.id > 0" class="flex justify-between w-full">
 
 
-                    <div >
-                        <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
-                            <PrimaryButton v-if="props.formation.id == 0" class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Añadir al Currículum
-                            </PrimaryButton>
+                                <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Actualizar</button>
 
-                            <div v-if="props.formation.id > 0" class="flex text-right ">
-                                <SecondaryButton  class="ms-4" type="submit" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                    Actualizar
-                                </SecondaryButton>
-
-                                <div style="float: right;" >
-                                    <button 
-                                        type="button"
-                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        @click="deleteExp"
-                                    >
-                                        Quitar
-                                    </button>
-                                </div>                          
+                                <button 
+                                    type="button"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                    @click="deleteFormation"
+                                >
+                                    Borrar
+                                </button>
+                                                        
                             </div>
                             
                         </div>
@@ -229,10 +283,39 @@ const deleteExp = () => {
                         <progress v-if="form.progress" :value="form.progress.percentage" max="100">
                           {{ form.progress.percentage }}%
                         </progress>
-                    </div>
+
                 </div>
             </div>
 
         </form>
     </div>
+  </div>
+  
+</div>
+
+
 </template>
+
+<style>
+
+.rotated {
+    --tw-rotate: 180deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.roundedtop {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+
+.roundedxl {
+    border-radius: 0.75rem;
+}
+
+
+.ck-content {
+    @apply bg-gray-50 border px-6 border-gray-300 text-gray-900 text-sm rounded-b-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full !important;
+}
+
+</style>

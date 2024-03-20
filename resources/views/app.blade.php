@@ -18,8 +18,7 @@
         @inertiaHead
 
 
-        <script src="{{ config('app.url') }}/@ckeditor/ckeditor5-build-classic/build/ckeditor.js"></script>
-        <script src="{{ config('app.url') }}/node_modules/@ckeditor/ckeditor5-vue/dist/ckeditor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 
 
         <script>

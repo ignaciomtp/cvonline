@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-@include('cv.style-options.gold')
+@include('cv.style-options.blue')
 
 
 <style type="text/css">
@@ -160,16 +160,16 @@ body {
       Formación Académica
     </div>
 
-    <ul>
+
       @foreach($formations as $for)
-      <li>
+      <div class="m-2">
         <div class="sectioncontent">
           <span class="font-weight-bold">{{ $for->title }}</span>, {{ $for->institution }}, {{ $for->institution_city }} ({{ $for->date_finish }})
           
         </div>
-      </li>
+      </div>
       @endforeach
-    </ul>
+
 
 
     <div class="section mt-3 mb-2">
