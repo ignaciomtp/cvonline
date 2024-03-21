@@ -22,18 +22,6 @@ class SkillController extends Controller
         return $skill;
     }
 
-    public function updateSkill(Request $request) {
-        
-        $skill = Skill::findOrFail($request->id);
-
-        $skill->name = $request->name;
-        $skill->level = $request->level;
-
-        $skill->save();
-
-        return $skill;
-
-    }
 
     public function deleteSkill($id) {
         $skill = Skill::findOrFail($id);

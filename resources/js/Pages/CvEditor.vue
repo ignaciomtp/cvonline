@@ -6,6 +6,7 @@ import ExperienceElement from '@/Components/ExperienceElement.vue';
 import FormationElement from '@/Components/FormationElement.vue';
 import ComplementaryFormationElement from '@/Components/ComplementaryFormationElement.vue';
 import SkillElement from '@/Components/SkillElement.vue';
+import LanguageElement from '@/Components/LanguageElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
@@ -18,6 +19,7 @@ let props = defineProps({
     formations: Array,
     complementary_formations: Array,
     skills: Array,
+    languages: Array,
 });
 
 const cvUpdated = ref(false);
@@ -359,7 +361,22 @@ onMounted(() => {
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'idiomas'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Idiomas</div>
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="text-right mb-4">
+
+                               <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                           </div>   
+                           <div class="my-3 py-2 " v-for="(lang, index) in languages" :key="index + 1">
+                                <LanguageElement                                    
+                                    :resume_id="cv.id"
+                                    :language="lang"
+                                    @element-deleted="openModal"
+                                    @cancel-add="cancelAddElement"
+                                    @language-added="enableAddButton"
+                                    @bd-updated="dbUpdated"
+                                />
+                            </div> 
+                        </div>
 
                     </div>                   
                 </div>  <!-- Fin 1ª sección -->

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FormationController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SkillController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -61,8 +62,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/editcv/addskill/', [SkillController::class, 'addSkill'])->name('addskill');
-    Route::post('/editcv/updateskill/', [SkillController::class, 'updateSkill'])->name('updateskill');
     Route::delete('/editcv/deleteskill/{id}', [SkillController::class, 'deleteSkill'])->name('deleteskill');
+
+    Route::post('/editcv/addlanguage/', [LanguageController::class, 'addLanguage'])->name('addlanguage');
+    Route::delete('/editcv/deletelanguage/{id}', [LanguageController::class, 'deleteLanguage'])->name('deletelanguage');
 
 });
 

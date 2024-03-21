@@ -215,5 +215,18 @@ body {
     </div>
 
 
+    <div class="section mt-3 mb-3">
+      Idiomas
+    </div>
+
+    @foreach($languages as $lang)
+      <div class="m-2">
+        <div class="sectioncontent">
+          <span class="font-weight-bold">{{ $lang->name }}</span>, nivel {{ $lang->level }} ({{ $lang->certification }})
+          
+        </div>
+      </div>
+    @endforeach
+
   </body>
 </html>

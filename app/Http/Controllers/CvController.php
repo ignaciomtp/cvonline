@@ -142,12 +142,25 @@ class CvController extends Controller
             $skills = [$var];
         }
 
+        $languages = $cv->languages()->get()->all();
+
+        if(!$languages) {
+            $var = new \stdClass();
+            $var->id = 0;
+            $var->name = '';
+            $var->level = '';
+            $var->certification = '';
+
+            $languages = [$var];
+        }
+
         return Inertia::render('CvEditor', [
             'cv' => $cv, 
             'experiences' => $experiences, 
             'formations' => $formations,
             'complementary_formations' => $complementary_formations,
             'skills' => $skills,
+            'languages' => $languages,
         ]);
 
     }
@@ -195,8 +208,9 @@ class CvController extends Controller
         $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
 
         $skills = $cv->skills()->get()->all();
+        $languages = $cv->languages()->get()->all();
 
-        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills'));
+        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages'));
 
         return $pdf->stream('cv1.pdf');   
 
