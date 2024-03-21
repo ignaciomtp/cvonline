@@ -113,7 +113,7 @@ const submit = () => {
 
                 <div class="flex-auto w-1/4 ">
                     <div >
-                        <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
+                        <div class="flex items-center justify-start pt-5 m-2 row-start-4 ">
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Añadir al Currículum
                             </PrimaryButton>                            

@@ -342,13 +342,17 @@ onMounted(() => {
                                 />                   
                             </div> 
 
-                            <span v-for="(item, index) in skills" :key="index + 1">
-                                <SkillBadge 
-                                    :skill="item"
-                                    @element-deleted="removeSkill"
-                                    @bd-updated="dbUpdated"
-                                />
-                            </span>
+                            <div class="my-5 mx-2">
+                                <span v-for="(item, index) in skills" :key="index + 1">
+                                    <SkillBadge 
+                                        :skill="item"
+                                        @element-deleted="removeSkill"
+                                        @bd-updated="dbUpdated"
+                                    />
+                                </span>
+                            </div>
+
+                            
 
                         </div>
 
