@@ -74,7 +74,7 @@ const deleteFormation = () => {
     };
 
    
-   emit('formation-deleted', item);
+   emit('element-deleted', item);
 }
 
 const cancelAdd = () => {
@@ -214,7 +214,6 @@ onMounted(() => {
 
                             <InputError class="mt-2" :message="form.errors.date_finish" />
                         </div>                  
-
                         
                     </div>
 

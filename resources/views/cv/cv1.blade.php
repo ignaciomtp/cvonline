@@ -14,7 +14,7 @@
 <style type="text/css">
 
 body {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 
@@ -164,7 +164,7 @@ body {
       @foreach($formations as $for)
       <div class="m-2">
         <div class="sectioncontent">
-          <span class="font-weight-bold">{{ $for->title }}</span>, {{ $for->institution }}, {{ $for->institution_city }} ({{ $for->date_finish }})
+          <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span>, {{ $for->institution }}, {{ $for->institution_city }} ({{ $for->date_finish }})
           
         </div>
       </div>
@@ -176,16 +176,16 @@ body {
       Formación Complementaria
     </div>
 
-    <ul>
+
       @foreach($complementary_formations as $cfor)
-      <li>
+      <div class="m-2">
         <div class="sectioncontent">
-          <span class="font-weight-bold">{{ $cfor->title }}</span>, {{ $cfor->institution }}, {{ $cfor->institution_city }} ({{ $cfor->year }})
+          {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span>, {{ $cfor->institution }}, {{ $cfor->institution_city }} ({{ $cfor->year }})
           
         </div>
-      </li>
+      </div>
       @endforeach
-    </ul>
+
 
 
     <div class="section mt-3 mb-3">
