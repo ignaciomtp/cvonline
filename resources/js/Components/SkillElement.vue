@@ -5,17 +5,16 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TerciaryButton from '@/Components/TerciaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import TextTextArea from '@/Components/TextTextArea.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref, reactive } from "vue";
 
 
 const props = defineProps({
-    resume_id: Number,
+    resume_id: String,
 }); 
 
 const skill = reactive({
-    resume_id: props.resume_id || 0,
+    resume_id: props.resume_id || '',
     name: '',
     level: 0,
 });
@@ -66,14 +65,13 @@ const submit = () => {
                     <div class="p-1 m-1">
                         <InputLabel for="name" value="Habilidad" />
 
-                        <TextInput
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             id="name"
                             type="text"
-                            class="mt-1 block w-full"
                             v-model="form.name"
+                            min="0"
+                            max="5"
                             required
-                            autofocus
-                            autocomplete="name"
                         />
 
                         <InputError class="mt-2" :message="form.errors.name" />
@@ -85,54 +83,40 @@ const submit = () => {
                     <div class="p-1 m-1">
                         <InputLabel for="level" value="Nivel" />
 
-                        <TextInput
+                        <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             id="level"
                             type="number"
-                            class="mt-1 block w-full"
                             v-model="form.level"
-                            required
-                            autofocus
-                            autocomplete="level"
+                            min="0"
+                            max="5"
                         />
+
 
                         <InputError class="mt-2" :message="form.errors.level" />
                     </div>
                 </div>
 
-                <div class="flex-auto w-1/4 ">
-                    <div class="flex">                                                      
+                <div class="flex-auto w-1/4 invisible">
+                    <InputLabel for="resume_id" value="id cv" />
 
-                        <div class="flex-auto w-1/2 " v-if="skill.id != 0">
-
-                        </div>
-                        <div class="flex-auto w-1/2 invisible">
-                            <InputLabel for="resume_id" value="id cv" />
-
-                            <input 
-                                id="resume_id"
-                                type="number"
-                                class="mt-1 block w-full"
-                                v-model="form.resume_id"
-                                required
-                                readonly 
-                            />
-                        </div>
-                    </div>
+                    <input 
+                        id="resume_id"
+                        type="text"
+                        class="mt-1 block w-full text-black"
+                        v-model="form.resume_id"
+                        required
+                        readonly 
+                    />
 
                 </div>
 
 
                 <div class="flex-auto w-1/4 ">
-
-
                     <div >
                         <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Añadir al Currículum
-                            </PrimaryButton>
-
-
-                            
+                            </PrimaryButton>                            
                         </div>
 
                         <progress v-if="form.progress" :value="form.progress.percentage" max="100">

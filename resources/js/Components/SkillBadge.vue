@@ -3,7 +3,7 @@ const props = defineProps({
     skill: Object,
 });
 
-const emit = defineEmits(['skill-deleted', 'bd-updated']);
+const emit = defineEmits(['element-deleted', 'bd-updated']);
 
 const deleteSkill = () => {
     console.log(props.skill.id);
@@ -14,7 +14,12 @@ const deleteSkill = () => {
     .then( response => {
        console.log(response);
 
-       emit('skill-deleted', response.data);
+       const item = {
+             section: 'skills',
+             id: props.skill.id
+        };
+
+       emit('element-deleted', item);
        emit('bd-updated');
     })
     .catch( error => {

@@ -5,6 +5,8 @@ import CvVisualizer from '@/Components/CvVisualizer.vue';
 import ExperienceElement from '@/Components/ExperienceElement.vue';
 import FormationElement from '@/Components/FormationElement.vue';
 import ComplementaryFormationElement from '@/Components/ComplementaryFormationElement.vue';
+import SkillElement from '@/Components/SkillElement.vue';
+import SkillBadge from '@/Components/SkillBadge.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -61,6 +63,9 @@ const removeElement = (section, elemId) => {
     if(idx > -1) props[section].splice(idx, 1);
 }
 
+const removeSkill = (elem) => {
+    removeElement(elem.section, elem.id);
+}
 
 const dbUpdated = () => {
     cvUpdated.value = true;
@@ -167,6 +172,10 @@ const addElement = (type) => {
 
 }
 
+const AddSkill = (elem) => {
+    props.skills.push(elem);
+}
+
 const cancelAddElement = (type) => {
     props[type].pop();    
 
@@ -254,7 +263,7 @@ onMounted(() => {
                             <a @click="setSectionVisible('formacion-complementaria')" class="tab-link inactive-dark" id="formacion-complementaria">Formación Complementaria</a>
                         </li>
                         <li class="me-2">
-                            <a @click="setSectionVisible('habilidades')" class="tab-link inactive-dark" id="Habilidades">Habilidades</a>
+                            <a @click="setSectionVisible('habilidades')" class="tab-link inactive-dark" id="habilidades">Habilidades</a>
                         </li>
                         <li class="me-2">
                             <a @click="setSectionVisible('idiomas')" class="tab-link inactive-dark" id="idiomas">Idiomas</a>
@@ -324,7 +333,24 @@ onMounted(() => {
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'habilidades'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">Esto es Habilidades</div>
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="m-1">
+                                <SkillElement 
+                                    :resume_id="cv.id"
+                                    @skill-added="AddSkill"
+                                    @bd-updated="dbUpdated"
+                                />                   
+                            </div> 
+
+                            <span v-for="(item, index) in skills" :key="index + 1">
+                                <SkillBadge 
+                                    :skill="item"
+                                    @element-deleted="removeSkill"
+                                    @bd-updated="dbUpdated"
+                                />
+                            </span>
+
+                        </div>
 
                     </div>
 
