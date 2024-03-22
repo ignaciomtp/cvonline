@@ -68,6 +68,11 @@ class CvController extends Controller
 
         $cv->title = $request->title;
         $cv->user_id = auth()->user()->id;
+
+        $sections = ['profile', 'experience', 'formation', 'complementary_formation', 'skills', 'languages'];
+        $cv->visible_sections = json_encode($sections);
+
+
         $cv->save();
 
         //return Redirect::route('miscvs');
@@ -81,6 +86,8 @@ class CvController extends Controller
 
     public function editCv($id) {
         $cv = Resume::find($id);
+
+        $visibleSections = json_decode($cv->visible_sections);
 
         $experiences = $cv->experiences()->get()->all();
 
@@ -161,6 +168,7 @@ class CvController extends Controller
             'complementary_formations' => $complementary_formations,
             'skills' => $skills,
             'languages' => $languages,
+            'incv_sections' => $visibleSections,
         ]);
 
     }
@@ -182,6 +190,8 @@ class CvController extends Controller
         setlocale(LC_TIME, 'es_ES.UTF-8','esp');
 
         $cv = Resume::find($id);
+
+        $visibleSections = json_decode($cv->visible_sections);
 
         $experiences = $cv->experiences()->get()->all();
 
@@ -210,7 +220,7 @@ class CvController extends Controller
         $skills = $cv->skills()->get()->all();
         $languages = $cv->languages()->get()->all();
 
-        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages'));
+        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections'));
 
         return $pdf->stream('cv1.pdf');   
 
@@ -224,6 +234,17 @@ class CvController extends Controller
 */
     }    
 
+
+    public function toggleIncludedSection(Request $request) {
+
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->toggleVisibleSection($request->section);
+
+        $cv->save();
+
+        return $cv->visible_sections;
+    }
 
 
 }

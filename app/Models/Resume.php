@@ -20,6 +20,7 @@ class Resume extends Model
         'user_id',
         'description',
         'offer',
+        'visible_sections',
     ];
 
     public function user() {
@@ -40,6 +41,22 @@ class Resume extends Model
 
     public function languages() {
         return $this->belongsToMany(Language::class);
+    }
+
+    public function toggleVisibleSection($section) {
+        $visibleSections = json_decode($this->visible_sections);
+
+        $k = array_search($section, $visibleSections);
+
+        if($k == false) {
+            array_push($visibleSections, $section);
+        } else {
+            array_splice($visibleSections, $k, 1);
+        }
+
+
+        $this->visible_sections = json_encode($visibleSections);
+
     }
 
 }

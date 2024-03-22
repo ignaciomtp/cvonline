@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/editcv/{id}', [CvController::class, 'editCv'])->name('editcv');
 
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
+    Route::post('/editcv/toggleincludedsection', [CvController::class, 'toggleIncludedSection'])->name('toggle.visile');
 
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
 

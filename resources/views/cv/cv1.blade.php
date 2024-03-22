@@ -134,32 +134,35 @@ body {
 
     <div class="clr"></div>
 
-    <div class="">
-     Lorem fistrum apetecan a gramenawer te va a hasé pupitaa llevame al sircoo jarl hasta luego Lucas ese hombree. Mamaar por la gloria de mi madre condemor te voy a borrar el cerito a wan está la cosa muy malar amatomaa ese pedazo de.
+    <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
+     <p>Lorem fistrum apetecan a gramenawer te va a hasé pupitaa llevame al sircoo jarl hasta luego Lucas ese hombree. Mamaar por la gloria de mi madre condemor te voy a borrar el cerito a wan está la cosa muy malar amatomaa ese pedazo de.
+     </p>
     </div>
 
-    <div class="section mt-3 mb-2">
-       Experiencia Profesional
-    </div>
+    <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
 
-
-      @foreach($experiences as $exp)
-      <div class="m-2">
-        <div class="sectioncontent">
-          <span class="font-weight-bold">{{ $exp->title }}</span> en {{ $exp->company_name }}, {{ $exp->company_city }} ({{ $exp->date_start }} - {{ $exp->date_finish }})
-          <p class="m-0">
-            {!! $exp->job_description !!}
-          </p>
-        </div>
+      <div class="section mt-3 mb-2">
+         Experiencia Profesional
       </div>
-      @endforeach
 
-    
-
-    <div class="section mt-3 mb-2">
-      Formación Académica
+        @foreach($experiences as $exp)
+        <div class="m-2">
+          <div class="sectioncontent">
+            <span class="font-weight-bold">{{ $exp->title }}</span> en {{ $exp->company_name }}, {{ $exp->company_city }} ({{ $exp->date_start }} - {{ $exp->date_finish }})
+            <p class="m-0">
+              {!! $exp->job_description !!}
+            </p>
+          </div>
+        </div>
+        @endforeach   
     </div>
 
+
+    <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
+
+      <div class="section mt-3 mb-2">
+        Formación Académica
+      </div>
 
       @foreach($formations as $for)
       <div class="m-2">
@@ -168,13 +171,14 @@ body {
           
         </div>
       </div>
-      @endforeach
-
-
-
-    <div class="section mt-3 mb-2">
-      Formación Complementaria
+      @endforeach      
     </div>
+
+
+    <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
+      <div class="section mt-3 mb-2">
+        Formación Complementaria
+      </div>
 
 
       @foreach($complementary_formations as $cfor)
@@ -185,48 +189,55 @@ body {
         </div>
       </div>
       @endforeach
-
-
-
-    <div class="section mt-3 mb-3">
-      Habilidades
     </div>
 
-    <div class="col-container ">
-      @foreach($skills as $skill)
-      <div class="block-30 ib pt-2 pb-2">
-        <div class="block-50 ib">
-          <strong>{{ $skill->name }}</strong> 
-        </div>
-        
-        <div class="block-40 ib black-green">
-          @for($i = 0; $i < $skill->level; $i++)
-           @include('cv.icons.star-fill', ['color' => '#AA9739'])
-          @endfor
 
-          @if($skill->level < 5)
-            @for($j = 0; $j < 5 - $skill->level; $j++)
-              @include('cv.icons.star', ['color' => '#AA9739'])
-            @endfor
-          @endif
-        </div>
+    <div id="skills" @class(['d-inline' => in_array('skills', $visibleSections), 'd-none' => ! in_array('skills', $visibleSections),])>
+
+      <div class="section mt-3 mb-3">
+        Habilidades
       </div>
+
+      <div class="col-container ">
+        @foreach($skills as $skill)
+        <div class="block-30 ib pt-2 pb-2">
+          <div class="block-50 ib">
+            <strong>{{ $skill->name }}</strong> 
+          </div>
+          
+          <div class="block-40 ib black-green">
+            @for($i = 0; $i < $skill->level; $i++)
+             @include('cv.icons.star-fill', ['color' => '#AA9739'])
+            @endfor
+
+            @if($skill->level < 5)
+              @for($j = 0; $j < 5 - $skill->level; $j++)
+                @include('cv.icons.star', ['color' => '#AA9739'])
+              @endfor
+            @endif
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+
+
+    <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
+      <div class="section mt-3 mb-3">
+        Idiomas
+      </div>
+
+      @foreach($languages as $lang)
+        <div class="m-2">
+          <div class="sectioncontent">
+            <span class="font-weight-bold">{{ $lang->name }}</span>, nivel {{ $lang->level }} ({{ $lang->certification }})
+            
+          </div>
+        </div>
       @endforeach
     </div>
 
 
-    <div class="section mt-3 mb-3">
-      Idiomas
-    </div>
-
-    @foreach($languages as $lang)
-      <div class="m-2">
-        <div class="sectioncontent">
-          <span class="font-weight-bold">{{ $lang->name }}</span>, nivel {{ $lang->level }} ({{ $lang->certification }})
-          
-        </div>
-      </div>
-    @endforeach
 
   </body>
 </html>

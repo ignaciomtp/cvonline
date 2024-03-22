@@ -8,6 +8,7 @@ import ComplementaryFormationElement from '@/Components/ComplementaryFormationEl
 import SkillElement from '@/Components/SkillElement.vue';
 import LanguageElement from '@/Components/LanguageElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
+import ToggleVisible from '@/Components/ToggleVisible.vue';
 import { Head, router } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -20,6 +21,7 @@ let props = defineProps({
     complementary_formations: Array,
     skills: Array,
     languages: Array,
+    incv_sections: Array,
 });
 
 const cvUpdated = ref(false);
@@ -30,6 +32,26 @@ const colorCv = reactive({
    blue: '#168BA3',
    grey: '#AAB0B4',
 });
+
+const toggleIncludedSection = (section) => {
+    const req = {
+        cv_id: props.cv.id,
+        section: section
+    };
+
+    axios.post('toggleincludedsection', req)
+    .then(function (response) {
+        console.log(response);
+
+        dbUpdated();
+
+        props.incv_sections =  JSON.parse(response.data);      
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+}
 
 const elemToDelete = reactive({
     section: '',
@@ -273,12 +295,24 @@ onMounted(() => {
                     </ul>
 
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'experiencia'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="text-right mb-4">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'experiencia'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100 ">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('experience')"
+                                        :section="'experience'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Introduce los puestos en los que has trabajado</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
+                                   <button type="button" @click="addElement('experiences')" id="btn-add-experiences" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                               </div>    
+                           </div>
 
-                               <button type="button" @click="addElement('experiences')" id="btn-add-experiences" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
-                           </div>    
                             <div class="my-3 py-2 " v-for="(exp, index) in experiences" :key="index + 1">
                                 <ExperienceElement 
                                     :resume_id="cv.id"
@@ -294,11 +328,23 @@ onMounted(() => {
 
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion'}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'formacion'}">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="text-right mb-4">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('formation')"
+                                        :section="'formation'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Introduce tu Formación Académica</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
 
-                               <button type="button" @click="addElement('formations')" id="btn-add-formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                                   <button type="button" @click="addElement('formations')" id="btn-add-formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                               </div>
                            </div>    
                             <div class="my-3 py-2 " v-for="(formation, index) in formations" :key="index + 1">
                                 <FormationElement                                     
@@ -314,12 +360,24 @@ onMounted(() => {
 
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'formacion-complementaria'}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'formacion-complementaria'}">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="text-right mb-4">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('complementary_formation')"
+                                        :section="'complementary_formation'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Introduce aquí otro tipo de formación no reglada que tengas (cursos, seminarios, etc).</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
 
-                               <button type="button" @click="addElement('complementary_formations')" id="btn-add-complementary_formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
-                           </div>    
+                                   <button type="button" @click="addElement('complementary_formations')" id="btn-add-complementary_formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                               </div>    
+                           </div>
                             <div class="my-3 py-2 " v-for="(cfor, index) in complementary_formations" :key="index + 1">
                                 <ComplementaryFormationElement                                     
                                     :resume_id="cv.id"
@@ -334,8 +392,26 @@ onMounted(() => {
 
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'habilidades'}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'habilidades'}">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
+
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('skills')"
+                                        :section="'skills'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Aquí puedes introducir tus habilidades relativas al puesto, y tu nivel en cada una.</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
+
+          
+                               </div>
+                            </div>  
+
                             <div class="m-1">
                                 <SkillElement 
                                     :resume_id="cv.id"
@@ -360,12 +436,25 @@ onMounted(() => {
 
                     </div>
 
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4" :class="{hidden: sectionVisible != 'idiomas'}">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'idiomas'}">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="text-right mb-4">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('languages')"
+                                        :section="'languages'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Aquí puedes introducir los idiomas que hablas y el nivel que tienes en cada uno. Tambien puedes indicar si tienes algún tipo de certificación.</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
+                                    <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                    
+                               </div>
+                            </div>  
 
-                               <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
-                           </div>   
                            <div class="my-3 py-2 " v-for="(lang, index) in languages" :key="index + 1">
                                 <LanguageElement                                    
                                     :resume_id="cv.id"

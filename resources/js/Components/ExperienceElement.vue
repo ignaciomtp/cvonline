@@ -60,19 +60,19 @@ const submit = () => {
     if(props.experience.id > 0) exp.id = form.id;
 
     axios.post(formRoute, exp)
-	.then(function (response) {
-		console.log(response);
+		.then(function (response) {
+			console.log(response);
 
-		props.experience.id = response.data.id;
-		form.id = response.data.id;
+			props.experience.id = response.data.id;
+			form.id = response.data.id;
 
-		emit('bd-updated');
-		if(formRoute == 'addexperience') emit('experience-added', 'experiences');
+			emit('bd-updated');
+			if(formRoute == 'addexperience') emit('experience-added', 'experiences');
 
-	})
-	.catch(function (error) {
-		console.log(error);
-	});
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
     
 };
 
