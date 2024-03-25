@@ -48,7 +48,7 @@ class Resume extends Model
 
         $k = array_search($section, $visibleSections);
 
-        if($k == false) {
+        if($k === false) {
             array_push($visibleSections, $section);
         } else {
             array_splice($visibleSections, $k, 1);

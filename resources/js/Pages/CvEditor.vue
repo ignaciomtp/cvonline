@@ -9,7 +9,8 @@ import SkillElement from '@/Components/SkillElement.vue';
 import LanguageElement from '@/Components/LanguageElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
 import ToggleVisible from '@/Components/ToggleVisible.vue';
-import { Head, router } from '@inertiajs/vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
 import { Modal } from 'flowbite';
@@ -33,6 +34,31 @@ const colorCv = reactive({
    grey: '#AAB0B4',
 });
 
+const form = useForm({
+    cv_id: props.cv.id || '',
+    profile: props.cv.description || '',
+});
+
+const submit = () => {
+    const formRoute = 'updateprofile'
+
+    let pro = {
+        profile: form.profile,
+        cv_id: form.cv_id,
+    };
+
+    axios.post(formRoute, pro)
+    .then(function (response) {
+        console.log(response);
+
+        dbUpdated();
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });   
+};
+
 const toggleIncludedSection = (section) => {
     const req = {
         cv_id: props.cv.id,
@@ -44,8 +70,7 @@ const toggleIncludedSection = (section) => {
         console.log(response);
 
         dbUpdated();
-
-        props.incv_sections =  JSON.parse(response.data);      
+    
 
     })
     .catch(function (error) {
@@ -96,7 +121,7 @@ const dbUpdated = () => {
 }
 
 
-const sectionVisible = ref('experiencia');
+const sectionVisible = ref('profile');
 
 const setSectionVisible = (section) => {
     sectionVisible.value = section;
@@ -278,7 +303,11 @@ onMounted(() => {
                     <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-800 dark:text-gray-400">
 
                         <li class="me-2">
-                            <a @click="setSectionVisible('experiencia')" class="tab-link active-dark" id="experiencia">Experiencia</a>
+                            <a @click="setSectionVisible('profile')" class="tab-link active-dark" id="profile">Editar</a>
+                        </li>
+
+                        <li class="me-2">
+                            <a @click="setSectionVisible('experiencia')" class="tab-link inactive-dark" id="experiencia">Experiencia</a>
                         </li>
                         <li class="me-2">
                             <a @click="setSectionVisible('formacion')" class="tab-link inactive-dark" id="formacion">Formación</a>
@@ -293,6 +322,44 @@ onMounted(() => {
                             <a @click="setSectionVisible('idiomas')" class="tab-link inactive-dark" id="idiomas">Idiomas</a>
                         </li>
                     </ul>
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'profile'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100 ">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <ToggleVisible 
+                                        :visible="incv_sections.includes('profile')"
+                                        :section="'profile'"
+                                        @toggle-included-section="toggleIncludedSection"
+                                    />  
+                                </div>
+                                <div class="flex-auto w-3/4">
+                                    <p>Puedes incluir tu perfil en el currículum, o escribir uno específico. </p>
+                                </div>
+                                  
+                           </div>
+
+                           <div>
+                                <form @submit.prevent="submit" enctype="multipart/form-data">
+                                    <div class="invisible" style="max-height: 1px;">
+                                        <input type="text" id="cv_id_val" v-model="form.cv_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full" readonly>
+                                    </div>
+
+                                    <div class="p-2 m-2">
+                                        <label for="profile_val">Perfil</label>
+                                        <textarea id="profile_val" rows="4" v-model="form.profile" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full"></textarea>
+                                    </div>
+
+                                    <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
+                                        <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                            Guardar
+                                        </PrimaryButton>
+                                    </div>
+                                    
+                                </form>
+                           </div>
+                        </div>
+                    </div>
 
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'experiencia'}">
@@ -323,9 +390,7 @@ onMounted(() => {
                                     @bd-updated="dbUpdated"
                                 />
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'formacion'}">

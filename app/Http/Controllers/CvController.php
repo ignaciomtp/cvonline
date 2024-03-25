@@ -87,6 +87,8 @@ class CvController extends Controller
     public function editCv($id) {
         $cv = Resume::find($id);
 
+        if($cv->description == null) $cv->description = auth()->user()->profile;
+
         $visibleSections = json_decode($cv->visible_sections);
 
         $experiences = $cv->experiences()->get()->all();
@@ -191,6 +193,8 @@ class CvController extends Controller
 
         $cv = Resume::find($id);
 
+        if($cv->description == null) $cv->description = auth()->user()->profile;
+
         $visibleSections = json_decode($cv->visible_sections);
 
         $experiences = $cv->experiences()->get()->all();
@@ -219,8 +223,9 @@ class CvController extends Controller
 
         $skills = $cv->skills()->get()->all();
         $languages = $cv->languages()->get()->all();
+        $profile = $cv->description; 
 
-        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections'));
+        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile'));
 
         return $pdf->stream('cv1.pdf');   
 
@@ -244,6 +249,18 @@ class CvController extends Controller
         $cv->save();
 
         return $cv->visible_sections;
+    }
+
+    public function updateCvProfile(Request $request) {
+
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->description = $request->profile;
+
+        $cv->save();
+
+        return $cv;
+
     }
 
 

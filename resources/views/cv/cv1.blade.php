@@ -98,7 +98,9 @@ body {
   color: black;
 }
 
-
+p {
+  text-align: justify;
+}
 
 </style>
 
@@ -135,7 +137,7 @@ body {
     <div class="clr"></div>
 
     <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p>Lorem fistrum apetecan a gramenawer te va a hasé pupitaa llevame al sircoo jarl hasta luego Lucas ese hombree. Mamaar por la gloria de mi madre condemor te voy a borrar el cerito a wan está la cosa muy malar amatomaa ese pedazo de.
+     <p>{{ $profile }}
      </p>
     </div>
 
