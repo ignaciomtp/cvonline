@@ -224,8 +224,9 @@ class CvController extends Controller
         $skills = $cv->skills()->get()->all();
         $languages = $cv->languages()->get()->all();
         $profile = $cv->description; 
+        $color = $cv->color_1;
 
-        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile'));
+        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color'));
 
         return $pdf->stream('cv1.pdf');   
 
@@ -261,6 +262,16 @@ class CvController extends Controller
 
         return $cv;
 
+    }
+
+    public function changeCvColor(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->color_1 = $request->color;
+
+        $cv->save();
+
+        return $cv;
     }
 
 

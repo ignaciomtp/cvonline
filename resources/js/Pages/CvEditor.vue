@@ -10,6 +10,7 @@ import LanguageElement from '@/Components/LanguageElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
 import ToggleVisible from '@/Components/ToggleVisible.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import Controls from '@/Components/Controls.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -33,6 +34,25 @@ const colorCv = reactive({
    blue: '#168BA3',
    grey: '#AAB0B4',
 });
+
+const changeCvColor = (color) => {
+    const req = {
+        cv_id: props.cv.id,
+        color: color
+    };
+
+    axios.post('changecolor', req)
+    .then(function (response) {
+        console.log(response);
+
+        dbUpdated();
+    
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });   
+}
 
 const form = useForm({
     cv_id: props.cv.id || '',
@@ -358,6 +378,17 @@ onMounted(() => {
                                     
                                 </form>
                            </div>
+
+                           <hr>
+
+                           <div class="p-2 m-2">
+                               <Controls
+                                  :active_color="cv.color_1" 
+                                  @color-changed="changeCvColor"
+                               />
+                           </div>
+
+                           
                         </div>
                     </div>
 

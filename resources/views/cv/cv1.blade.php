@@ -8,8 +8,7 @@
     <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-@include('cv.style-options.blue')
-
+@include('cv.style-options.'.$color)
 
 <style type="text/css">
 
@@ -104,8 +103,8 @@ p {
 
 </style>
 
+  <title>Hello, world!</title>
 
-    <title>Hello, world!</title>
   </head>
   <body>
     <div class="col-container">
@@ -202,7 +201,7 @@ p {
 
       <div class="col-container ">
         @foreach($skills as $skill)
-        <div class="block-30 ib pt-2 pb-2">
+        <div class="block-30 ib py-1">
           <div class="block-50 ib">
             <strong>{{ $skill->name }}</strong> 
           </div>

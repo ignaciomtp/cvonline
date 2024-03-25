@@ -21,6 +21,8 @@ class Resume extends Model
         'description',
         'offer',
         'visible_sections',
+        'color_1',
+        'color_2',
     ];
 
     public function user() {
