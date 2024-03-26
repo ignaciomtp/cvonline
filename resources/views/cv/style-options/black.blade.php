@@ -1,15 +1,15 @@
 <style type="text/css">
   
 .textcolor {
-  color: #838E96;
+  color: #000000;
 }
 
 .bbottomcolor {
-  border-bottom: 1px solid #838E96;
+  border-bottom: 1px solid #000000;
 }
 
 .bgcolor {
-  background-color: #838E96;;
+  background-color: #000000;;
 }
 
 </style>

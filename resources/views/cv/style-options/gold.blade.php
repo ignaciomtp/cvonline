@@ -8,6 +8,8 @@
   border-bottom: 1px solid #AA9739;
 }
 
-
+.bgcolor {
+  background-color: #AA9739;;
+}
 
 </style>

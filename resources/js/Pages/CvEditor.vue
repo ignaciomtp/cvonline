@@ -10,7 +10,7 @@ import LanguageElement from '@/Components/LanguageElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
 import ToggleVisible from '@/Components/ToggleVisible.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import Controls from '@/Components/Controls.vue';
+import ColorControls from '@/Components/ColorControls.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -29,6 +29,7 @@ let props = defineProps({
 const cvUpdated = ref(false);
 const modal = ref();
 const color1 = ref('');
+const color2 = ref('');
 
 const colorCv = reactive({
    gold: '#AA9739',
@@ -36,16 +37,19 @@ const colorCv = reactive({
    grey: '#AAB0B4',
 });
 
-const changeCvColor = (color) => {
+const changeCvColor = (elem) => {
     const req = {
         cv_id: props.cv.id,
-        color: color
+        color: elem.color
     };
 
-    axios.post('changecolor', req)
+    const numColor = elem.type == 'principal' ? 1 : 2;
+
+    axios.post('changecolor' + numColor, req)
     .then(function (response) {
         console.log(response);
-        color1.value = color;
+        color1.value = response.data.color1;
+        color2.value = response.data.color2;
         dbUpdated();   
 
     })
@@ -276,6 +280,7 @@ const closeModal = () => {
 onMounted(() => {
 
     color1.value = props.cv.color_1;
+    color2.value = props.cv.color_2;
     
     // set the modal menu element
     const $targetEl = document.getElementById('deleteModal');
@@ -382,9 +387,18 @@ onMounted(() => {
 
                            <hr>
 
-                           <div class="p-2 m-2">
-                               <Controls
+                           <div class="p-1 m-1">
+                               <ColorControls
+                                  :type_color="'principal'"
                                   :active_color="color1" 
+                                  @color-changed="changeCvColor"
+                               />
+                           </div>
+
+                           <div class="p-1 m-1">
+                               <ColorControls
+                                  :type_color="'secundario'"
+                                  :active_color="color2" 
                                   @color-changed="changeCvColor"
                                />
                            </div>

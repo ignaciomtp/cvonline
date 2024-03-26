@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -125,10 +126,10 @@ p {
 
       <div class="block-30 f-right ">
         <div class="address textcolor">
-          <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->address }}, <br>
+          <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->address }}, <br>
           <span></span> {{ $user->zip }} {{ $user->city }} <br>
-          <span>@include('cv.icons.envelope-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->email }} <br>
-          <span>@include('cv.icons.telephone-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->phone }}
+          <span>@include('cv.icons.envelope-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->email }} <br>
+          <span>@include('cv.icons.telephone-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->phone }}
         </div>
       </div>
 
@@ -222,12 +223,12 @@ p {
           
           <div class="block-40 ib black-green">
             @for($i = 0; $i < $skill->level; $i++)
-             @include('cv.icons.star-fill', ['color' => '#AA9739'])
+             @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons)])
             @endfor
 
             @if($skill->level < 5)
               @for($j = 0; $j < 5 - $skill->level; $j++)
-                @include('cv.icons.star', ['color' => '#AA9739'])
+                @include('cv.icons.star', ['color' => config("colors.".$colorIcons)])
               @endfor
             @endif
           </div>

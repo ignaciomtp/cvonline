@@ -51,7 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
     Route::post('/editcv/toggleincludedsection', [CvController::class, 'toggleIncludedSection'])->name('toggle.visile');
     Route::post('/editcv/updateprofile', [CvController::class, 'updateCvProfile'])->name('update.cv.profile');
-    Route::post('/editcv/changecolor', [CvController::class, 'changeCvColor'])->name('change.color');
+    Route::post('/editcv/changecolor1', [CvController::class, 'changeCvColor1'])->name('change.color1');
+    Route::post('/editcv/changecolor2', [CvController::class, 'changeCvColor2'])->name('change.color2');
 
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
 
