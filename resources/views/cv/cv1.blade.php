@@ -22,6 +22,20 @@ body {
   
 }
 
+.nametitle {
+  font-size: 30px;  
+  line-height: 35px;
+}
+
+.address {
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+
+.section {
+  font-size: 18px;
+  
+}
 
 .address span {
   width: 20px;
@@ -110,8 +124,8 @@ p {
     <div class="col-container">
 
       <div class="block-30 f-right ">
-        <div class="address ">
-          <span>@include('cv.icons.geo-alt-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->address }}, <br>
+        <div class="address textcolor">
+          <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->address }}, <br>
           <span></span> {{ $user->zip }} {{ $user->city }} <br>
           <span>@include('cv.icons.envelope-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->email }} <br>
           <span>@include('cv.icons.telephone-fill', ['color' => '#AA9739', 'size' => 10])</span> {{ $user->phone }}
@@ -123,7 +137,7 @@ p {
       </div>
 
       <div class="block-50 ib ml-2 ">
-        <div class="nametitle " >
+        <div class="nametitle textcolor" >
           {{ $user->name }} {{ $user->surname }}
         </div>
         <div class="jobtitle">
@@ -142,7 +156,7 @@ p {
 
     <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
 
-      <div class="section mt-3 mb-2">
+      <div class="section textcolor bbottomcolor mt-3 mb-2">
          Experiencia Profesional
       </div>
 
@@ -161,7 +175,7 @@ p {
 
     <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
 
-      <div class="section mt-3 mb-2">
+      <div class="section textcolor bbottomcolor mt-3 mb-2">
         Formación Académica
       </div>
 
@@ -177,7 +191,7 @@ p {
 
 
     <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
-      <div class="section mt-3 mb-2">
+      <div class="section textcolor bbottomcolor mt-3 mb-2">
         Formación Complementaria
       </div>
 
@@ -195,7 +209,7 @@ p {
 
     <div id="skills" @class(['d-inline' => in_array('skills', $visibleSections), 'd-none' => ! in_array('skills', $visibleSections),])>
 
-      <div class="section mt-3 mb-3">
+      <div class="section textcolor bbottomcolor mt-3 mb-3">
         Habilidades
       </div>
 
@@ -224,7 +238,7 @@ p {
 
 
     <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
-      <div class="section mt-3 mb-3">
+      <div class="section textcolor bbottomcolor mt-3 mb-3">
         Idiomas
       </div>
 

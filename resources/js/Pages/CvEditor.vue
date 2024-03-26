@@ -28,6 +28,7 @@ let props = defineProps({
 
 const cvUpdated = ref(false);
 const modal = ref();
+const color1 = ref('');
 
 const colorCv = reactive({
    gold: '#AA9739',
@@ -44,9 +45,8 @@ const changeCvColor = (color) => {
     axios.post('changecolor', req)
     .then(function (response) {
         console.log(response);
-
-        dbUpdated();
-    
+        color1.value = color;
+        dbUpdated();   
 
     })
     .catch(function (error) {
@@ -275,6 +275,7 @@ const closeModal = () => {
 
 onMounted(() => {
 
+    color1.value = props.cv.color_1;
     
     // set the modal menu element
     const $targetEl = document.getElementById('deleteModal');
@@ -383,7 +384,7 @@ onMounted(() => {
 
                            <div class="p-2 m-2">
                                <Controls
-                                  :active_color="cv.color_1" 
+                                  :active_color="color1" 
                                   @color-changed="changeCvColor"
                                />
                            </div>
