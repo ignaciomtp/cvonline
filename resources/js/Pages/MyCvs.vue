@@ -2,11 +2,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import CvCard from '@/Components/CvCard.vue';
 import NewCvModal from '@/Components/NewCvModal.vue';
+import DeleteModal from '@/Components/DeleteModal.vue';
 import { Head } from '@inertiajs/vue3';
 import { initFlowbite, Modal } from 'flowbite';
 import { ref, onMounted } from "vue";
 
-const modal = ref(null)
+const modal = ref(null);
+const deleteModal = ref(null);
+const cvToDelete = ref('');
 
 let props = defineProps({ cvs: Array });
 
@@ -20,6 +23,39 @@ const createCv = () => {
     modal.value.show();
 }
 
+const openConfirmDeleteModal = (idCv) => {
+    cvToDelete.value = idCv;
+    deleteModal.value.show();
+}
+
+const closeDeleteModal = () => {
+    deleteModal.value.hide();
+}
+
+const deleteCv = () => {
+
+    axios.post('mis-cvs/deletecv/' + cvToDelete.value, {
+      _method: 'DELETE'
+    })
+    .then( response => {
+        console.log(response);
+   
+        removeCv(response.data);
+
+        closeDeleteModal();
+    })
+    .catch( error => {
+       console.log(error);
+    })
+
+}
+
+const removeCv = (elemId) => {
+    const idx = props['cvs'].findIndex(item => item.id == elemId);
+
+    if(idx > -1) props['cvs'].splice(idx, 1);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
   document.getElementById('newCvButton').click();
 });
@@ -27,8 +63,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 onMounted(() => {
   const $targetEl = document.getElementById('newCvModal');
-
   modal.value = new Modal($targetEl); 
+
+  const $targetEl2 = document.getElementById('deleteModal');
+  deleteModal.value = new Modal($targetEl2); 
 });
 
 </script>
@@ -50,14 +88,6 @@ onMounted(() => {
 
                        <div class="my-2 flex">
 
-                            <div v-for="cv in cvs" :key="cv.id" class="flex-initial m-3 ">
-                                <CvCard
-                                    :title="cv.title"
-                                    :id="cv.id"
-                                    color="blue"
-                                ></CvCard>
-                            </div>
-
                             <div class="flex-initial m-3">
                                 <CvCard
                                     title="Nuevo Currículum"
@@ -66,6 +96,17 @@ onMounted(() => {
                                     @new-cv="createCv"
                                 ></CvCard>                                
                             </div>
+
+                            <div v-for="cv in cvs" :key="cv.id" class="flex-initial m-3 ">
+                                <CvCard
+                                    :title="cv.title"
+                                    :id="cv.id"
+                                    color="blue"
+                                    @delete-cv="openConfirmDeleteModal"
+                                ></CvCard>
+                            </div>
+
+                            
                           
                        </div>
 
@@ -79,5 +120,10 @@ onMounted(() => {
     <NewCvModal
         @cv-created="saveNewCv"
      />
+
+    <DeleteModal 
+        @confirm-delete="deleteCv"
+        @cancel-modal="closeDeleteModal"
+    />
 
 </template>

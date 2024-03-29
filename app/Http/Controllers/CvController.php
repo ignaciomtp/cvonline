@@ -80,6 +80,21 @@ class CvController extends Controller
         return $cv;
     }
 
+
+    public function deleteCV($id) {
+        $cv = Resume::findOrFail($id);
+
+        $cv->experiences()->detach();
+        $cv->formations()->detach();
+        $cv->skills()->detach();
+        $cv->languages()->detach();
+
+        Resume::destroy($id);
+
+        return $id;
+    }
+
+
     public function cvEditor() {
         return Inertia::render('CvEditor');
     }

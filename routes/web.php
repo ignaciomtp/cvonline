@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/new-cv', [CvController::class, 'createNewCv'])->name('createnewcv');
     Route::post('/savenewcv', [CvController::class, 'saveNewCv'])->name('savenewcv');
     Route::get('/editcv/{id}', [CvController::class, 'editCv'])->name('editcv');
+    Route::delete('/mis-cvs/deletecv/{id}', [CvController::class, 'deleteCV'])->name('deletecv');
 
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
     Route::post('/editcv/toggleincludedsection', [CvController::class, 'toggleIncludedSection'])->name('toggle.visile');
