@@ -23,6 +23,10 @@ const createCv = () => {
     modal.value.show();
 }
 
+const closeNewCvModal = () => {
+    modal.value.hide();
+}
+
 const openConfirmDeleteModal = (idCv) => {
     cvToDelete.value = idCv;
     deleteModal.value.show();
@@ -119,6 +123,7 @@ onMounted(() => {
 
     <NewCvModal
         @cv-created="saveNewCv"
+        @cancel-create="closeNewCvModal"
      />
 
     <DeleteModal 
