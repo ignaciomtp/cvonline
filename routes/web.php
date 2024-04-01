@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/mis-cvs/deletecv/{id}', [CvController::class, 'deleteCV'])->name('deletecv');
 
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
+    Route::get('/viewcv2/{id}', [CvController::class, 'viewCv'])->name('viewhtml.cv');
     Route::post('/editcv/toggleincludedsection', [CvController::class, 'toggleIncludedSection'])->name('toggle.visile');
     Route::post('/editcv/updateprofile', [CvController::class, 'updateCvProfile'])->name('update.cv.profile');
     Route::post('/editcv/changecolor1', [CvController::class, 'changeCvColor1'])->name('change.color1');

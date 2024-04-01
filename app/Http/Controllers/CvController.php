@@ -200,7 +200,7 @@ class CvController extends Controller
     }
 
 
-    public function createPdfCv($id) {
+    public function viewCv($id) {
 
         $user = auth()->user();
 
@@ -217,11 +217,11 @@ class CvController extends Controller
         foreach($experiences as $exp) {
             //$formattedStart = date("F Y", strtotime($exp->date_start));
 
-            $formattedStart = strftime("%B %G", strtotime($exp->date_start));
+            $formattedStart = strftime("%m %G", strtotime($exp->date_start));
 
             //$formattedFinish = date("F Y", strtotime($exp->date_finish));
 
-            $formattedFinish = strftime("%B %G", strtotime($exp->date_finish));
+            $formattedFinish = strftime("%m %G", strtotime($exp->date_finish));
 
             $exp->date_start = $formattedStart;
             $exp->date_finish = $formattedFinish;
@@ -243,9 +243,59 @@ class CvController extends Controller
         $colorIcons = $cv->color_2;
         //$colorIcons = config("colors.".$cv->color_2);
 
-        $pdf = Pdf::loadView('cv.cv1', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons'));
 
-        return $pdf->stream('cv1.pdf');   
+
+        return view('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons'));  
+
+
+    }    
+
+    public function createPdfCv($id) {
+
+        $user = auth()->user();
+
+        setlocale(LC_TIME, 'es_ES.UTF-8','esp');
+
+        $cv = Resume::find($id);
+
+        if($cv->description == null) $cv->description = auth()->user()->profile;
+
+        $visibleSections = json_decode($cv->visible_sections);
+
+        $experiences = $cv->experiences()->get()->all();
+
+        foreach($experiences as $exp) {
+            //$formattedStart = date("F Y", strtotime($exp->date_start));
+
+            $formattedStart = strftime("%m/%G", strtotime($exp->date_start));
+
+            //$formattedFinish = date("F Y", strtotime($exp->date_finish));
+
+            $formattedFinish = strftime("%m/%G", strtotime($exp->date_finish));
+
+            $exp->date_start = $formattedStart;
+            $exp->date_finish = $formattedFinish;
+        }
+
+        $formations = $cv->formations()->where('type', 'académica')->get()->all();
+
+        foreach($formations as $for) {
+            $formattedFinish = strftime("%G", strtotime($for->date_finish));
+            $for->date_finish = $formattedFinish;
+        }
+
+        $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
+
+        $skills = $cv->skills()->get()->all();
+        $languages = $cv->languages()->get()->all();
+        $profile = $cv->description; 
+        $color = $cv->color_1;
+        $colorIcons = $cv->color_2;
+        //$colorIcons = config("colors.".$cv->color_2);
+
+        $pdf = Pdf::loadView('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons'));
+
+        return $pdf->stream('cv2.pdf');   
 
 
 
