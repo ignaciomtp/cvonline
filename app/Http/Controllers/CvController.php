@@ -291,9 +291,9 @@ class CvController extends Controller
         $profile = $cv->description; 
         $color = $cv->color_1;
         $colorIcons = $cv->color_2;
-        //$colorIcons = config("colors.".$cv->color_2);
+        $offer = $cv->offer;
 
-        $pdf = Pdf::loadView('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons'));
+        $pdf = Pdf::loadView('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
 
         return $pdf->stream('cv2.pdf');   
 
@@ -345,6 +345,16 @@ class CvController extends Controller
         $cv = Resume::findOrFail($request->cv_id);
 
         $cv->color_2 = $request->color;
+
+        $cv->save();
+
+        return $cv;
+    }
+
+    public function addOfferToCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->offer = $request->offer;
 
         $cv->save();
 

@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/editcv/updateprofile', [CvController::class, 'updateCvProfile'])->name('update.cv.profile');
     Route::post('/editcv/changecolor1', [CvController::class, 'changeCvColor1'])->name('change.color1');
     Route::post('/editcv/changecolor2', [CvController::class, 'changeCvColor2'])->name('change.color2');
+    Route::post('/editcv/addoffer', [CvController::class, 'addOfferToCv'])->name('add.offer');
 
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
 

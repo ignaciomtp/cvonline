@@ -61,6 +61,7 @@ const changeCvColor = (elem) => {
 const form = useForm({
     cv_id: props.cv.id || '',
     profile: props.cv.description || '',
+    offer: props.cv.offer || '',
 });
 
 const submit = () => {
@@ -68,6 +69,26 @@ const submit = () => {
 
     let pro = {
         profile: form.profile,
+        cv_id: form.cv_id,
+    };
+
+    axios.post(formRoute, pro)
+    .then(function (response) {
+        console.log(response);
+
+        dbUpdated();
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });   
+};
+
+const submitOffer = () => {
+    const formRoute = 'addoffer'
+
+    let pro = {
+        offer: form.offer,
         cv_id: form.cv_id,
     };
 
@@ -365,7 +386,7 @@ onMounted(() => {
                                   
                            </div>
 
-                           <div>
+                           <div class="mb-2">
                                 <form @submit.prevent="submit" enctype="multipart/form-data">
                                     <div class="invisible" style="max-height: 1px;">
                                         <input type="text" id="cv_id_val" v-model="form.cv_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full" readonly>
@@ -395,7 +416,7 @@ onMounted(() => {
                                />
                            </div>
 
-                           <div class="p-1 m-1">
+                           <div class="p-1 m-1 mb-2">
                                <ColorControls
                                   :type_color="'secundario'"
                                   :active_color="color2" 
@@ -403,6 +424,25 @@ onMounted(() => {
                                />
                            </div>
 
+                           <hr>
+
+                           <form @submit.prevent="submitOffer" enctype="multipart/form-data">
+                                <div class="invisible" style="max-height: 1px;">
+                                    <input type="text" id="cv_id_val" v-model="form.cv_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full" readonly>
+                                </div>
+
+                                <div class="p-2 m-2">
+                                    <label for="profile_val">Oferta</label>
+                                    <textarea id="profile_val" rows="4" v-model="form.offer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full"></textarea>
+                                </div>
+
+                                <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
+                                    <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                                        Guardar
+                                    </PrimaryButton>
+                                </div>
+                                
+                            </form>
                            
                         </div>
                     </div>

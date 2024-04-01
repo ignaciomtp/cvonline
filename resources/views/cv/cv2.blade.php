@@ -206,6 +206,12 @@ img {
   border-bottom: 1px solid {{ config("colors.".$colorIcons) }};
 }
 
+.offerbox {
+  font-size: 0.1rem;
+  line-height: 0.2rem;  
+  color: #FFF; 
+}
+
     </style>
 
     <title>Hello, world!</title>
@@ -318,6 +324,12 @@ img {
               </div>
             </div>
           @endforeach
+        </div>
+
+        <div class="clboth mb-3"></div>
+
+        <div class="offerbox">
+          {{ $offer }}
         </div>
         
       </div> <!-- end main -->
