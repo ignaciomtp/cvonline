@@ -12,6 +12,7 @@ use App\Models\Resume;
 use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
+use App\Models\Language;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
@@ -106,77 +107,16 @@ class CvController extends Controller
 
         $visibleSections = json_decode($cv->visible_sections);
 
-        $experiences = $cv->experiences()->get()->all();
 
-        if(!$experiences) {
+        $experiences = getAllExperiences($cv);
 
-            $var = new \stdClass();
-            $var->id = 0;
-            $var->title = '';
-            $var->company_name = '';
-            $var->company_city = '';
-            $var->date_start = '';
-            $var->date_finish = '';
-            $var->job = '';
+        $formations = getAllFormations($cv);
 
-            $experiences = [$var];
-        }
+        $complementary_formations = getAllComplementaryFormations($cv);
 
-        $formations = $cv->formations()->where('type', 'académica')->get()->all();
+        $skills = getAllSkills($cv);
 
-        if(!$formations) {
-
-            $var = new \stdClass();
-            $var->id = 0;
-            $var->name = '';
-            $var->title = '';
-            $var->institution = '';
-            $var->institution_city = '';
-            $var->date_start = '';
-            $var->date_finish = '';
-
-            $formations = [$var];
-        }
-
-        $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
-
-        if(!$complementary_formations) {
-
-            $var = new \stdClass();
-            $var->id = 0;
-            $var->name = '';
-            $var->type = 'complementaria';
-            $var->title = '';
-            $var->institution = '';
-            $var->institution_city = '';
-            //$var->year = 0;
-            $var->hours = 0;
-
-            $complementary_formations = [$var];
-        }
-
-        $skills = $cv->skills()->get()->all();
-
-        if(!$skills) {
-            $var = new \stdClass();
-            $var->id = 0;
-            $var->name = '';
-            $var->level = 0;
-
-            $skills = [$var];
-        }
-
-        $languages = $cv->languages()->get()->all();
-
-        if(!$languages) {
-            $var = new \stdClass();
-            $var->id = 0;
-            $var->name = '';
-            $var->level = '';
-            $var->certification = '';
-
-            $languages = [$var];
-        }
+        $languages = getAllLanguages($cv);
 
         return Inertia::render('CvEditor', [
             'cv' => $cv, 
@@ -361,5 +301,59 @@ class CvController extends Controller
         return $cv;
     }
 
+    public function toggleAttachExperienceToCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+        $exp = Experience::findOrFail($request->exp_id);
+
+        if($cv->experiences()->where('id', $request->exp_id)->exists()) {
+            $cv->experiences()->detach($exp);
+        } else {
+            $cv->experiences()->attach($exp);
+        }
+
+        return $cv;
+    }
+
+
+    public function toggleAttachFormationToCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+        $for = Formation::findOrFail($request->for_id);
+
+        if($cv->formations()->where('id', $request->for_id)->exists()) {
+            $cv->formations()->detach($for);
+        } else {
+            $cv->formations()->attach($for);
+        }
+
+        return $cv;
+    }
+
+
+    public function toggleAttachSkillToCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+        $skill = Skill::findOrFail($request->skill_id);
+
+        if($cv->skills()->where('id', $request->skill_id)->exists()) {
+            $cv->skills()->detach($skill);
+        } else {
+            $cv->skills()->attach($skill);
+        }
+
+        return $cv;
+    }
+
+
+    public function toggleAttachLanguageToCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+        $lang = Language::findOrFail($request->lang_id);
+
+        if($cv->languages()->where('id', $request->lang_id)->exists()) {
+            $cv->languages()->detach($lang);
+        } else {
+            $cv->languages()->attach($lang);
+        }
+
+        return $cv;
+    }
 
 }

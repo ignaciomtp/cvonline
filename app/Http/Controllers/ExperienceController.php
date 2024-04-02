@@ -26,7 +26,7 @@ class ExperienceController extends Controller
         $exp->date_start = $request->date_start;
         $exp->date_finish = $request->date_finish;
         $exp->job_description = $request->job_description;
-        //$exp->resume_id = $request->resume_id;
+        $exp->user_id = auth()->user()->id;
 
         $exp->save();
 

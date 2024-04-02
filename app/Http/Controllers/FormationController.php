@@ -18,7 +18,7 @@ class FormationController extends Controller
         $formation->institution_city = $request->institution_city;
         $formation->date_start = $request->date_start;
         $formation->date_finish = $request->date_finish;
-        //$formation->resume_id = $request->resume_id;
+        $formation->user_id = auth()->user()->id;
         if($request->has('type')) $formation->type = $request->type;
         if($request->has('hours')) $formation->hours = $request->hours;
         if($request->has('year')) $formation->year = $request->year;

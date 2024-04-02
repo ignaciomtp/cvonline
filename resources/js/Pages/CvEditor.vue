@@ -332,7 +332,7 @@ onMounted(() => {
 
     modal.value = new Modal($targetEl, options, instanceOptions);
 
-
+    console.log(props.experiences);
 });
 
 
@@ -575,6 +575,7 @@ onMounted(() => {
                                 <span v-for="(item, index) in skills" :key="index + 1">
                                     <SkillBadge 
                                         :skill="item"
+                                        :resume_id="cv.id"
                                         @element-deleted="removeSkill"
                                         @bd-updated="dbUpdated"
                                     />

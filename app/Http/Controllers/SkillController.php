@@ -13,7 +13,7 @@ class SkillController extends Controller
 
         $skill->name = $request->name;
         $skill->level = $request->level;
-       
+        $skill->user_id = auth()->user()->id;
         $skill->save();
 
         $cv = Resume::find($request->resume_id);

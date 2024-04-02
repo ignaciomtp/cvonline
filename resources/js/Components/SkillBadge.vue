@@ -1,6 +1,11 @@
 <script setup>
+import { ref, onMounted } from "vue";
+
+const included = ref(false);
+
 const props = defineProps({
     skill: Object,
+    resume_id: String,
 });
 
 const emit = defineEmits(['element-deleted', 'bd-updated']);
@@ -27,10 +32,46 @@ const deleteSkill = () => {
     })
 }
 
+
+const toggleAttachSkill = () => {
+    const formRoute = 'attachskill';
+
+    let exp = {
+        cv_id: props.resume_id,
+        skill_id: props.skill.id,
+        
+    };
+
+    axios.post(formRoute, exp)
+    .then(function (response) {
+        console.log(response);
+
+        emit('bd-updated');
+
+        included.value = !included.value;
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+}
+
+
+onMounted(() => {
+    included.value = props.skill.inCv;
+});
+
 </script>
 <template>
 	<div class="m-2 inline-block">
-        <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20 ">{{ skill.name }} 
+        <span class="inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-inset ring-yellow-600/20 " :class="{bgYellow50: included}">
+
+            <button type="button" class="btn-badge2 mr-2" @click="toggleAttachSkill">
+                {{ skill.name }} 
+            </button>
+
+            
             <button type="button" class="btn-badge " @click="deleteSkill">
                 <span class="t">Remove</span><svg viewBox="0 0 14 14" class="ns ru apn bqt"><path d="M4 4l6 6m0-6l-6 6"></path></svg><span class="aa af"></span>
             </button>
@@ -54,10 +95,28 @@ const deleteSkill = () => {
 
 }
 
-.btn-badge:hover{
-    background-color: rgb(22 163 74 / 0.3);
+.btn-badge2 {
+    -webkit-appearance: button;
+    background-color: transparent;
+    background-image: none;
+    position: relative;
+    margin-right: -0.25rem;
+    margin-left: 1rem;
+    border-radius: 0.5rem;   
+    padding: 10px 20px;
 }
 
+.btn-badge:hover{
+    background-color: #ccc;
+}
+
+.btn-badge2:hover{
+    background-color: orange;
+}
+
+.bgYellow50 {
+    background-color: yellow;
+}
 
 .t {
     position: absolute;

@@ -14,6 +14,7 @@ class LanguageController extends Controller
         $lang->name = $request->name;
         $lang->level = $request->level;
         $lang->certification = $request->certification;
+        $lang->user_id = auth()->user()->id;
        
         $lang->save();
 

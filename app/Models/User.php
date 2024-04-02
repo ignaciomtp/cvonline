@@ -60,5 +60,22 @@ class User extends Authenticatable
         return $this->hasMany(Resume::class);
     }
 
+    public function experiences() {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function skills() {
+        return $this->hasMany(Skill::class);
+    }
+
+    public function formations() {
+        return $this->hasMany(Formation::class);
+    }
+
+    public function languages() {
+        return $this->hasMany(Language::class);
+    }
+
+   
     
 }
