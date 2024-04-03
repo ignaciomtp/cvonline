@@ -51,6 +51,8 @@ const submit = () => {
         props.language.id = response.data.id;
         form.id = response.data.id;
 
+        props.language.inCv = true;
+
         emit('bd-updated');
         emit('language-added', 'languages');
 
@@ -245,10 +247,13 @@ onMounted(() => {
         </div>
 
         <div class="col-span-1">
-            <ToggleAttached 
-                :attached="language.inCv"
-                @toggle-attached="toggleAttachLanguage"
-            />
+            <div v-if="language.id != 0">
+                <ToggleAttached 
+                    :attached="language.inCv"
+                    @toggle-attached="toggleAttachLanguage"
+                />
+            </div>
+            
         </div>
     </div>
 

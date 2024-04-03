@@ -59,7 +59,10 @@ const submit = () => {
         form.id = response.data.id;
 
         emit('bd-updated');
-        if(formRoute == 'addformation') emit('complementary_formation-added', 'complementary_formations');
+        if(formRoute == 'addformation'){
+            emit('complementary_formation-added', 'complementary_formations');
+            props.formation.inCv = true;
+        } 
 
     })
     .catch(function (error) {
@@ -317,10 +320,13 @@ onMounted(() => {
         </div>
 
         <div class="col-span-1">
-            <ToggleAttached 
-                :attached="formation.inCv"
-                @toggle-attached="toggleAttachFormation"
-            />
+            <div v-if="formation.id != 0">
+                <ToggleAttached 
+                    :attached="formation.inCv"
+                    @toggle-attached="toggleAttachFormation"
+                />
+            </div>
+            
         </div>
     </div>
 

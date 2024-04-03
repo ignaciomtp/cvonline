@@ -462,7 +462,7 @@ onMounted(() => {
                                     <p>Introduce los puestos en los que has trabajado</p>
                                 </div>
                                 <div class="flex-auto w-1/4 text-right mb-4">
-                                   <button type="button" @click="addElement('experiences')" id="btn-add-experiences" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                                   <button type="button" @click="addElement('experiences')" id="btn-add-experiences" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
                                </div>    
                            </div>
 
@@ -494,7 +494,7 @@ onMounted(() => {
                                 </div>
                                 <div class="flex-auto w-1/4 text-right mb-4">
 
-                                   <button type="button" @click="addElement('formations')" id="btn-add-formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                                   <button type="button" @click="addElement('formations')" id="btn-add-formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
                                </div>
                            </div>    
                             <div class="my-3 py-2 " v-for="(formation, index) in formations" :key="index + 1">
@@ -526,7 +526,7 @@ onMounted(() => {
                                 </div>
                                 <div class="flex-auto w-1/4 text-right mb-4">
 
-                                   <button type="button" @click="addElement('complementary_formations')" id="btn-add-complementary_formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                                   <button type="button" @click="addElement('complementary_formations')" id="btn-add-complementary_formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
                                </div>    
                            </div>
                             <div class="my-3 py-2 " v-for="(cfor, index) in complementary_formations" :key="index + 1">
@@ -602,7 +602,7 @@ onMounted(() => {
                                     <p>Aquí puedes introducir los idiomas que hablas y el nivel que tienes en cada uno. Tambien puedes indicar si tienes algún tipo de certificación.</p>
                                 </div>
                                 <div class="flex-auto w-1/4 text-right mb-4">
-                                    <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Añadir</button>
+                                    <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
                     
                                </div>
                             </div>  

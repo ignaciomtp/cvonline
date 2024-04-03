@@ -66,9 +66,13 @@ const submit = () => {
 
 			props.experience.id = response.data.id;
 			form.id = response.data.id;
-
+			
 			emit('bd-updated');
-			if(formRoute == 'addexperience') emit('experience-added', 'experiences');
+			
+			if(formRoute == 'addexperience'){
+				props.experience.inCv = true;
+				emit('experience-added', 'experiences');
+			} 
 
 		})
 		.catch(function (error) {
@@ -328,10 +332,13 @@ onMounted(() => {
 		</div>
 
 		<div class="col-span-1">
-			<ToggleAttached 
-				:attached="experience.inCv"
-				@toggle-attached="toggleAttachExperience"
-			/>
+			<div v-if="experience.id != 0">
+				<ToggleAttached 
+					:attached="experience.inCv"
+					@toggle-attached="toggleAttachExperience"
+				/>
+			</div>
+			
 		</div>
 	</div>
 

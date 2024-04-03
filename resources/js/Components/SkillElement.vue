@@ -41,7 +41,10 @@ const submit = () => {
     axios.post(formRoute, skill)
     .then(function (response) {
 
-        emit('skill-added', response.data);
+        let newSkill = response.data;
+        newSkill.inCv = true;
+
+        emit('skill-added', newSkill);
         emit('bd-updated');
         form.name = '';
         form.level = 0;

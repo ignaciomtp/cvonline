@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <!-- Bootstrap CSS -->
@@ -107,6 +107,7 @@ img {
   line-height: 12px;
 }
 
+
 .sidebar-icon img {
     position: relative;
     top: -30%;
@@ -129,6 +130,10 @@ img {
     top: -30%;
     left: -30%;
 
+}
+
+.secondary-color {
+  color: {{ config("colors.".$colorIcons) }};
 }
 
 .address span {
@@ -219,8 +224,8 @@ img {
   </head>
 
   <body>
-    <div class=" p-0">
-      <div class="nametitle textcolor p-0" >
+    <div class="p-0 mb-2">
+      <div class="nametitle secondary-color p-0" >
         {{ $user->name }} {{ $user->surname }}
       </div>
       <div class="jobtitle p-0">
@@ -229,7 +234,7 @@ img {
     </div>
 
     <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p class="profile mb-5">{{ $profile }}
+     <p class="profile mb-4">{{ $profile }}
      </p>
     </div>
 
@@ -250,8 +255,8 @@ img {
                 {{ $exp->date_finish }}
               </div>
               <div class="block-80 ib floatright clboth ">
-                <span class="font-weight-bold">{{ $exp->title }}</span><br>
-                <p class="m-0">{{ strtoupper($exp->company_name) }}, {{ $exp->company_city }}</p>
+                <span>{{ strtoupper($exp->title) }}</span> - 
+                <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
                 <p class="m-0">{!! $exp->job_description !!}</p>
               </div>
             </div>
@@ -331,6 +336,8 @@ img {
         <div class="offerbox">
           {{ $offer }}
         </div>
+
+        <div class="clboth"></div>
         
       </div> <!-- end main -->
 

@@ -181,11 +181,12 @@ class CvController extends Controller
         $profile = $cv->description; 
         $color = $cv->color_1;
         $colorIcons = $cv->color_2;
+        $offer = $cv->offer;
         //$colorIcons = config("colors.".$cv->color_2);
 
 
 
-        return view('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons'));  
+        return view('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
 
 
     }    
@@ -207,11 +208,11 @@ class CvController extends Controller
         foreach($experiences as $exp) {
             //$formattedStart = date("F Y", strtotime($exp->date_start));
 
-            $formattedStart = strftime("%m/%G", strtotime($exp->date_start));
+            $formattedStart = strftime("%m-%G", strtotime($exp->date_start));
 
             //$formattedFinish = date("F Y", strtotime($exp->date_finish));
 
-            $formattedFinish = strftime("%m/%G", strtotime($exp->date_finish));
+            $formattedFinish = strftime("%m-%G", strtotime($exp->date_finish));
 
             $exp->date_start = $formattedStart;
             $exp->date_finish = $formattedFinish;

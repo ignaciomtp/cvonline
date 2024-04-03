@@ -59,7 +59,11 @@ const submit = () => {
         form.id = response.data.id;
 
         emit('bd-updated');
-        if(formRoute == 'addformation') emit('formation-added', 'formations');
+        
+        if(formRoute == 'addformation') {
+            props.formation.inCv = true;
+            emit('formation-added', 'formations');
+        } 
 
     })
     .catch(function (error) {
@@ -318,10 +322,13 @@ onMounted(() => {
         </div>
 
         <div class="col-span-1">
-            <ToggleAttached 
-                :attached="formation.inCv"
-                @toggle-attached="toggleAttachFormation"
-            />
+            <div v-if="formation.id != 0">
+                <ToggleAttached 
+                    :attached="formation.inCv"
+                    @toggle-attached="toggleAttachFormation"
+                />
+            </div>
+            
         </div>
     </div>
 
