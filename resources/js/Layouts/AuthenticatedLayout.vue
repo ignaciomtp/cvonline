@@ -80,7 +80,7 @@ onMounted(() => {
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                    Datos Personales
                                 </NavLink>
                             </div>
 

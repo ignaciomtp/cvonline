@@ -186,7 +186,7 @@ class CvController extends Controller
 
 
 
-        return view('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
+        return view('cv.cv3', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
 
 
     }    
@@ -234,7 +234,7 @@ class CvController extends Controller
         $colorIcons = $cv->color_2;
         $offer = $cv->offer;
 
-        $pdf = Pdf::loadView('cv.cv2', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
+        $pdf = Pdf::loadView('cv.cv3', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
 
         return $pdf->stream('cv2.pdf');   
 

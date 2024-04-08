@@ -98,7 +98,7 @@ h6 {
 }
 
 .bg-gray {
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
 }
 
 .container {
@@ -129,7 +129,7 @@ h6 {
 
 .btn-solid-lg {
     display: inline-block;
-    padding: 1.625rem 2.75rem 1.625rem 2.75rem;
+    padding: 1rem 2.75rem 1rem 2.75rem;
     border: 1px solid #594cda;
     border-radius: 32px;
     background-color: #594cda;
@@ -416,7 +416,7 @@ input[type="checkbox"] {
 
 .navbar {
     position: relative;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
     padding: 0.5rem 1rem;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -457,7 +457,7 @@ input[type="checkbox"] {
     padding-left: 1rem;
     overflow-y: auto;
     visibility: hidden;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
     transition: visibility 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
@@ -473,7 +473,7 @@ input[type="checkbox"] {
     display: block;
     padding-top: 0.625rem;
     padding-bottom: 0.625rem;
-    color: #6b747b;
+    color: #000;
     text-decoration: none;
     line-height: 0.875rem;
     transition: all 0.2s ease;
@@ -516,7 +516,7 @@ input[type="checkbox"] {
     font-size: 1rem;
     color: #212529;
     list-style: none;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
     background-clip: padding-box;
     border-radius: 0.25rem;
     animation: fadeDropdown 0.2s; /* required for the fade animation */
@@ -556,7 +556,7 @@ input[type="checkbox"] {
 .dropdown-item:hover,
 .dropdown-item:focus {
     text-decoration: none;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
     color: #ff6e84;
 }
 
@@ -571,9 +571,13 @@ input[type="checkbox"] {
 
 /*****************/
 /*    Header     */
-/*****************/
+/****************
 .header {
     background: linear-gradient(rgba(197, 234, 249, 1), rgba(255, 255, 255, 1));
+}*/
+
+.header {
+    background: linear-gradient(#5459bc, #f5f6f7) !important;
 }
 
 /********************/
@@ -590,7 +594,7 @@ input[type="checkbox"] {
     padding: 3.125rem 1rem 2.125rem 1rem;
     border: none;
     border-radius: 16px;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
 }
 
 .cards-1 .card-image {
@@ -876,7 +880,7 @@ input[type="checkbox"] {
 .footer {
     padding-top: 6rem;
     padding-bottom: 3rem;
-    background: linear-gradient(rgba(255, 255, 255, 1), rgba(197, 234, 249, 1));
+    background: linear-gradient(#fff, #5459bc);
     text-align: center;
 }
 
@@ -914,7 +918,7 @@ input[type="checkbox"] {
 /*********************/
 .copyright {
     padding-top: 1.5rem;
-    background-color: #c5eaf9;
+    background-color: #000;
     text-align: center;
 }
 
@@ -945,7 +949,7 @@ a:hover.back-to-top {
 .ex-header {
     padding-top: 8.5rem;
     padding-bottom: 4rem;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
 }
 
 .ex-basic-1 .list-unstyled .fas {
@@ -955,7 +959,7 @@ a:hover.back-to-top {
 
 .ex-basic-1 .text-box {
     padding: 1.25rem 1.25rem 0.5rem 1.25rem;
-    background-color: #f1f9fc;
+    background-color: #f5f6f7;
 }
 
 .ex-cards-1 .card {
@@ -1020,7 +1024,7 @@ a:hover.back-to-top {
     .navbar.top-nav-collapse {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
-        background-color: #f1f9fc;
+        background-color: #f5f6f7;
     }
 
     .offcanvas-collapse {

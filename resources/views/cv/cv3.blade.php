@@ -11,9 +11,10 @@
     @include('cv.style-options.'.$color)
 
     <style type="text/css">
-
 body {
   font-size: 1rem;
+  margin: 0;
+  padding: 0;
 }
 
 p {
@@ -28,10 +29,18 @@ img {
   height: auto;
 }
 
+
+.dancing-script-maincontent {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 500>;
+  font-style: normal;
+}
+
 .starblock {
   display: inline-block;
-  width: 8px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   margin: 0 2px;
 }
 
@@ -69,9 +78,11 @@ img {
 }
 
 .section-sidebar-title {
-  font-size: 18px;  
-
+  font-size: 1rem;  
   font-weight: bold;
+  background-color: #000;
+  line-height: 2rem;
+  vertical-align: middle;
 }
 
 .fs-2 {
@@ -84,8 +95,12 @@ img {
 }
 
 .address {
-  font-size: 0.9rem;
-  line-height: 1.4rem;
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+}
+
+.fonside {
+  font-size: 0.8rem;
 }
 
 .smfont {
@@ -156,11 +171,15 @@ img {
 }
 
 .block-75 {
-  width: 75%;
+  width: 72%;
 }
 
 .block-70 {
   width: 70%;
+}
+
+.block-65 {
+  width: 68%;
 }
 
 .block-60 {
@@ -225,6 +244,33 @@ img {
   font-weight: bold;
 }
 
+.backprimary {
+  background-color: {{ config("colors.".$color) }};
+}
+
+.backsecondary {
+  background-color: {{ config("colors.".$colorIcons) }};
+}
+
+.sep20 {
+  height: 20px !important;
+}
+
+.sep40 {
+  height: 40px !important;
+}
+
+#sidebar {
+  overflow: hidden;
+  color: #FFF;
+  height: 100%;
+}
+
+@page {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
     </style>
 
     <title>Hello, world!</title>
@@ -232,134 +278,26 @@ img {
   </head>
 
   <body>
-    <div class="p-0 mb-2">
-      <div class="nametitle secondary-color p-0" >
-        {{ $user->name }} {{ $user->surname }}
-      </div>
-      <div class="jobtitle p-0">
-        {{ $user->job }}
-      </div>
-    </div>
 
-    <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p class="profile mb-4">{{ $profile }}
-     </p>
-    </div>
+    <div>
 
-    <div class=" p-0 ">
-      <div class="block-70 ib ">
-
-        <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.briefcase-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Experiencia</span>
-          </div>
-
-          @foreach($experiences as $exp)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth smfont negrita">
-                {{ $exp->date_start }}
-                {{ $exp->date_finish }}
-              </div>
-              <div class="block-80 ib floatright clboth ">
-                <span class="mayus">{{ $exp->title }}</span> - 
-                <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
-                <p class="m-0">{!! $exp->job_description !!}</p>
-              </div>
-            </div>
-          </div>
-          @endforeach   
+      <div id="sidebar" class="block-25 ib backprimary ">
+        <div class="nametitle pt-5 px-3 pb-0" >
+          {{ $user->name }} {{ $user->surname }}
+        </div>
+        <div class="jobtitle px-3 secondary-color">
+          {{ $user->job }}
         </div>
 
-        <div class="clboth mb-2"></div>
-
-        <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
-
-          <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Formación</span>
-          </div>
-
-          @foreach($formations as $for)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $for->date_finish }}</div>
-              <div class="block-80 ib floatright clboth ">
-                <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
-                <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
-              </div>            
-              
-            </div>
-          </div>
-          @endforeach      
+        <div class="p-3">
+          <img src="{{ public_path('storage/images/' . $user->photo) }}" class="mb-1" height="100">
         </div>
 
-        <div class="clboth mb-2"></div>
-
-        <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Formación Complementaria</span>
-          </div>
-
-
-          @foreach($complementary_formations as $cfor)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $cfor->year }}</div>
-              <div class="block-80 ib floatright clboth ">
-                {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
-              </div>
-              
-              
-            </div>
-          </div>
-          @endforeach
+        <div class="section-sidebar-title px-3 pt-1">
+          Datos de contacto
         </div>
 
-        <div class="clboth mb-2"></div>
-
-        <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.flag-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Idiomas</span>
-          </div>
-
-          @foreach($languages as $lang)
-            <div class="my-2">
-              <div class="sectioncontent">
-                <div class="block-12 ib clboth negrita">{{ $lang->name }}</div>
-                <div class="block-80 ib floatright clboth ">
-                  Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
-                </div>              
-                
-              </div>
-            </div>
-          @endforeach
-        </div>
-
-       
-
-        <div class="offerbox ">
-          {{ $offer }}
-        </div>
-
-        
-        
-      </div> <!-- end main -->
-
-
-      <div id="sidebar" class="block-25 ib floatright ">
-        <img src="{{ public_path('storage/images/' . $user->photo) }}" class="mb-3" height="100">
-
-        <div class="bbottomcolor2 p-0">
-          <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 10])</div>
-          <div class="section-sidebar-title textcolor  ib mb-neg10">Contacto</div>
-        </div>
-        
-        <div class="my-1 mb-4">
-          <div class="address ">
+        <div class="address px-3 py-2 mb-2">
             <span class="font-weight-bold">Dirección</span><br>
             {{ $user->address }}, <br>
             {{ $user->zip }} {{ $user->city }} <br>
@@ -367,17 +305,15 @@ img {
             {{ $user->email }} <br>
             <span class="font-weight-bold">Teléfono</span><br>
             {{ $user->phone }}
-          </div>
         </div>
 
-        <div class="bbottomcolor2 p-0">
-          <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.puzzle-fill', ['color' => '#fff', 'size' => 10])</div>
-          <div class="section-sidebar-title textcolor ib mb-neg10">Habilidades</div>
+        <div class="section-sidebar-title px-3 pt-1">
+          Habilidades
         </div>
 
-        <div class="my-1 mb-4">
+        <div class=" px-3 py-2 mb-2">
           @foreach($skills as $skill)
-          <div class="py-1 skills">            
+          <div class="py-1 fonside skills">            
               <strong>{{ $skill->name }}</strong>             
             
               <span class="floatright ">
@@ -402,7 +338,117 @@ img {
         </div>
 
       </div> <!-- end sidebar -->
-    </div>
+
+      <div class="block-70 ib pt-5 pr-4 ml-0 floatright">
+        <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
+         <p class="profile mb-4">{{ $profile }}
+         </p>
+        </div>
+
+        <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
+          <div class=" bbottomcolor2 m-0 p-0">
+            <span class="section-main-title textcolor mb-2">Experiencia</span>
+          </div>
+
+          @foreach($experiences as $exp)
+          <div class="my-2 profile">
+            
+              <div class="block-12 floatleft smfont negrita " >
+                {{ $exp->date_start }}
+                {{ $exp->date_finish }}
+              </div>
+              <div class="block-80 " style="margin-left: 100px;">
+                <span class=""><strong>{{ $exp->title }}</strong></span> - 
+                <span class="m-0 mayus">{{ $exp->company_name }}</span>, {{ $exp->company_city }}
+                <p class="m-0">{!! $exp->job_description !!}</p>
+              </div>
+              <div class="clboth"></div>
+
+          </div>
+          @endforeach   
+        </div>
+
+        <div class="sep20"></div>
+
+        <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
+
+          <div class=" bbottomcolor2 m-0 p-0">
+            <span class="section-main-title textcolor mb-2">Formación</span>
+          </div>
+
+          @foreach($formations as $for)
+          <div class="my-2 profile">
+
+              <div class="block-12 floatleft smfont negrita">{{ $for->date_finish }}</div>
+              <div class="block-80 " style="margin-left: 100px;">
+                <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
+                <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
+              </div>            
+              
+          
+          </div>
+          @endforeach      
+        </div>
+
+        <div class="sep20"></div>
+
+        <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
+          <div class=" bbottomcolor2 m-0 p-0">
+            <span class="section-main-title textcolor mb-2">Formación Complementaria</span>
+          </div>
+
+
+          @foreach($complementary_formations as $cfor)
+          <div class="my-2 profile">
+
+              <div class="block-12 floatleft smfont negrita">{{ $cfor->year }}</div>
+              <div class="block-80 " style="margin-left: 100px;">
+                {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
+              </div>
+              
+          </div>
+          @endforeach
+        </div>
+
+        <div class="sep20"></div>
+
+        <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
+          <div class=" bbottomcolor2 m-0 p-0">
+            <span class="section-main-title textcolor mb-2">Idiomas</span>
+          </div>
+
+          @foreach($languages as $lang)
+            <div class="my-2 profile">
+
+                <div class="block-12 floatleft smfont negrita">{{ $lang->name }}</div>
+                <div class="block-80 " style="margin-left: 100px;">
+                  Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
+                </div>              
+                
+             
+            </div>
+          @endforeach
+        </div>
+
+        <div class="sep20"></div>
+
+         <div class="offerbox ">
+          {{ $offer }}
+        </div>
+
+
+      </div> <!-- end main block -->   
+
+
+
+
+ 
+
+
+    </div> <!-- end container div -->
+
+
+
 
   </body>
 </html>
