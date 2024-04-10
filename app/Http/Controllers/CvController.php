@@ -13,6 +13,7 @@ use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
 use App\Models\Language;
+use App\Models\Template;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
@@ -102,6 +103,7 @@ class CvController extends Controller
 
     public function editCv($id) {
         $cv = Resume::find($id);
+        $templates = Template::all();
 
         if($cv->description == null) $cv->description = auth()->user()->profile;
 
@@ -126,6 +128,7 @@ class CvController extends Controller
             'skills' => $skills,
             'languages' => $languages,
             'incv_sections' => $visibleSections,
+            'templates' => $templates,
         ]);
 
     }
@@ -234,7 +237,7 @@ class CvController extends Controller
         $colorIcons = $cv->color_2;
         $offer = $cv->offer;
 
-        $pdf = Pdf::loadView('cv.cv3', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
+        $pdf = Pdf::loadView('cv.'.$cv->template->view, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
 
         return $pdf->stream('cv2.pdf');   
 
@@ -353,6 +356,16 @@ class CvController extends Controller
         } else {
             $cv->languages()->attach($lang);
         }
+
+        return $cv;
+    }
+
+    public function changeResumeTemplate(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $cv->template_id = $request->template_id;
+
+        $cv->save();
 
         return $cv;
     }

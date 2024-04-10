@@ -11,6 +11,7 @@ import SkillBadge from '@/Components/SkillBadge.vue';
 import ToggleVisible from '@/Components/ToggleVisible.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ColorControls from '@/Components/ColorControls.vue';
+import TemplatesControl from '@/Components/TemplatesControl.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -24,6 +25,7 @@ let props = defineProps({
     skills: Array,
     languages: Array,
     incv_sections: Array,
+    templates: Array,
 });
 
 const cvUpdated = ref(false);
@@ -276,6 +278,24 @@ const cancelAddElement = (type) => {
     enableAddButton(type);
 }
 
+const changeTemplate = (template) => {
+
+    const req = {
+        cv_id: props.cv.id,
+        template_id: template,
+    };
+
+    axios.post('changetemplate', req)
+    .then(function (response) {
+        console.log(response);
+        props.cv.template_id = response.data.template_id;
+        dbUpdated();   
+
+    })
+    .catch(function (error) {
+        console.log(error);
+    });   
+}
 
 router.on('success', (event) => {
   initFlowbite();
@@ -332,7 +352,7 @@ onMounted(() => {
 
     modal.value = new Modal($targetEl, options, instanceOptions);
 
-    console.log(props.experiences);
+    //console.log(props.templates);
 });
 
 
@@ -408,7 +428,7 @@ onMounted(() => {
 
                            <hr>
 
-                           <div class="p-1 m-1">
+                           <div class="pt-1 mx-1">
                                <ColorControls
                                   :type_color="'principal'"
                                   :active_color="color1" 
@@ -416,13 +436,21 @@ onMounted(() => {
                                />
                            </div>
 
-                           <div class="p-1 m-1 mb-2">
+                           <div class=" mx-1 mb-2">
                                <ColorControls
                                   :type_color="'secundario'"
                                   :active_color="color2" 
                                   @color-changed="changeCvColor"
                                />
                            </div>
+
+                           <hr>
+
+                           <TemplatesControl 
+                                :templates="templates"
+                                :selected="cv.template_id"
+                                @template-changed="changeTemplate"
+                           />
 
                            <hr>
 

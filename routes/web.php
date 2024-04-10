@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/editcv/attachskill', [CvController::class, 'toggleAttachSkillToCv'])->name('attach.skill');
     Route::post('/editcv/attachlang', [CvController::class, 'toggleAttachLanguageToCv'])->name('attach.lang');
 
+    Route::post('/editcv/changetemplate', [CvController::class, 'changeResumeTemplate'])->name('template.change');
+
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
 
     Route::post('/editcv/addexperience/', [ExperienceController::class, 'addExperience'])->name('addexperience');

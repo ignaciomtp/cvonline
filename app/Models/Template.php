@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Template extends Model
 {
     use HasFactory;
+
+    public function resumes() {
+        return $this->HasMany(Resume::class);
+    }
 }

@@ -223,36 +223,36 @@ onMounted(() => {
         <div id="pricing" class="cards-2">
             <div class="absolute bottom-0 h-40 w-full bg-white"></div>
             <div class="container px-4 pb-px sm:px-8">
-                <h2 class="mb-2.5 text-white lg:max-w-xl lg:mx-auto">Pricing options for all budgets</h2>
-                <p class="mb-16 text-white lg:max-w-3xl lg:mx-auto"> Our pricing plans are setup in such a way that any user can start enjoying Pavo without worrying so much about costs. They are flexible and work for any type of industry </p>
-
+                <h3 class="mb-2.5 text-white lg:max-w-xl lg:mx-auto">Precios para todos los presupuestos</h3>
+                
                 <!-- Card-->
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-title">STANDARD</div>
-                        <div class="price"><span class="currency">$</span><span class="value">29</span></div>
-                        <div class="frequency">monthly</div>
-                        <p>This basic package covers the marketing needs of small startups</p>
+                        <div class="card-title">Básico</div>
+                        <div class="price"><span class="value">Gratis</span></div>
+                        <div class="frequency">Conoce nuestra plataforma</div>
+                        
                         <ul class="list mb-7 space-y-2 text-left">
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>List building and relations</div>
+                                <div>Prueba gratis la plataforma.</div>
                             </li>
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>Seamless platform integration</div>
+                                <div>Previsualización en directo de tus currículums.</div>
                             </li>
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>Great performance on devices</div>
+                                <div>Creación de una cuenta para guardar sus documentos.</div>
                             </li>
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>Community support and videos</div>
+                                <div>Múltiples plantillas para elegir.</div>
                             </li>
+
                         </ul>
                         <div class="button-wrapper">
-                            <a class="btn-solid-reg page-scroll" href="#download">Download</a>
+                            <a class="btn-solid-reg page-scroll" :href="route('register')">Comenzar</a>
                         </div>
                     </div>
                 </div> <!-- end of card -->
@@ -261,66 +261,32 @@ onMounted(() => {
                 <!-- Card-->
                 <div class="card">
                     <div class="card-body">
-                        <div class="card-title">ADVANCED</div>
-                        <div class="price"><span class="currency">$</span><span class="value">39</span></div>
-                        <div class="frequency">monthly</div>
-                        <p>This is a more advanced package suited for medium companies</p>
+                        <div class="card-title">Profesional</div>
+                        <div class="price"><span class="currency">€</span><span class="value">12,99</span></div>
+                        <div class="frequency">14-días por €1.99 después se renovará automáticamente.</div>
+                        
                         <ul class="list mb-7 space-y-2 text-left">
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>List building and relations</div>
+                                <div>Acceso completo a todas las funcionalidades.</div>
                             </li>
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>Seamless platform integration</div>
+                                <div>Crea CVs y cartas de presentación ilimitadas.</div>
                             </li>
                             <li class="flex">
                                 <i class="fas fa-chevron-right"></i>
-                                <div>Great performance on devices</div>
+                                <div>Descarga de CVs y cartas de presentación.</div>
                             </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Community support and videos</div>
-                            </li>
+                            
                         </ul>
                         <div class="button-wrapper">
-                            <a class="btn-solid-reg page-scroll" href="#download">Download</a>
+                            <a class="btn-solid-reg page-scroll" :href="route('register')">Prueba por 1,99 €</a>
                         </div>
                     </div>
                 </div> <!-- end of card -->
                 <!-- end of card -->
 
-                <!-- Card-->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-title">COMPLETE</div>
-                        <div class="price"><span class="currency">$</span><span class="value">49</span></div>
-                        <div class="frequency">monthly</div>
-                        <p>This is a comprehensive package designed for big organizations</p>
-                        <ul class="list mb-7 text-left space-y-2">
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>List building and relations</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Seamless platform integration</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Great performance on devices</div>
-                            </li>
-                            <li class="flex">
-                                <i class="fas fa-chevron-right"></i>
-                                <div>Community support and videos</div>
-                            </li>
-                        </ul>
-                        <div class="button-wrapper">
-                            <a class="btn-solid-reg page-scroll" href="#download">Download</a>
-                        </div>
-                    </div>
-                </div> <!-- end of card -->
-                <!-- end of card -->
 
             </div> <!-- end of container -->
         </div> <!-- end of cards-2 -->
@@ -332,7 +298,7 @@ onMounted(() => {
         <!-- Footer -->
         <div class="footer">
             <div class="container px-4 sm:px-8">
-                <h4 class="mb-8 lg:max-w-3xl lg:mx-auto">Pavo is a mobile application for marketing automation and you can reach the team at <a class="text-indigo-600 hover:text-gray-500" href="mailto:email@domain.com">email@domain.com</a></h4>
+                <h4 class="mb-8 lg:max-w-3xl lg:mx-auto">Si tienes alguna duda puedes contactar con nosotros en <a class="text-indigo-600 hover:text-gray-500" href="mailto:email@domain.com">email@tucurriculum.online</a></h4>
                 <div class="social-container">
                     <span class="fa-stack">
                         <a href="#your-link">
@@ -419,6 +385,9 @@ onMounted(() => {
         border: 1px solid black;
     }
 
+    .frequency {
+        min-height: 52px;
+    }
 
 
 </style>
