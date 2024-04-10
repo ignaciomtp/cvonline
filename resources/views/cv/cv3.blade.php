@@ -105,7 +105,7 @@ img {
 
 .smfont {
   font-size: 0.8rem;
-  line-height: 1.2rem;  
+  line-height: 1rem;  
 }
 
 .section {
@@ -354,7 +354,7 @@ img {
           <div class="my-2 profile">
             
               <div class="block-12 floatleft smfont negrita " >
-                {{ $exp->date_start }}
+                {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
               </div>
               <div class="block-80 " style="margin-left: 100px;">

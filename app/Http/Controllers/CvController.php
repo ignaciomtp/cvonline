@@ -164,7 +164,11 @@ class CvController extends Controller
 
             //$formattedFinish = date("F Y", strtotime($exp->date_finish));
 
-            $formattedFinish = strftime("%m %G", strtotime($exp->date_finish));
+            if($exp->date_finish) {
+                $formattedFinish = strftime("%m %G", strtotime($exp->date_finish));
+            } else {
+                $formattedFinish = "Actualmente";
+            }
 
             $exp->date_start = $formattedStart;
             $exp->date_finish = $formattedFinish;
@@ -215,7 +219,11 @@ class CvController extends Controller
 
             //$formattedFinish = date("F Y", strtotime($exp->date_finish));
 
-            $formattedFinish = strftime("%m-%G", strtotime($exp->date_finish));
+             if($exp->date_finish) {
+                $formattedFinish = strftime("%m %G", strtotime($exp->date_finish));
+            } else {
+                $formattedFinish = "Actualidad";
+            }
 
             $exp->date_start = $formattedStart;
             $exp->date_finish = $formattedFinish;

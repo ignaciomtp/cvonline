@@ -90,7 +90,7 @@ img {
 
 .smfont {
   font-size: 0.8rem;
-  line-height: 1.2rem;  
+  line-height: 1rem;  
 }
 
 .section {
@@ -259,7 +259,7 @@ img {
           <div class="my-2">
             <div class="sectioncontent">
               <div class="block-12 ib clboth smfont negrita">
-                {{ $exp->date_start }}
+                {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
               </div>
               <div class="block-80 ib floatright clboth ">

@@ -19,6 +19,7 @@ const props = defineProps({
     resume_id: String,
 });
 
+const currentJob = ref(props.experience.date_finish == '' || props.experience.date_finish == null);
 
 const contentHidden = ref(true);
 
@@ -81,8 +82,15 @@ const submit = () => {
     
 };
 
-const deleteExp = () => {
+const toggleCurrentJob = () => {
+	currentJob.value = !currentJob.value;
 
+	if(currentJob.value) {
+		form.date_finish = '';
+	}
+}
+
+const deleteExp = () => {
 
 	const item = {
 		 section: 'experience',
@@ -215,9 +223,9 @@ onMounted(() => {
 							   	</div>			
 
 						<div class="flex">
-							<div class="flex-auto w-32">
+							<div class="flex-auto w-64">
 								<div class="flex">
-								   	<div class="p-1 m-1 flex-auto w-1/2">
+								   	<div class="p-1 m-1 flex-auto w-1/3">
 										<InputLabel for="date_start" value="Fecha Inicio" />
 
 						                <TextInput
@@ -233,21 +241,32 @@ onMounted(() => {
 						                <InputError class="mt-2" :message="form.errors.date_start" />
 								   	</div>
 
-								   	<div class="p-1 m-1 flex-auto w-1/2">
+								   	<div class="p-1 m-1 flex-auto w-1/3">
 										<InputLabel for="date_finish" value="Fecha Fin" />
 
 						                <TextInput
 						                    id="date_finish"
 						                    type="date"
 						                    class="mt-1 block w-full"
-						                    v-model="form.date_finish"
-						                    required
+						                    v-model="form.date_finish"						      
 						                    autofocus
 						                    autocomplete="date_finish"
+						                    :disabled="currentJob"
 						                />
 
 						                <InputError class="mt-2" :message="form.errors.date_finish" />
-								   	</div>					
+								   	</div>			
+
+								   	<div class="p-1 m-1 flex-auto w-1/3">
+								   		<InputLabel for="currently" value="Actualmente" />
+
+						                <input						             
+						                    type="checkbox"
+						                    class="mt-2 "
+						                    :checked="currentJob"
+						                    @click="toggleCurrentJob"
+						                />
+								   	</div>		
 								</div>
 
 
@@ -282,9 +301,9 @@ onMounted(() => {
 							   	</div>
 							</div>
 
-							<div class="flex-auto w-64 text-right ">
+							<div class="flex-auto w-32 text-right ">
 
-							   		<div class="flex items-center  pt-3 m-2 ">
+							   		<div class="flex items-center  pt-5 m-2 ">
 							   			<div v-if="props.experience.id == 0" class="flex justify-between w-full">
 					                        
 
