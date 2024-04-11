@@ -220,7 +220,7 @@ class CvController extends Controller
             //$formattedFinish = date("F Y", strtotime($exp->date_finish));
 
              if($exp->date_finish) {
-                $formattedFinish = strftime("%m %G", strtotime($exp->date_finish));
+                $formattedFinish = strftime("%m-%G", strtotime($exp->date_finish));
             } else {
                 $formattedFinish = "Actualidad";
             }
@@ -376,6 +376,43 @@ class CvController extends Controller
         $cv->save();
 
         return $cv;
+    }
+
+    public function cloneCv(Request $request) {
+        $cv = Resume::findOrFail($request->cv_id);
+
+        $newCv = $cv->replicate();
+        $newCv->offer = '';
+        $newCv->title .= '-copia';
+        $newCv->save();
+
+        $experiences = $cv->experiences()->get();
+
+        foreach ($experiences as $exp) {
+            $newCv->experiences()->attach($exp);
+        }
+
+        $formations = $cv->formations()->get();
+
+        foreach ($formations as $for) {
+            $newCv->formations()->attach($for);
+        }
+
+        $skills = $cv->skills()->get();
+
+        foreach ($skills as $sk) {
+            $newCv->skills()->attach($sk);
+        }
+
+        $languages = $cv->languages()->get();
+
+        foreach ($languages as $lang) {
+            $newCv->languages()->attach($lang);
+        }
+
+
+        return $newCv;
+
     }
 
 }

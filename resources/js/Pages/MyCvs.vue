@@ -54,6 +54,24 @@ const deleteCv = () => {
 
 }
 
+const cloningCV = (id) => {
+
+
+    const req = {
+        cv_id: id,
+    };
+
+    axios.post('clonecv/', req)
+    .then( response => {
+        console.log(response);
+        props.cvs.push(response.data);
+   
+    })
+    .catch( error => {
+       console.log(error);
+    })
+}
+
 const removeCv = (elemId) => {
     const idx = props['cvs'].findIndex(item => item.id == elemId);
 
@@ -98,15 +116,17 @@ onMounted(() => {
                                     id="0"
                                     color="green"
                                     @new-cv="createCv"
+                                    
                                 ></CvCard>                                
                             </div>
 
-                            <div v-for="cv in cvs" :key="cv.id" class="flex-initial m-3 ">
+                            <div v-for="cv in cvs" :key="cv.id" class="flex flex-row flex-wrap flex-initial m-3 ">
                                 <CvCard
                                     :title="cv.title"
                                     :id="cv.id"
                                     color="blue"
                                     @delete-cv="openConfirmDeleteModal"
+                                    @clone-cv="cloningCV"
                                 ></CvCard>
                             </div>
 

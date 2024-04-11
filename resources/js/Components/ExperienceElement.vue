@@ -269,8 +269,6 @@ onMounted(() => {
 								   	</div>		
 								</div>
 
-
-
 							</div>
 
 							<div class="flex-auto w-14">
