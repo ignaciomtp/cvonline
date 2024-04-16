@@ -18,7 +18,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class CvController extends Controller
 {
-    
+
+
 
     public function updatePersonalData(Request $request) {
 
@@ -102,7 +103,13 @@ class CvController extends Controller
     }
 
     public function editCv($id) {
-        $cv = Resume::find($id);
+        $cv = Resume::findOrFail($id);
+
+        if(auth()->user()->id != $cv->user_id) {
+            return redirect()->route('dashboard');
+        }
+
+
         $templates = Template::all();
 
         if($cv->description == null) $cv->description = auth()->user()->profile;
@@ -276,6 +283,7 @@ class CvController extends Controller
         $cv = Resume::findOrFail($request->cv_id);
 
         $cv->description = $request->profile;
+        $cv->title = $request->title;
 
         $cv->save();
 

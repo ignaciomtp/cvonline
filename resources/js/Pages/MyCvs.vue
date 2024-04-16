@@ -38,7 +38,7 @@ const closeDeleteModal = () => {
 
 const deleteCv = () => {
 
-    axios.post('mis-cvs/deletecv/' + cvToDelete.value, {
+    axios.post('mis-cvs/deletecv' + cvToDelete.value, {
       _method: 'DELETE'
     })
     .then( response => {
@@ -61,7 +61,7 @@ const cloningCV = (id) => {
         cv_id: id,
     };
 
-    axios.post('clonecv/', req)
+    axios.post('clonecv', req)
     .then( response => {
         console.log(response);
         props.cvs.push(response.data);
@@ -103,14 +103,8 @@ onMounted(() => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex flex-row flex-wrap bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                    
-
-                   <div class="p-4 ">
-
-                       <div class="my-2 flex">
-
-                            <div class="flex-initial m-3">
                                 <CvCard
                                     title="Nuevo Currículum"
                                     id="0"
@@ -118,24 +112,18 @@ onMounted(() => {
                                     @new-cv="createCv"
                                     
                                 ></CvCard>                                
-                            </div>
-
-                            <div v-for="cv in cvs" :key="cv.id" class="flex flex-row flex-wrap flex-initial m-3 ">
+                      
+                            <div v-for="(cv, index) in cvs" :key="cv.id" >
                                 <CvCard
                                     :title="cv.title"
                                     :id="cv.id"
+                                    :num="index + 1"
                                     color="blue"
                                     @delete-cv="openConfirmDeleteModal"
                                     @clone-cv="cloningCV"
                                 ></CvCard>
                             </div>
-
-                            
-                          
-                       </div>
-
-                       
-                   </div>
+                  
                 </div>
             </div>
         </div>

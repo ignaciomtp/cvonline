@@ -12,6 +12,8 @@ import ToggleVisible from '@/Components/ToggleVisible.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import ColorControls from '@/Components/ColorControls.vue';
 import TemplatesControl from '@/Components/TemplatesControl.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
 import { initFlowbite } from 'flowbite';
@@ -64,6 +66,7 @@ const form = useForm({
     cv_id: props.cv.id || '',
     profile: props.cv.description || '',
     offer: props.cv.offer || '',
+    title: props.cv.title || '',
 });
 
 const submit = () => {
@@ -71,6 +74,7 @@ const submit = () => {
 
     let pro = {
         profile: form.profile,
+        title: form.title,
         cv_id: form.cv_id,
     };
 
@@ -412,12 +416,23 @@ onMounted(() => {
                                         <input type="text" id="cv_id_val" v-model="form.cv_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full" readonly>
                                     </div>
 
-                                    <div class="p-2 m-2">
+                                    <div class="p-2 mx-2 ">
                                         <label for="profile_val">Perfil</label>
                                         <textarea id="profile_val" rows="4" v-model="form.profile" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 mt-1 block w-full"></textarea>
                                     </div>
 
-                                    <div class="flex items-center justify-start pt-3 m-2 row-start-4 ">
+                                    <div class="flex items-center justify-start p-2 mx-2  ">
+
+                                        <TextInput
+                                            id="title"
+                                            type="text"
+                                            class="mt-1 block w-full mr-3"
+                                            v-model="form.title"
+                                            required
+                                            autofocus
+                                            autocomplete="title"
+                                        />
+
                                         <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                             Guardar
                                         </PrimaryButton>
