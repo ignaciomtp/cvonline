@@ -38,7 +38,7 @@ const closeDeleteModal = () => {
 
 const deleteCv = () => {
 
-    axios.post('mis-cvs/deletecv' + cvToDelete.value, {
+    axios.post('mis-cvs/deletecv/' + cvToDelete.value, {
       _method: 'DELETE'
     })
     .then( response => {
