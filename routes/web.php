@@ -6,6 +6,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\CustomCategoryController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -82,6 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/editcv/addlanguage/', [LanguageController::class, 'addLanguage'])->name('addlanguage');
     Route::delete('/editcv/deletelanguage/{id}', [LanguageController::class, 'deleteLanguage'])->name('deletelanguage');
 
+
+    Route::post('/editcv/addcategory/', [CustomCategoryController::class, 'addCustomCategory'])->name('addcategory');
 });
 
 require __DIR__.'/auth.php';

@@ -136,6 +136,7 @@ class CvController extends Controller
             'languages' => $languages,
             'incv_sections' => $visibleSections,
             'templates' => $templates,
+            'custom_categories' => auth()->user()->customCategories()->get()->all(),
         ]);
 
     }

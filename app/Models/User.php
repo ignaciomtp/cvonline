@@ -76,6 +76,12 @@ class User extends Authenticatable
         return $this->hasMany(Language::class);
     }
 
-   
+    public function customCategories() {
+        return $this->hasMany(CustomCategory::class);
+    }
+
+    public function customItems() {
+        return $this->hasMany(CustomItem::class);
+    }
     
 }

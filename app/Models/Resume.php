@@ -45,6 +45,10 @@ class Resume extends Model
         return $this->belongsToMany(Language::class);
     }
 
+    public function categories() {
+        return $this->belongsToMany(CustomCategory::class);
+    }
+
     public function toggleVisibleSection($section) {
         $visibleSections = json_decode($this->visible_sections);
 

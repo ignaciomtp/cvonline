@@ -7,6 +7,7 @@ import FormationElement from '@/Components/FormationElement.vue';
 import ComplementaryFormationElement from '@/Components/ComplementaryFormationElement.vue';
 import SkillElement from '@/Components/SkillElement.vue';
 import LanguageElement from '@/Components/LanguageElement.vue';
+import CustomCategoryElement from '@/Components/CustomCategoryElement.vue';
 import SkillBadge from '@/Components/SkillBadge.vue';
 import ToggleVisible from '@/Components/ToggleVisible.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -28,6 +29,7 @@ let props = defineProps({
     languages: Array,
     incv_sections: Array,
     templates: Array,
+    custom_categories: Array,
 });
 
 const cvUpdated = ref(false);
@@ -264,6 +266,12 @@ const addElement = (type) => {
             };
             break;
 
+        case 'custom_categories':
+            elem = {
+                id: 0,
+                category_title: '',
+            }
+
     }
 
     props[type].push(elem);    
@@ -371,7 +379,7 @@ onMounted(() => {
             <div class="flex flex-row flex-wrap mx-auto sm:px-6 lg:px-8">
 
                 <div class="w-full sm:w-2/3 md:w-2/3 p-3 mb-4">
-                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-800 dark:text-gray-400">
+                    <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-800 dark:text-gray-400 mr-3">
 
                         <li class="me-2">
                             <a @click="setSectionVisible('profile')" class="tab-link active-dark" id="profile">Editar</a>
@@ -391,6 +399,9 @@ onMounted(() => {
                         </li>
                         <li class="me-2">
                             <a @click="setSectionVisible('idiomas')" class="tab-link inactive-dark" id="idiomas">Idiomas</a>
+                        </li>
+                        <li class="me-2">
+                            <a @click="setSectionVisible('personalizado')" class="tab-link inactive-dark" id="personalizado">Personalizado</a>
                         </li>
                     </ul>
 
@@ -665,7 +676,32 @@ onMounted(() => {
                             </div> 
                         </div>
 
-                    </div>                   
+                    </div>    
+
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'personalizado'}">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex">
+                                <div class="flex-auto w-1/4">
+                                    <h3>Categorías</h3>
+                                </div>
+                                <div class="flex-auto w-2/4">
+                                    <p>Aquí puedes añadir categorías personalizadas al currículum, como Proyectos, Logros, Referencias, etc.</p>
+                                </div>
+                                <div class="flex-auto w-1/4 text-right mb-4">
+                                    <button type="button" @click="addElement('custom_categories')" id="btn-add-custom_categories" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nueva</button>
+                    
+                               </div>
+                            </div>  
+
+                            <div class="my-3 py-2 " v-for="(cat, index) in custom_categories" :key="index + 1">
+                                <CustomCategoryElement                                    
+                                    :resume_id="cv.id"
+                                    :category="cat"
+                                    @cancel-add="cancelAddElement"
+                                />
+                            </div> 
+                        </div>
+                    </div>               
                 </div>  <!-- Fin 1ª sección -->
                 
                 <div class="w-full sm:w-1/3 md:w-1/3 p-1 borde bg-black ">
