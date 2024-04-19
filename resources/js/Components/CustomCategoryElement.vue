@@ -6,20 +6,22 @@ import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
-import ToggleAttached from '@/Components/ToggleAttached.vue';
+import ToggleVisible from '@/Components/ToggleVisible.vue';
 
 const props = defineProps({
     category: Object,
     resume_id: String,
+    inCv: Boolean,
 });
 
 const contentHidden = ref(true);
+const inTheCv = ref(false);
 
 const toggleDeployed = () => {
     contentHidden.value = !contentHidden.value;
 }
 
-const emit = defineEmits(['custom_category-added', 'element-deleted', 'bd-updated', 'cancel-add']);
+const emit = defineEmits(['custom_category-added', 'element-deleted', 'bd-updated', 'cancel-add', 'toggle-attached']);
 
 const form = useForm({
     id: props.category.id || 0,
@@ -43,15 +45,33 @@ const submit = () => {
 
         props.category.id = response.data.id;
         form.id = response.data.id;
-
-        emit('bd-updated');
-        
+        inTheCv.value = true;
+        emit('bd-updated');        
 
     })
     .catch(function (error) {
         console.log(error);
     });
 }
+
+const toggleIncludedSection = () => {
+    emit('toggle-attached', props.category.category_title);
+}
+
+const deleteCategory = () => {
+    const cat = {
+        section: 'category',
+        id: props.category.id,
+    };
+    
+    emit('element-deleted', cat);
+}
+
+onMounted(() => {
+
+    inTheCv.value = props.inCv;
+    console.log('inTheCv: ', inTheCv.value);
+});
 
 </script>
 
@@ -72,7 +92,7 @@ const submit = () => {
                     <form @submit.prevent="submit">
                         <div class="flex">
                             <div class="flex-auto w-25 ">
-                                <InputLabel for="category_title" value="Categoría" />
+                                <InputLabel for="category_title" value="Sección" />
 
                                     <TextInput
                                         id="category_title"
@@ -118,13 +138,23 @@ const submit = () => {
                                     <button type="submit" class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Guardar </button>
 
                                     <button 
-                                    type="button"
-                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                    @click="cancelAdd"
-                                >
-                                    Cancelar
-                                </button>
+                                        type="button"
+                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        @click="cancelAdd"
+                                    >
+                                        Cancelar
+                                    </button>
 
+                                </div>
+
+                                <div v-else>   
+                                    <button 
+                                        type="button"
+                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        @click="deleteCategory"
+                                    >
+                                        Borrar
+                                    </button>
                                 </div>
                                 
                             </div>
@@ -140,9 +170,10 @@ const submit = () => {
 
         <div class="col-span-1">
             <div v-if="category.id != 0">
-                <ToggleAttached 
-                    :attached="false"
-                    
+                <ToggleVisible 
+                    :visible="inTheCv"
+                    :section="category.category_title"
+                    @toggle-included-section="toggleIncludedSection"
                 />
             </div>
             

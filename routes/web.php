@@ -85,6 +85,7 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/editcv/addcategory/', [CustomCategoryController::class, 'addCustomCategory'])->name('addcategory');
+    Route::delete('/editcv/deletecategory/{id}', [CustomCategoryController::class, 'deleteCustomCategory'])->name('deletecategory');
 });
 
 require __DIR__.'/auth.php';

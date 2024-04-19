@@ -143,13 +143,17 @@ const resetCvUpdated = () => {
 
 const deleteElement = () => {
 
-    axios.post('delete' + elemToDelete.section + '/' + elemToDelete.id, {
+    const routeSection = elemToDelete.section == 'complementary_formation' ? 'formation' : elemToDelete.section;
+
+    axios.post('delete' + routeSection + '/' + elemToDelete.id, {
       _method: 'DELETE'
     })
     .then( response => {
         console.log(response);
+
+        const section = elemToDelete.section == 'category' ? 'custom_categories' : elemToDelete.section + 's';
    
-        removeElement(elemToDelete.section + 's', elemToDelete.id);
+        removeElement(section, elemToDelete.id);
         dbUpdated();
         closeModal();
     })
@@ -157,6 +161,7 @@ const deleteElement = () => {
        console.log(error);
     })
 }
+
 
 
 const removeElement = (section, elemId) => {
@@ -681,11 +686,9 @@ onMounted(() => {
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'personalizado'}">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             <div class="flex">
-                                <div class="flex-auto w-1/4">
-                                    <h3>Categorías</h3>
-                                </div>
-                                <div class="flex-auto w-2/4">
-                                    <p>Aquí puedes añadir categorías personalizadas al currículum, como Proyectos, Logros, Referencias, etc.</p>
+                                <div class="flex-auto w-3/4">
+                                    
+                                    <p>Aquí puedes añadir secciones personalizadas al currículum, como Proyectos, Logros, Referencias, etc.</p>
                                 </div>
                                 <div class="flex-auto w-1/4 text-right mb-4">
                                     <button type="button" @click="addElement('custom_categories')" id="btn-add-custom_categories" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nueva</button>
@@ -697,7 +700,10 @@ onMounted(() => {
                                 <CustomCategoryElement                                    
                                     :resume_id="cv.id"
                                     :category="cat"
+                                    :inCv="incv_sections.includes(cat.category_title)"
                                     @cancel-add="cancelAddElement"
+                                    @toggle-attached="toggleIncludedSection"
+                                    @element-deleted="openModal"
                                 />
                             </div> 
                         </div>
