@@ -71,6 +71,7 @@ class CvController extends Controller
 
         $cv->title = $request->title;
         $cv->user_id = auth()->user()->id;
+        $cv->template_id = 1;
 
         $sections = ['profile', 'experience', 'formation', 'complementary_formation', 'skills', 'languages'];
         $cv->visible_sections = json_encode($sections);
