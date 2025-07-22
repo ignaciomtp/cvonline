@@ -19,6 +19,7 @@ import TextInput from '@/Components/TextInput.vue';
 import ProfileSection from '@/Components/cvsections/ProfileSection.vue';
 import ExperienceSection from '@/Components/cvsections/ExperienceSection.vue';
 import FormationSection from '@/Components/cvsections/FormationSection.vue';
+import ComplementaryFormationSection from '@/Components/cvsections/ComplementaryFormationSection.vue';
 
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
@@ -145,6 +146,7 @@ const disableAddElement = (type) => {
 }
 
 const enableAddButton = (type) => {
+    console.log(type);
     let btn = document.getElementById('btn-add-' + type);
 
     btn.removeAttribute('disabled');
@@ -373,34 +375,17 @@ onMounted(() => {
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'formacion-complementaria'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="flex">
-                                <div class="flex-auto w-1/4">
-                                    <ToggleVisible 
-                                        :visible="incv_sections.includes('complementary_formation')"
-                                        :section="'complementary_formation'"
-                                        @toggle-included-section="toggleIncludedSection"
-                                    />  
-                                </div>
-                                <div class="flex-auto w-2/4">
-                                    <p>Introduce aquí otro tipo de formación no reglada que tengas (cursos, seminarios, etc).</p>
-                                </div>
-                                <div class="flex-auto w-1/4 text-right mb-4">
-
-                                   <button type="button" @click="addElement('complementary_formations')" id="btn-add-complementary_formations" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
-                               </div>    
-                           </div>
-                            <div class="my-3 py-2 " v-for="(cfor, index) in complementary_formations" :key="index + 1">
-                                <ComplementaryFormationElement                                     
-                                    :resume_id="cv.id"
-                                    :formation="cfor"
-                                    @element-deleted="openModal"
-                                    @cancel-add="cancelAddElement"
-                                    @formation-added="enableAddButton"
-                                    @bd-updated="dbUpdated"
-                                />
-                            </div>
-                        </div>
+                        <ComplementaryFormationSection 
+                            :cv="cv"
+                            :visible="incv_sections.includes('complementary_formation')"
+                            :complementary_formations="complementary_formations"
+                            @toggled-section="toggleIncludedSection"
+                            @enable-the-add-button="enableAddButton"
+                            @open-the-modal="openModal"
+                            @cancel-the-adding="cancelAddElement"
+                            @adding-new-element="addElement"
+                            @bd-updated="dbUpdated"
+                        />
 
                     </div>
 
