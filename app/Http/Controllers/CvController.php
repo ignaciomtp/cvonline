@@ -200,10 +200,7 @@ class CvController extends Controller
         $offer = $cv->offer;
         //$colorIcons = config("colors.".$cv->color_2);
 
-
-
-        return view('cv.cv3', compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
-
+        return view('cv.'.$cv->template->view, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
 
     }    
 
@@ -254,7 +251,10 @@ class CvController extends Controller
         $colorIcons = $cv->color_2;
         $offer = $cv->offer;
 
-        $pdf = Pdf::loadView('cv.'.$cv->template->view, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
+        $html = view('cv.'.$cv->template->view, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));
+
+        $pdf = Pdf::loadHtml($html);
+
 
         return $pdf->stream('cv2.pdf');   
 
