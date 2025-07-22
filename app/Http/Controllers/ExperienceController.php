@@ -15,7 +15,6 @@ class ExperienceController extends Controller
             'company_name' => 'required',
             'company_city' => 'required',
             'date_start' => 'required',
-            'date_finish' => 'required',
             'job_description' => 'required'
         ], );
 
