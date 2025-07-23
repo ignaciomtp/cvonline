@@ -20,6 +20,7 @@ import ProfileSection from '@/Components/cvsections/ProfileSection.vue';
 import ExperienceSection from '@/Components/cvsections/ExperienceSection.vue';
 import FormationSection from '@/Components/cvsections/FormationSection.vue';
 import ComplementaryFormationSection from '@/Components/cvsections/ComplementaryFormationSection.vue';
+import SkillsSection from '@/Components/cvsections/SkillsSection.vue';
 
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
@@ -223,8 +224,10 @@ const addElement = (type) => {
 
 }
 
-const AddSkill = (elem) => {
+const addSkill = (elem) => {
+
     props.skills.push(elem);
+
 }
 
 const cancelAddElement = (type) => {
@@ -390,48 +393,16 @@ onMounted(() => {
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'habilidades'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                            <div class="flex">
-                                <div class="flex-auto w-1/4">
-                                    <ToggleVisible 
-                                        :visible="incv_sections.includes('skills')"
-                                        :section="'skills'"
-                                        @toggle-included-section="toggleIncludedSection"
-                                    />  
-                                </div>
-                                <div class="flex-auto w-2/4">
-                                    <p>Aquí puedes introducir tus habilidades relativas al puesto, y tu nivel en cada una.</p>
-                                </div>
-                                <div class="flex-auto w-1/4 text-right mb-4">
-
-          
-                               </div>
-                            </div>  
-
-                            <div class="m-1">
-                                <SkillElement 
-                                    :resume_id="cv.id"
-                                    @skill-added="AddSkill"
-                                    @bd-updated="dbUpdated"
-                                />                   
-                            </div> 
-
-                            <div class="my-5 mx-2">
-                                <span v-for="(item, index) in skills" :key="index + 1">
-                                    <SkillBadge 
-                                        :skill="item"
-                                        :resume_id="cv.id"
-                                        @element-deleted="removeSkill"
-                                        @bd-updated="dbUpdated"
-                                    />
-                                </span>
-                            </div>
-
-                            
-
-                        </div>
-
+                        <SkillsSection 
+                            :cv="cv"
+                            :visible="incv_sections.includes('skills')"
+                            :skills="skills"
+                            @toggled-section="toggleIncludedSection"
+                            @skill-added="addSkill"
+                            @skill-removed="removeSkill"
+                            @bd-updated="dbUpdated"
+                        />
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'idiomas'}">

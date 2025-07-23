@@ -11,13 +11,11 @@ const props = defineProps({
 const emit = defineEmits(['element-deleted', 'bd-updated']);
 
 const deleteSkill = () => {
-    console.log(props.skill.id);
 
     axios.post('deleteskill/' + props.skill.id, {
       _method: 'DELETE'
     })
     .then( response => {
-       console.log(response);
 
        const item = {
              section: 'skills',
@@ -44,7 +42,7 @@ const toggleAttachSkill = () => {
 
     axios.post(formRoute, exp)
     .then(function (response) {
-        console.log(response);
+
 
         emit('bd-updated');
 
