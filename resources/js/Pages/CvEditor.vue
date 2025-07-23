@@ -21,6 +21,7 @@ import ExperienceSection from '@/Components/cvsections/ExperienceSection.vue';
 import FormationSection from '@/Components/cvsections/FormationSection.vue';
 import ComplementaryFormationSection from '@/Components/cvsections/ComplementaryFormationSection.vue';
 import SkillsSection from '@/Components/cvsections/SkillsSection.vue';
+import LanguagesSection from '@/Components/cvsections/LanguagesSection.vue';
 
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted } from "vue";
@@ -147,7 +148,6 @@ const disableAddElement = (type) => {
 }
 
 const enableAddButton = (type) => {
-    console.log(type);
     let btn = document.getElementById('btn-add-' + type);
 
     btn.removeAttribute('disabled');
@@ -406,35 +406,18 @@ onMounted(() => {
                     </div>
 
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-b-lg mb-4 mr-3" :class="{hidden: sectionVisible != 'idiomas'}">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <div class="flex">
-                                <div class="flex-auto w-1/4">
-                                    <ToggleVisible 
-                                        :visible="incv_sections.includes('languages')"
-                                        :section="'languages'"
-                                        @toggle-included-section="toggleIncludedSection"
-                                    />  
-                                </div>
-                                <div class="flex-auto w-2/4">
-                                    <p>Aquí puedes introducir los idiomas que hablas y el nivel que tienes en cada uno. Tambien puedes indicar si tienes algún tipo de certificación.</p>
-                                </div>
-                                <div class="flex-auto w-1/4 text-right mb-4">
-                                    <button type="button" @click="addElement('languages')" id="btn-add-languages" class=" focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 dark:disabled:bg-green-700">Nuevo</button>
-                    
-                               </div>
-                            </div>  
 
-                           <div class="my-3 py-2 " v-for="(lang, index) in languages" :key="index + 1">
-                                <LanguageElement                                    
-                                    :resume_id="cv.id"
-                                    :language="lang"
-                                    @element-deleted="openModal"
-                                    @cancel-add="cancelAddElement"
-                                    @language-added="enableAddButton"
-                                    @bd-updated="dbUpdated"
-                                />
-                            </div> 
-                        </div>
+                        <LanguagesSection 
+                            :cv="cv"
+                            :visible="incv_sections.includes('languages')"
+                            :languages="languages"
+                            @toggled-section="toggleIncludedSection"
+                            @element-deleted="openModal"
+                            @cancel-add="cancelAddElement"
+                            @adding-new-element="addElement"
+                            @language-added="enableAddButton"
+                            @bd-updated="dbUpdated"
+                        />
 
                     </div>    
 

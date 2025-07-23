@@ -46,7 +46,6 @@ const submit = () => {
 
     axios.post(formRoute, language)
     .then(function (response) {
-        console.log(response);
 
         props.language.id = response.data.id;
         form.id = response.data.id;
@@ -88,7 +87,6 @@ const toggleAttachLanguage = () => {
 
     axios.post(formRoute, exp)
         .then(function (response) {
-            console.log(response);
 
             emit('bd-updated');
 
