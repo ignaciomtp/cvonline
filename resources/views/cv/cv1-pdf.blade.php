@@ -15,8 +15,6 @@
 
 body {
   font-size: 1rem;
-  width: 595px;
-  height: 842px;
 }
 
 
@@ -136,7 +134,7 @@ p {
       </div>
 
       <div class="block-10 ib mr-4">
-        <img src="{{ URL::asset('storage/images/' . $user->photo) }}" height="100">
+        <img src="{{ public_path('storage/images/' . $user->photo) }}" height="100">
       </div>
 
       <div class="block-50 ib ml-2 ">

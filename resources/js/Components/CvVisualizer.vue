@@ -20,7 +20,7 @@ onUpdated(() => {
 });
 
 onMounted(() => {
-	route.value = '/viewcv/' + props.cv_id;
+	route.value = '/viewcv2/' + props.cv_id;
 });
 
 </script>
@@ -30,7 +30,18 @@ onMounted(() => {
 			id="cvframe"
 			width="100%" 
 			height="600"
+			class="scaled-iframe" 
 	>
 		
 	</iframe>
 </template>
+
+<style>
+.scaled-iframe {
+    width: 140%;
+    height: 100%;
+    border: none;
+    transform: scale(0.75);
+    transform-origin: top left; /* Asegura que el escalado comience desde la esquina superior izquierda */
+}
+</style>
