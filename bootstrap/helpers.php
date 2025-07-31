@@ -147,3 +147,50 @@ if (! function_exists('getAllLanguages')) {
         return $languages;
     }
 }
+
+if (! function_exists('generateCV')) {
+    function generateCV($user, $cv, $pdf='') {
+        if($cv->description == null) $cv->description = auth()->user()->profile;
+
+        $visibleSections = json_decode($cv->visible_sections);
+
+        $experiences = $cv->experiences()->get()->all();
+
+        foreach($experiences as $exp) {
+            // Limpiar el HTML de job_description
+            $exp->job_description = strip_tags($exp->job_description, '<ul><li>'); // Permitir solo ul y li
+            $exp->job_description = preg_replace('/\s+/', ' ', $exp->job_description); // Eliminar espacios extra
+
+            $formattedStart = date('m/Y', strtotime($exp->date_start));
+
+
+            if($exp->date_finish) {
+                $formattedFinish = date('m/Y', strtotime($exp->date_finish));
+            } else {
+                $formattedFinish = "Actualmente";
+            }
+
+            $exp->date_start = $formattedStart;
+            $exp->date_finish = $formattedFinish;
+        }
+
+        $formations = $cv->formations()->where('type', 'académica')->get()->all();
+
+        foreach($formations as $for) {
+            $formattedFinish = date('Y', strtotime($for->date_finish));
+            $for->date_finish = $formattedFinish;
+        }
+
+        $complementary_formations = $cv->formations()->where('type', 'complementaria')->get()->all();
+
+        $skills = $cv->skills()->get()->all();
+        $languages = $cv->languages()->get()->all();
+        $profile = $cv->description; 
+        $color = $cv->color_1;
+        $colorIcons = $cv->color_2;
+        $offer = $cv->offer;
+        //$colorIcons = config("colors.".$cv->color_2);
+
+        return view('cv.'.$cv->template->view.$pdf, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
+    }
+}

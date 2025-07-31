@@ -16,10 +16,10 @@
 
   </head>
 
-  <body >
+  <body style="width: 595px; height: 842px;">
 
       <div id="sidebar" class="block-25 height100 backprimary m-0">
-        <div class="nametitle pt-4 px-2 py-1" >
+        <div class="nametitle pt-3 px-2 pb-1" >
           {{ $user->name }} {{ $user->surname }}
         </div>
         <div class="jobtitle px-2 secondary-color py-1">
@@ -50,33 +50,35 @@
 
         <div class=" p-2 mb-2">
           @foreach($skills as $skill)
-          <div class="py-1 fonside skills">            
-              <strong>{{ $skill->name }}</strong>             
-            
-              <span class="floatright ">
-                @for($i = 0; $i < $skill->level; $i++)
-                  <div class="starblock">
-                    @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons)])
-                  </div>
-                 
-                @endfor
+          <div class="py-1 skills">   
+            <span class="fonside">
+              <strong>{{ $skill->name }}</strong>     
+            </span>         
+                        
+            <span class="floatright  ">
+              @for($i = 0; $i < $skill->level; $i++)
+                <div class="starblock">
+                  @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons), 'size' => 12])
+                </div>
+               
+              @endfor
 
-                @if($skill->level < 5)
-                  @for($j = 0; $j < 5 - $skill->level; $j++)
-                    <div class="starblock">
-                      @include('cv.icons.star', ['color' => config("colors.".$colorIcons)])
-                    </div>
-                    
-                  @endfor
-                @endif
-              </span>
+              @if($skill->level < 5)
+                @for($j = 0; $j < 5 - $skill->level; $j++)
+                  <div class="starblock">
+                    @include('cv.icons.star', ['color' => config("colors.".$colorIcons), 'size' => 12])
+                  </div>
+                  
+                @endfor
+              @endif
+            </span>
           </div>
           @endforeach
         </div>
 
       </div> <!-- end sidebar -->
 
-      <div class="block-70 pt-4 px-3 m-0">
+      <div class="block-72 pt-4 px-1 m-0">
         <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
          <p class="profile mb-4">{{ $profile }}
          </p>
@@ -90,14 +92,14 @@
           @foreach($experiences as $exp)
           <div class="my-2 profile dispflex p-0">
             
-              <div class="block-20 smfont negrita m-0" >
+              <div class="block-15 smfont negrita m-0 " >
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
               </div>
-              <div class="block-80 m-0 pl-1" >
+              <div class="block-85  m-0 pl-1" >
                 <span class=""><strong>{{ $exp->title }}</strong></span> - 
                 <span class="m-0 mayus">{{ $exp->company_name }}</span>, {{ $exp->company_city }}
-                <p class="m-0">{!! $exp->job_description !!}</p>
+                <div class="m-0 ">{!! $exp->job_description !!}</div>
               </div>
               <div class="clboth"></div>
 

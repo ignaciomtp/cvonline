@@ -1,10 +1,8 @@
 <style type="text/css">
 body {
-  font-size: 100%;
+  
   margin: 0;
-  padding: 0;
-  width: 595px;
-  height: 842px;  
+  padding: 0;  
   display: flex; 
   flex-wrap: nowrap;
 }
@@ -18,6 +16,24 @@ img {
   display: block;
   width: 100%;
   height: auto;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+    padding-left: 20px; /* Ajusta el margen izquierdo de la lista */
+    list-style-position: outside;
+}
+li {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+}
+
+#maintable {
+  width: 595px;
+  height: 842px;  
 }
 
 .dispflex {
@@ -60,28 +76,33 @@ img {
 }
 
 .jobtitle {
-  font-size: 1.1rem;
-  line-height: 1.15rem;
+  font-size: 1.1em;
+  line-height: 1.15em;
 }
 
 .nametitle {
-  font-size: 1.3rem; 
-  line-height: 1.45rem;
+  font-size: 1.3em; 
+  line-height: 1.45em;
   font-weight: bold;
 }
 
 .section-main-title {
-  font-size: 1.2rem;  
-  line-height: 1.3rem; 
+  font-size: 1.2em;  
+  line-height: 1.3em; 
 
 }
 
 .section-sidebar-title {
-  font-size: 0.7rem;  
+  font-size: 0.7em;  
   font-weight: bold;
   background-color: #000;
-  line-height: 0.9rem;
+  line-height: 0.9em;
   vertical-align: middle;
+}
+
+
+.verticaltop {
+  vertical-align: top;
 }
 
 .fs-2 {
@@ -89,21 +110,21 @@ img {
 }
 
 .profile {
-  font-size: 0.8rem;
-  line-height: 1rem;  
+  font-size: 0.8em;
+  line-height: 1em;  
 }
 
 .address {
-  font-size: 0.6rem;
-  line-height: 0.8rem;
+  font-size: 0.6em;
+  line-height: 1.3em;
 }
 
 .fonside {
-  font-size: 0.6rem;
+  font-size: 0.6em;
 }
 
 .smfont {
-  font-size: 0.7rem;
+  font-size: 0.7em;
   
 }
 
@@ -154,7 +175,7 @@ img {
   width: 20px;
   display: inline-block;
   
-  height: 0.8rem;
+  height: 0.8em;
 }
 
 .mayus {
@@ -170,6 +191,14 @@ img {
 }
 
 .block-75 {
+  width: 75%;
+}
+
+.block-73 {
+  width: 73%;
+}
+
+.block-72 {
   width: 72%;
 }
 
@@ -187,6 +216,10 @@ img {
 
 .block-50 {
   width: 50%;
+}
+
+.block-45 {
+  width: 45%;
 }
 
 .block-40 {
@@ -225,6 +258,11 @@ img {
   border: 1px solid black;
 }
 
+.borde2 {
+  border: 1px solid red;
+}
+
+
 .mb-neg10 {
   margin-bottom: -5px !important;
 }
@@ -234,8 +272,8 @@ img {
 }
 
 .offerbox {
-  font-size: 0.1rem;
-  line-height: 0.2rem;  
+  font-size: 0.1em;
+  line-height: 0.2em;  
   color: #FFF; 
 }
 
