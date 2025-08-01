@@ -136,7 +136,7 @@
 
 
       <div id="sidebar" class="block-25 ib floatright ">
-        <img src="{{ URL::asset('storage/images/' . $user->photo) }}" class="mb-3" height="100">
+        <img src="{{ public_path('storage/images/' . $user->photo) }}" class="mb-3" height="100">
 
         <div class="bbottomcolor2 p-0">
           <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 10])</div>
@@ -168,7 +168,7 @@
               <span class="floatright ">
                 @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
-                    @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons)])
+                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
                   </div>
                  
                 @endfor
@@ -176,7 +176,7 @@
                 @if($skill->level < 5)
                   @for($j = 0; $j < 5 - $skill->level; $j++)
                     <div class="starblock">
-                      @include('cv.icons.star', ['color' => config("colors.".$colorIcons)])
+                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
                     </div>
                     
                   @endfor
