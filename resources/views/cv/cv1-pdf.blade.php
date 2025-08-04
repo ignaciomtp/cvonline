@@ -11,15 +11,17 @@
 
 @include('cv.style-options.'.$color)
 
+@include('cv.styles.'.'common-styles')
+
 @include('cv.styles.'.'template1')
 
   <title>Hello, world!</title>
 
   </head>
   <body>
-    <div class="col-container">
+    <div >
 
-      <div class="block-30 f-right ">
+      <div class="block-30 floatright ">
         <div class="address textcolor">
           <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->address }}, <br>
           <span></span> {{ $user->zip }} {{ $user->city }} <br>
@@ -43,16 +45,16 @@
 
     </div>
 
-    <div class="clr"></div>
+    <div class="clboth"></div>
 
-    <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
+    <div id="profile" @class(['d-block' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections), 'my-3'])>
      <p>{{ $profile }}
      </p>
     </div>
 
-    <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
+    <div id="experiencia" @class(['d-block' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections), 'my-3'])>
 
-      <div class="section textcolor bbottomcolor mt-3 mb-2">
+      <div class="section textcolor bbottomcolor mb-2">
          Experiencia Profesional
       </div>
 
@@ -69,9 +71,9 @@
     </div>
 
 
-    <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
+    <div id="formation" @class(['d-block' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections), 'my-3'])>
 
-      <div class="section textcolor bbottomcolor mt-3 mb-2">
+      <div class="section textcolor bbottomcolor mb-2">
         Formación Académica
       </div>
 
@@ -86,8 +88,8 @@
     </div>
 
 
-    <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
-      <div class="section textcolor bbottomcolor mt-3 mb-2">
+    <div id="complementary_formation" @class(['d-block' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections), 'my-3'])>
+      <div class="section textcolor bbottomcolor  mb-2">
         Formación Complementaria
       </div>
 
@@ -103,20 +105,20 @@
     </div>
 
 
-    <div id="skills" @class(['d-inline' => in_array('skills', $visibleSections), 'd-none' => ! in_array('skills', $visibleSections),])>
+    <div id="skills" @class(['d-block' => in_array('skills', $visibleSections), 'd-none' => ! in_array('skills', $visibleSections), 'my-3'])>
 
-      <div class="section textcolor bbottomcolor mt-3 mb-3">
+      <div class="section textcolor bbottomcolor  mb-3">
         Habilidades
       </div>
 
-      <div class="col-container ">
+      <div class="m-0 ">
         @foreach($skills as $skill)
-        <div class="block-30 ib py-1">
+        <div class="block-32 ib py-1  m-0">
           <div class="block-50 ib">
             <strong>{{ $skill->name }}</strong> 
           </div>
           
-          <div class="block-40 ib black-green">
+          <div class="block-45 ib ">
             @for($i = 0; $i < $skill->level; $i++)
              @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
             @endfor
@@ -133,8 +135,8 @@
     </div>
 
 
-    <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
-      <div class="section textcolor bbottomcolor mt-3 mb-3">
+    <div id="languages" @class(['d-block' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections), 'my-3'])>
+      <div class="section textcolor bbottomcolor  mb-3">
         Idiomas
       </div>
 

@@ -1,29 +1,42 @@
 <style type="text/css">
 
-body {
-  font-size: 1rem;
-  width: 595px;
-  height: 842px;
-}
 
 
 .jobtitle {
-  font-size: 20px;
-  
+  font-size: 1.5em;  
+}
+
+.jobtitle2 {
+  font-size: 1.3em;
 }
 
 .nametitle {
-  font-size: 30px;  
-  line-height: 35px;
+  font-size: 1.8em;
+  line-height: 2em;
+}
+
+.nametitle2 {
+  font-size: 1.5em;
+  line-height: 1.7em;
 }
 
 .address {
-  font-size: 0.9rem;
-  line-height: 1.2rem;
+  font-size: 0.9em;
+  line-height: 1.3em;
+}
+
+.address2 {
+  font-size: 0.8em;
+  line-height: 1.2em;
 }
 
 .section {
-  font-size: 18px;
+  font-size: 1.6em;
+  
+}
+
+.section2 {
+  font-size: 1.3em;
   
 }
 
@@ -34,63 +47,39 @@ body {
   height: 0.8rem;
 }
 
+.address2 span {
+  width: 15px;
+  display: inline-block;
+  
+  height: 0.8rem;
+}
+
+.bottomalign {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;  
+}
 
 .col-container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: nowrap ;
 }
 
-
-.block-60 {
-  width: 60%;
+.text90 {
+  font-size: 0.em;
 }
 
-.block-50 {
-  width: 50%;
+.text85 {
+  font-size: 0.85em;
 }
 
-.block-40 {
-  width: 40%;
+.text83 {
+  font-size: 0.83em;
 }
 
-.block-30 {
-  width: 30%;
-}
-
-.block-20 {
-  width: 20%;
-}
-
-.block-10 {
-  width: 10%;
-}
-
-.ib {
-  display: inline-block;
-}
-
-.clrl {
-  clear: left;
-}
-
-.clrr {
-  clear: right;
-}
-
-.clr {
-  clear: both;
-}
-
-.f-right {
-  float: right;
-}
-
-.borde-r {
-  border: 1px solid red;
-}
-
-.borde-v {
-  border: 1px solid green;
+.text80 {
+  font-size: 0.8em;
 }
 
 .borde-a {
@@ -101,8 +90,5 @@ body {
   color: black;
 }
 
-p {
-  text-align: justify;
-}
 
 </style>
