@@ -10,7 +10,9 @@
 
     @include('cv.style-options.'.$color)
 
-    @include('cv.styles.'.'template3')
+    @include('cv.styles.'.'common-styles')
+
+    @include('cv.styles.'.'template2')
     
     <title>Hello, world!</title>
 

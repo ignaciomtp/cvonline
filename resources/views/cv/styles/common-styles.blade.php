@@ -53,9 +53,16 @@ p {
   text-transform: uppercase;
 }
 
+
+
 .block-85 {
   width: 85%;
 }
+
+.block-83 {
+  width: 83%;
+}
+
 
 .block-80 {
   width: 80%;

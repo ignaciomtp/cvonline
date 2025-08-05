@@ -35,8 +35,8 @@ onMounted(() => {
 
 		<iframe :src="route"
 				id="cvframe"
-				width="100%" 
-				height="600"
+				width="95%" 
+				height="450"
 				class="scaled-iframe overflow-hidden" 
 		>		
 		</iframe>		
@@ -45,10 +45,10 @@ onMounted(() => {
 
 <style>
 .scaled-iframe {
-    width: 133%;
-    height: 100%;
+    width: 140%;
+    height: 90%;
     border: none;
-    transform: scale(0.75);
+    transform: scale(0.65);
     transform-origin: top left; /* Asegura que el escalado comience desde la esquina superior izquierda */
 }
 </style>

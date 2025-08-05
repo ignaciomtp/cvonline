@@ -448,8 +448,8 @@ onMounted(() => {
                     </div>               
                 </div>  <!-- Fin 1ª sección -->
                 
-                <div class="w-full sm:w-1/3 md:w-1/3 p-1 borde bg-black ">
-                    
+                <div class="w-full sm:w-1/3 md:w-1/3 p-1 borde bg-black " style="min-height: 980px;">
+
                     <CvVisualizer 
                         :cv_id="props.cv.id"
                         :updated="cvUpdated"

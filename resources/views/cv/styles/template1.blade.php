@@ -1,6 +1,10 @@
 <style type="text/css">
 
-
+.col-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap ;
+}
 
 .jobtitle {
   font-size: 1.5em;  
@@ -60,11 +64,7 @@
   justify-content: flex-end;  
 }
 
-.col-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap ;
-}
+
 
 .text90 {
   font-size: 0.em;

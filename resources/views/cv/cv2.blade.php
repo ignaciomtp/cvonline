@@ -10,44 +10,46 @@
 
     @include('cv.style-options.'.$color)
 
-    @include('cv.styles.'.'template3')
+    @include('cv.styles.'.'common-styles')
+
+    @include('cv.styles.'.'template2')
     
     <title>Hello, world!</title>
 
   </head>
 
-  <body>
+  <body class="m-2" style="width: 595px; height: 842px;">
     <div class="p-0 mb-2">
-      <div class="nametitle secondary-color p-0" >
+      <div class="nametitle2 secondary-color p-0" >
         {{ $user->name }} {{ $user->surname }}
       </div>
-      <div class="jobtitle p-0">
+      <div class="jobtitle2 p-0">
         {{ $user->job }}
       </div>
     </div>
 
     <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p class="profile mb-4">{{ $profile }}
+     <p class="fontbase mb-4">{{ $profile }}
      </p>
     </div>
 
-    <div class=" p-0 ">
+    <div class=" p-0 col-container">
       <div class="block-70 ib ">
 
         <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
           <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.briefcase-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Experiencia</span>
+            <div class="ib section-icon2 mb-neg10 mr-1 ">@include('cv.icons.briefcase-fill', ['color' => '#fff', 'size' => 15])</div>
+            <span class="section-main-title2  textcolor mb-2">Experiencia</span>
           </div>
 
           @foreach($experiences as $exp)
           <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth smfont negrita">
+            <div class="sectioncontent col-container ">
+              <div class="block-12 smfont2 negrita">
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
               </div>
-              <div class="block-80 ib floatright clboth ">
+              <div class="block-83 fontbase2 ">
                 <span class="mayus">{{ $exp->title }}</span> - 
                 <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
                 <p class="m-0">{!! $exp->job_description !!}</p>
@@ -62,15 +64,15 @@
         <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
 
           <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Formación</span>
+            <div class="ib section-icon2 mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 15])</div>
+            <span class="section-main-title2 textcolor mb-2">Formación</span>
           </div>
 
           @foreach($formations as $for)
           <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $for->date_finish }}</div>
-              <div class="block-80 ib floatright clboth ">
+            <div class="sectioncontent col-container">
+              <div class="block-12  negrita">{{ $for->date_finish }}</div>
+              <div class="block-83 fontbase2">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
                 <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
               </div>            
@@ -84,16 +86,16 @@
 
         <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
           <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Formación Complementaria</span>
+            <div class="ib section-icon2 mb-neg10 mr-1 ">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 15])</div>
+            <span class="section-main-title2 textcolor mb-2">Formación Complementaria</span>
           </div>
 
 
           @foreach($complementary_formations as $cfor)
           <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $cfor->year }}</div>
-              <div class="block-80 ib floatright clboth ">
+            <div class="sectioncontent col-container">
+              <div class="block-12 negrita">{{ $cfor->year }}</div>
+              <div class="block-83 fontbase2">
                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
               </div>
               
@@ -107,15 +109,15 @@
 
         <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
           <div class=" bbottomcolor2 m-0 p-0">
-            <div class="ib section-icon mb-neg10 mr-1 ">@include('cv.icons.flag-fill', ['color' => '#fff', 'size' => 10])</div>
-            <span class="section-main-title textcolor mb-2">Idiomas</span>
+            <div class="ib section-icon2 mb-neg10 mr-1 ">@include('cv.icons.flag-fill', ['color' => '#fff', 'size' => 15])</div>
+            <span class="section-main-title2 textcolor mb-2">Idiomas</span>
           </div>
 
           @foreach($languages as $lang)
             <div class="my-2">
-              <div class="sectioncontent">
-                <div class="block-12 ib clboth negrita">{{ $lang->name }}</div>
-                <div class="block-80 ib floatright clboth ">
+              <div class="sectioncontent col-container">
+                <div class="block-12 negrita">{{ $lang->name }}</div>
+                <div class="block-83 fontbase2">
                   Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
                 </div>              
                 
@@ -135,11 +137,11 @@
       </div> <!-- end main -->
 
 
-      <div id="sidebar" class="block-25 ib floatright ">
+      <div id="sidebar" class="block-25 ib  ">
         <img src="{{ URL::asset('storage/images/' . $user->photo) }}" class="mb-3" height="100">
 
         <div class="bbottomcolor2 p-0">
-          <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 10])</div>
+          <div class="ib sidebar-icon2 mb-neg17 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 14])</div>
           <div class="section-sidebar-title textcolor  ib mb-neg10">Contacto</div>
         </div>
         
@@ -156,7 +158,7 @@
         </div>
 
         <div class="bbottomcolor2 p-0">
-          <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.puzzle-fill', ['color' => '#fff', 'size' => 10])</div>
+          <div class="ib sidebar-icon2 mb-neg17 mr-1 ">@include('cv.icons.puzzle-fill', ['color' => '#fff', 'size' => 14])</div>
           <div class="section-sidebar-title textcolor ib mb-neg10">Habilidades</div>
         </div>
 
