@@ -12,4 +12,8 @@ class Template extends Model
     public function resumes() {
         return $this->HasMany(Resume::class);
     }
+
+    public function settings() {
+        return $this->hasOne(DefaultTemplateSetting::class);
+    }
 }

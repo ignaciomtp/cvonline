@@ -1,5 +1,6 @@
 <style type="text/css">
 
+
 .col-container {
   display: flex;
   justify-content: space-between;
@@ -7,7 +8,7 @@
 }
 
 .jobtitle {
-  font-size: 1.5em;  
+  font-size: {{ $settings['job_size'] }}em;
 }
 
 .jobtitle2 {
@@ -15,7 +16,7 @@
 }
 
 .nametitle {
-  font-size: 1.8em;
+  font-size: {{ $settings['name_size'] }}em;
   line-height: 2em;
 }
 
@@ -25,8 +26,8 @@
 }
 
 .address {
-  font-size: 0.9em;
-  line-height: 1.3em;
+  font-size: {{ $settings['address_size'] }}em;
+  line-height: {{ $settings['address_line_height'] }}em;
 }
 
 .address2 {

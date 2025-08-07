@@ -5,6 +5,7 @@ use App\Models\Resume;
 use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
+use App\Models\DefaultTemplateSetting;
 
 if (! function_exists('getAllExperiences')) {
     function getAllExperiences(Resume $cv) {
@@ -191,6 +192,10 @@ if (! function_exists('generateCV')) {
         $offer = $cv->offer;
         //$colorIcons = config("colors.".$cv->color_2);
 
-        return view('cv.'.$cv->template->view.$pdf, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer'));  
+        $template = $cv->template;
+        $settings = $template->settings ? $template->settings->toArray() : [];
+
+
+        return view('cv.'.$cv->template->view.$pdf, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer', 'settings'));  
     }
 }
