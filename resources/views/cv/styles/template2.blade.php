@@ -81,6 +81,13 @@ img {
   font-weight: bold;
 }
 
+.section-sidebar-title2 {
+  font-size: 1.1em;  
+
+  font-weight: bold;
+}
+
+
 .fs-2 {
     font-size: 2rem !important;
 }
@@ -91,8 +98,8 @@ img {
 }
 
 .fontbase {
-  font-size: 0.85em;
-  line-height: 1em;  
+  font-size: 1.05em;
+  line-height: 1.2em;  
 }
 
 .fontbase2 {
@@ -100,9 +107,26 @@ img {
   line-height: 1.15em;  
 }
 
+.font90 {
+  font-size: 0.9em;
+}
+
+.font80 {
+  font-size: 0.8em;
+}
+
 .address {
   font-size: 0.9rem;
   line-height: 1.4rem;
+}
+
+.address2 {
+  font-size: 0.8em;
+  line-height: 1.5em;
+}
+
+.skilltag {
+  font-size: 0.75em;
 }
 
 .smfont {
@@ -140,7 +164,7 @@ img {
 .sidebar-icon2 {
   width: 22px;
   height: 24px;
-  padding: 2px;
+  padding: 4px;
   background-color: {{ config("colors.".$colorIcons) }};
   text-align: center;
   line-height: 24px;
@@ -190,12 +214,7 @@ img {
   color: {{ config("colors.".$colorIcons) }};
 }
 
-.address span {
-  width: 20px;
-  display: inline-block;
-  
-  height: 0.8rem;
-}
+
 
 .borde {
   border: 1px solid black;

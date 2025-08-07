@@ -6,7 +6,9 @@ body {
   flex-wrap: nowrap;
 }
 
-
+table {
+  width: 100%;
+}
 
 img {
   display: block;
@@ -42,8 +44,6 @@ li {
   margin: 0;
 }
 
-
-
 .jobtitle {
   font-size: 1.1em;
   line-height: 1.15em;
@@ -62,15 +62,21 @@ li {
 }
 
 .section-sidebar-title {
-  font-size: 0.7em;  
+  font-size: 0.8em;  
   font-weight: bold;
   background-color: #000;
-  line-height: 0.9em;
   vertical-align: middle;
 }
 
+.font90 {
+  font-size: 0.9em;
+  
+}
 
-
+.font80 {
+  font-size: 0.8em;
+  
+}
 
 .profile {
   font-size: 0.8em;
@@ -78,8 +84,12 @@ li {
 }
 
 .address {
-  font-size: 0.6em;
-  line-height: 1.3em;
+  font-size: 0.7rem;
+  
+}
+
+.address2 {
+  font-size: 0.7em;
 }
 
 .fonside {
@@ -94,6 +104,11 @@ li {
 .section {
   font-size: 18px;
   
+}
+
+.skills {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .sidebar-icon {
@@ -134,12 +149,6 @@ li {
   color: {{ config("colors.".$colorIcons) }};
 }
 
-.address span {
-  width: 20px;
-  display: inline-block;
-  
-  height: 0.8em;
-}
 
 
 .mb-neg10 {

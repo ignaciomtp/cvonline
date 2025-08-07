@@ -84,7 +84,7 @@
 
       <div class="block-72 verticaltop pt-4 px-1 m-0 ib">
         <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-         <p class="font80 mb-4">{{ $profile }}
+         <p class="profile mb-4">{{ $profile }}
          </p>
         </div>
 
@@ -93,22 +93,22 @@
             <span class="section-main-title textcolor mb-2">Experiencia</span>
           </div>
 
-          <table >
           @foreach($experiences as $exp)
-            <tr>
-              <td class="block-15 smfont negrita pt-1 verticaltop ">
+          <div class="my-2 font80 p-0">
+            
+              <div class="block-15 ib smfont negrita m-0 borde" >
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
-              </td>
-              <td class="block-85 pl-1 font80 verticaltop ">
-                <strong>{{ $exp->title }}</strong> - 
+              </div>
+              <div class="block-80 ib pl-1 verticaltop borde" >
+                <span class=""><strong>{{ $exp->title }}</strong> - </span>
                 <span class="m-0 mayus">{{ $exp->company_name }},</span> <span>{{ $exp->company_city }}</span>
                 <div >{!! $exp->job_description !!}</div>
-              </td>
-            </tr>
+              </div>
+              <div class="clboth"></div>
 
+          </div>
           @endforeach   
-          </table>
         </div>
 
         <div class="sep20"></div>
@@ -119,22 +119,18 @@
             <span class="section-main-title textcolor mb-2">Formación</span>
           </div>
 
-          <table >
           @foreach($formations as $for)
+          <div class="my-2 font80">
 
-            <tr class="my-2 font80">
-              <td class="block-15 negrita verticaltop">
-                {{ $for->date_finish }}
-              </td>
-              <td class="block-85 pl-1  verticaltop ">
+              <div class="block-12 floatleft smfont negrita">{{ $for->date_finish }}</div>
+              <div class="block-80 " style="margin-left: 100px;">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
                 <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
-              </td>
-            </tr>
-
-
-          @endforeach   
-          </table>   
+              </div>            
+              
+          
+          </div>
+          @endforeach      
         </div>
 
         <div class="sep20"></div>
@@ -144,20 +140,17 @@
             <span class="section-main-title textcolor mb-2">Formación Complementaria</span>
           </div>
 
-          <table >
+
           @foreach($complementary_formations as $cfor)
-            <tr class="my-2 font80">
-              <td class="block-15 negrita verticaltop">
-                {{ $cfor->year }}
-              </td>
-              <td class="block-85 pl-1  verticaltop ">
+          <div class="my-2 font80">
+
+              <div class="block-12 floatleft smfont negrita">{{ $cfor->year }}</div>
+              <div class="block-80 " style="margin-left: 100px;">
                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
-              </td>
-
-            </tr>
-
+              </div>
+              
+          </div>
           @endforeach
-          <table >
         </div>
 
         <div class="sep20"></div>
@@ -167,17 +160,17 @@
             <span class="section-main-title textcolor mb-2">Idiomas</span>
           </div>
 
-          <table >
           @foreach($languages as $lang)
-            <tr class="my-2 font80">
-              <td class="block-15 negrita verticaltop">{{ $lang->name }}</td>
-              <td class="block-85 pl-1  verticaltop ">
-                Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
-              </td>
-            </tr>
+            <div class="my-2 font80">
 
+                <div class="block-12 floatleft smfont negrita">{{ $lang->name }}</div>
+                <div class="block-80 " style="margin-left: 100px;">
+                  Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
+                </div>              
+                
+             
+            </div>
           @endforeach
-        </table>
         </div>
 
         <div class="sep20"></div>

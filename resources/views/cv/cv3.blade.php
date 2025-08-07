@@ -18,9 +18,9 @@
 
   </head>
 
-  <body style="width: 595px; height: 842px;">
+  <body style="font-size: 21.5px;">
 
-      <div id="sidebar" class="block-25 height100 backprimary m-0">
+      <div id="sidebar" class="block-25 ib height100 backprimary m-0 verticaltop">
         <div class="nametitle pt-3 px-2 pb-1" >
           {{ $user->name }} {{ $user->surname }}
         </div>
@@ -29,60 +29,62 @@
         </div>
 
         <div class="p-2">
-          <img src="{{ URL::asset('storage/images/' . $user->photo) }}" class="mb-1" >
+          <img src="{{ public_path('storage/images/' . $user->photo) }}" class="mb-1" >
         </div>
 
-        <div class="section-sidebar-title px-2 pt-1 pb-1">
+        <div class="section-sidebar-title p-2">
           Datos de contacto
         </div>
 
-        <div class="address px-2 py-2 mb-2">
-            <span class="font-weight-bold">Dirección</span><br>
+        <div class="address2 px-2 py-2 mb-2">
+            <span class="negrita">Dirección</span><br>
             {{ $user->address }}, <br>
             {{ $user->zip }} {{ $user->city }} <br>
-            <span class="font-weight-bold">Email</span><br>
+            <span class="negrita">Email</span><br>
             {{ $user->email }} <br>
-            <span class="font-weight-bold">Teléfono</span><br>
+            <span class="negrita">Teléfono</span><br>
             {{ $user->phone }}
         </div>
 
-        <div class="section-sidebar-title px-2 pt-1 pb-1">
+        <div class="section-sidebar-title p-2 ">
           Habilidades
         </div>
 
         <div class=" p-2 mb-2">
           @foreach($skills as $skill)
-          <div class="py-1 skills">   
-            <span class="fonside">
+          <div class="p-1 skills ">   
+            <div class="fonside ib block-50 ">
               <strong>{{ $skill->name }}</strong>     
-            </span>         
-                        
-            <span class="floatright  ">
-              @for($i = 0; $i < $skill->level; $i++)
-                <div class="starblock">
-                  @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons), 'size' => 12])
-                </div>
-               
-              @endfor
+            </div>   
 
-              @if($skill->level < 5)
-                @for($j = 0; $j < 5 - $skill->level; $j++)
+
+              <div class="ib block-45 text-right ">
+                @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
-                    @include('cv.icons.star', ['color' => config("colors.".$colorIcons), 'size' => 12])
+                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
                   </div>
-                  
+                 
                 @endfor
-              @endif
-            </span>
+
+                @if($skill->level < 5)
+                  @for($j = 0; $j < 5 - $skill->level; $j++)
+                    <div class="starblock">
+                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
+                    </div>
+                    
+                  @endfor
+                @endif
+              </div>              
+
           </div>
           @endforeach
         </div>
 
       </div> <!-- end sidebar -->
 
-      <div class="block-72 pt-4 px-1 m-0">
+      <div class="block-72 verticaltop pt-4 px-1 m-0 ib">
         <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-         <p class="profile mb-4">{{ $profile }}
+         <p class="font80 mb-4">{{ $profile }}
          </p>
         </div>
 
@@ -91,22 +93,22 @@
             <span class="section-main-title textcolor mb-2">Experiencia</span>
           </div>
 
+          <table >
           @foreach($experiences as $exp)
-          <div class="my-2 profile dispflex p-0">
-            
-              <div class="block-15 smfont negrita m-0 " >
+            <tr>
+              <td class="block-15 smfont negrita pt-1 verticaltop ">
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
-              </div>
-              <div class="block-85  m-0 pl-1" >
-                <span class=""><strong>{{ $exp->title }}</strong></span> - 
-                <span class="m-0 mayus">{{ $exp->company_name }}</span>, {{ $exp->company_city }}
-                <div class="m-0 ">{!! $exp->job_description !!}</div>
-              </div>
-              <div class="clboth"></div>
+              </td>
+              <td class="block-85 pl-1 font80 verticaltop ">
+                <strong>{{ $exp->title }}</strong> - 
+                <span class="m-0 mayus">{{ $exp->company_name }},</span> <span>{{ $exp->company_city }}</span>
+                <div >{!! $exp->job_description !!}</div>
+              </td>
+            </tr>
 
-          </div>
           @endforeach   
+          </table>
         </div>
 
         <div class="sep20"></div>
@@ -117,18 +119,22 @@
             <span class="section-main-title textcolor mb-2">Formación</span>
           </div>
 
+          <table >
           @foreach($formations as $for)
-          <div class="my-2 profile dispflex p-0">
 
-              <div class="block-20 smfont negrita">{{ $for->date_finish }}</div>
-              <div class="block-80 ">
+            <tr class="my-2 font80">
+              <td class="block-15 negrita verticaltop">
+                {{ $for->date_finish }}
+              </td>
+              <td class="block-85 pl-1  verticaltop ">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
-                <p class="m-0">{{ $for->institution }}, {{ $for->institution_city }}</p> 
-              </div>            
-              
-          
-          </div>
-          @endforeach      
+                <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
+              </td>
+            </tr>
+
+
+          @endforeach   
+          </table>   
         </div>
 
         <div class="sep20"></div>
@@ -138,17 +144,20 @@
             <span class="section-main-title textcolor mb-2">Formación Complementaria</span>
           </div>
 
-
+          <table >
           @foreach($complementary_formations as $cfor)
-          <div class="my-2 profile dispflex p-0">
-
-              <div class="block-20 smfont negrita">{{ $cfor->year }}</div>
-              <div class="block-80 " >
+            <tr class="my-2 font80">
+              <td class="block-15 negrita verticaltop">
+                {{ $cfor->year }}
+              </td>
+              <td class="block-85 pl-1  verticaltop ">
                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
-              </div>
-              
-          </div>
+              </td>
+
+            </tr>
+
           @endforeach
+          <table >
         </div>
 
         <div class="sep20"></div>
@@ -158,17 +167,17 @@
             <span class="section-main-title textcolor mb-2">Idiomas</span>
           </div>
 
+          <table >
           @foreach($languages as $lang)
-            <div class="my-2 profile dispflex p-0">
+            <tr class="my-2 font80">
+              <td class="block-15 negrita verticaltop">{{ $lang->name }}</td>
+              <td class="block-85 pl-1  verticaltop ">
+                Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
+              </td>
+            </tr>
 
-                <div class="block-20 smfont negrita">{{ $lang->name }}</div>
-                <div class="block-80 ">
-                  Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
-                </div>              
-                
-             
-            </div>
           @endforeach
+        </table>
         </div>
 
         <div class="sep20"></div>
@@ -179,6 +188,7 @@
 
 
       </div> <!-- end main block -->   
+
 
   </body>
 </html>

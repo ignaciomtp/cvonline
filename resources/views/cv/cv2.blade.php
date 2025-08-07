@@ -29,7 +29,7 @@
     </div>
 
     <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p class="fontbase mb-4">{{ $profile }}
+     <p class="fontbase2 mb-4">{{ $profile }}
      </p>
     </div>
 
@@ -71,7 +71,7 @@
           @foreach($formations as $for)
           <div class="my-2">
             <div class="sectioncontent col-container">
-              <div class="block-12  negrita">{{ $for->date_finish }}</div>
+              <div class="block-12 font80 negrita">{{ $for->date_finish }}</div>
               <div class="block-83 fontbase2">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
                 <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
@@ -94,7 +94,7 @@
           @foreach($complementary_formations as $cfor)
           <div class="my-2">
             <div class="sectioncontent col-container">
-              <div class="block-12 negrita">{{ $cfor->year }}</div>
+              <div class="block-12 font80 negrita">{{ $cfor->year }}</div>
               <div class="block-83 fontbase2">
                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
               </div>
@@ -116,8 +116,8 @@
           @foreach($languages as $lang)
             <div class="my-2">
               <div class="sectioncontent col-container">
-                <div class="block-12 negrita">{{ $lang->name }}</div>
-                <div class="block-83 fontbase2">
+                <div class="block-12 negrita font90">{{ $lang->name }}</div>
+                <div class="block-83 font90 ">
                   Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
                 </div>              
                 
@@ -142,11 +142,11 @@
 
         <div class="bbottomcolor2 p-0">
           <div class="ib sidebar-icon2 mb-neg17 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 14])</div>
-          <div class="section-sidebar-title textcolor  ib mb-neg10">Contacto</div>
+          <div class="section-sidebar-title2 textcolor  ib mb-neg10">Contacto</div>
         </div>
         
         <div class="my-1 mb-4">
-          <div class="address ">
+          <div class="address2 ">
             <span class="font-weight-bold">Dirección</span><br>
             {{ $user->address }}, <br>
             {{ $user->zip }} {{ $user->city }} <br>
@@ -164,13 +164,13 @@
 
         <div class="my-1 mb-4">
           @foreach($skills as $skill)
-          <div class="py-1 skills">            
+          <div class="py-1 skilltag">            
               <strong>{{ $skill->name }}</strong>             
             
               <span class="floatright ">
                 @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
-                    @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons)])
+                    @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons), 'size' => 17])
                   </div>
                  
                 @endfor
@@ -178,7 +178,7 @@
                 @if($skill->level < 5)
                   @for($j = 0; $j < 5 - $skill->level; $j++)
                     <div class="starblock">
-                      @include('cv.icons.star', ['color' => config("colors.".$colorIcons)])
+                      @include('cv.icons.star', ['color' => config("colors.".$colorIcons), 'size' => 17])
                     </div>
                     
                   @endfor

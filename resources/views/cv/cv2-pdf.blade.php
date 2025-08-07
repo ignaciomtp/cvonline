@@ -29,7 +29,7 @@
     </div>
 
     <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
-     <p class="profile mb-4">{{ $profile }}
+     <p class="fontbase mb-4">{{ $profile }}
      </p>
     </div>
 
@@ -49,7 +49,7 @@
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
               </div>
-              <div class="block-80 ib floatright clboth ">
+              <div class="block-83 ib floatright clboth fontbase ">
                 <span class="mayus">{{ $exp->title }}</span> - 
                 <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
                 <p class="m-0">{!! $exp->job_description !!}</p>
@@ -71,8 +71,8 @@
           @foreach($formations as $for)
           <div class="my-2">
             <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $for->date_finish }}</div>
-              <div class="block-80 ib floatright clboth ">
+              <div class="block-12 ib clboth negrita font90">{{ $for->date_finish }}</div>
+              <div class="block-83 ib floatright clboth ">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
                 <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
               </div>            
@@ -94,8 +94,8 @@
           @foreach($complementary_formations as $cfor)
           <div class="my-2">
             <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita">{{ $cfor->year }}</div>
-              <div class="block-80 ib floatright clboth ">
+              <div class="block-12 ib clboth negrita font90">{{ $cfor->year }}</div>
+              <div class="block-83 ib floatright clboth ">
                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
               </div>
               
@@ -117,7 +117,7 @@
             <div class="my-2">
               <div class="sectioncontent">
                 <div class="block-12 ib clboth negrita">{{ $lang->name }}</div>
-                <div class="block-80 ib floatright clboth ">
+                <div class="block-83 ib floatright clboth ">
                   Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
                 </div>              
                 
