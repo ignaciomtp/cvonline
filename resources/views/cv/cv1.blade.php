@@ -18,57 +18,49 @@
   <title>Hello, world!</title>
 
   </head>
-  <body class="p-2" style="width: 595px; height: 842px;">
-    <div class="col-container ">
+  <body>
+    <div >
 
-      <div class="block-10  mr-4">
-        <img src="{{ URL::asset('storage/images/' . $user->photo) }}" height="100">
+      <div class="block-30 floatright ">
+        <div class="address textcolor">
+          <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->address }}, <br>
+          <span></span> {{ $user->zip }} {{ $user->city }} <br>
+          <span>@include('cv.icons.envelope-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->email }} <br>
+          <span>@include('cv.icons.telephone-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->phone }}
+        </div>
       </div>
 
-      <div class="block-50  pl-2 bottomalign" style="height: 100px;">
-        <span class="nametitle2 textcolor " >
+      <div class="block-10 ib mr-4">
+        <img src="{{ public_path('storage/images/' . $user->photo) }}" height="100">
+      </div>
+
+      <div class="block-50 ib ml-2 ">
+        <div class="nametitle textcolor" >
           {{ $user->name }} {{ $user->surname }}
-        </span>
-        
-        <span class="jobtitle2 ">
+        </div>
+        <div class="jobtitle">
           {{ $user->job }}
-        </span>
-      </div>
-
-      <div class="block-30  ">
-        <div class="address2 textcolor bottomalign  pb-2" style="height: 100px;">
-          <div>
-            <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 16])</span> {{ $user->address }}, <br>
-            <span></span> {{ $user->zip }} {{ $user->city }} <br>
-          </div>
-
-          <div>
-            <span>@include('cv.icons.envelope-fill', ['color' => config("colors.".$colorIcons), 'size' => 16])</span> {{ $user->email }}
-          </div>
-
-          <div>
-            <span>@include('cv.icons.telephone-fill', ['color' => config("colors.".$colorIcons), 'size' => 16])</span> {{ $user->phone }}
-          </div>
-                    
         </div>
       </div>
 
     </div>
 
-    <div id="profile"  @class(['d-block' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections), 'my-3'])>
-     <p class=" text83">{{ $profile }}
+    <div class="clboth"></div>
+
+    <div id="profile" @class(['d-block' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections), 'my-3'])>
+     <p>{{ $profile }}
      </p>
     </div>
 
     <div id="experiencia" @class(['d-block' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections), 'my-3'])>
 
-      <div class="section2 textcolor bbottomcolor mb-2">
+      <div class="section textcolor bbottomcolor mb-2">
          Experiencia Profesional
       </div>
 
         @foreach($experiences as $exp)
         <div class="m-2">
-          <div class="sectioncontent text83">
+          <div class="sectioncontent">
             <span class="font-weight-bold">{{ $exp->title }}</span> en {{ $exp->company_name }}, {{ $exp->company_city }} ({{ $exp->date_start }} - {{ $exp->date_finish }})
             <p class="m-0">
               {!! $exp->job_description !!}
@@ -81,13 +73,13 @@
 
     <div id="formation" @class(['d-block' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections), 'my-3'])>
 
-      <div class="section2 textcolor bbottomcolor mb-2">
+      <div class="section textcolor bbottomcolor mb-2">
         Formación Académica
       </div>
 
       @foreach($formations as $for)
       <div class="m-2">
-        <div class="sectioncontent text83">
+        <div class="sectioncontent">
           <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span>, {{ $for->institution }}, {{ $for->institution_city }} ({{ $for->date_finish }})
           
         </div>
@@ -97,14 +89,14 @@
 
 
     <div id="complementary_formation" @class(['d-block' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections), 'my-3'])>
-      <div class="section2 textcolor bbottomcolor  mb-2">
+      <div class="section textcolor bbottomcolor  mb-2">
         Formación Complementaria
       </div>
 
 
       @foreach($complementary_formations as $cfor)
       <div class="m-2">
-        <div class="sectioncontent text83">
+        <div class="sectioncontent">
           {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span>, {{ $cfor->institution }}, {{ $cfor->institution_city }} ({{ $cfor->year }})
           
         </div>
@@ -115,25 +107,25 @@
 
     <div id="skills" @class(['d-block' => in_array('skills', $visibleSections), 'd-none' => ! in_array('skills', $visibleSections), 'my-3'])>
 
-      <div class="section2 textcolor bbottomcolor  mb-3">
+      <div class="section textcolor bbottomcolor  mb-3">
         Habilidades
       </div>
 
-      <div class="col-container ">
+      <div class="m-0 ">
         @foreach($skills as $skill)
-        <div class="block-33 py-1 text83 ">
-          <div class="block-40 ib ">
+        <div class="block-32 ib py-1  m-0">
+          <div class="block-50 ib">
             <strong>{{ $skill->name }}</strong> 
           </div>
           
-          <div class="block-50 ib ">
+          <div class="block-45 ib ">
             @for($i = 0; $i < $skill->level; $i++)
-             @include('cv.icons.star-fill', ['color' => config("colors.".$colorIcons), 'size' => 15])
+             @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
             @endfor
 
             @if($skill->level < 5)
               @for($j = 0; $j < 5 - $skill->level; $j++)
-                @include('cv.icons.star', ['color' => config("colors.".$colorIcons), 'size' => 15])
+                @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
               @endfor
             @endif
           </div>
@@ -144,13 +136,13 @@
 
 
     <div id="languages" @class(['d-block' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections), 'my-3'])>
-      <div class="section2 textcolor bbottomcolor  mb-3">
+      <div class="section textcolor bbottomcolor  mb-3">
         Idiomas
       </div>
 
       @foreach($languages as $lang)
         <div class="m-2">
-          <div class="sectioncontent text83">
+          <div class="sectioncontent">
             <span class="font-weight-bold">{{ $lang->name }}</span>, nivel {{ $lang->level }} ({{ $lang->certification }})
             
           </div>

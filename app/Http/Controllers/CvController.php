@@ -172,7 +172,9 @@ class CvController extends Controller
 
         $cv = Resume::find($id);
 
-        $html = generateCV($user, $cv, '-pdf');
+        //$html = generateCV($user, $cv, '-pdf');
+
+        $html = generateCV($user, $cv);
 
         $pdf = Pdf::loadHtml($html);
 
