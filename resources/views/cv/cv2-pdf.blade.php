@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
 
     @include('cv.style-options.'.$color)
 
@@ -18,7 +17,7 @@
 
   </head>
 
-  <body style="width: 595px; height: 842px;">
+  <body>
     <div class="p-0 mb-2">
       <div class="nametitle secondary-color p-0" >
         {{ $user->name }} {{ $user->surname }}
@@ -138,8 +137,7 @@
 
 
       <div id="sidebar" class="block-25 ib floatright ">
-        <img src="{{ URL::asset('storage/images/' . $user->photo) }}" class="mb-3" height="100">
-
+        <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" alt="Foto" height="100" class="mb-3">
         <div class="bbottomcolor2 p-0">
           <div class="ib sidebar-icon mb-neg10 mr-1 ">@include('cv.icons.person-fill', ['color' => '#fff', 'size' => 10])</div>
           <div class="section-sidebar-title textcolor  ib mb-neg10">Contacto</div>
@@ -170,7 +168,7 @@
               <span class="floatright ">
                 @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
-                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons), 'size' => 15])
+                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
                   </div>
                  
                 @endfor
@@ -178,7 +176,7 @@
                 @if($skill->level < 5)
                   @for($j = 0; $j < 5 - $skill->level; $j++)
                     <div class="starblock">
-                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons), 'size' => 15])
+                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
                     </div>
                     
                   @endfor

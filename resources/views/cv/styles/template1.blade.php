@@ -36,7 +36,7 @@
 }
 
 .section {
-  font-size: 1.6em;
+  font-size: {{ $settings['section_size'] }}em;
   
 }
 

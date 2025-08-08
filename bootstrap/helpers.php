@@ -6,6 +6,7 @@ use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
 use App\Models\DefaultTemplateSetting;
+use Knp\Snappy\Pdf;
 
 if (! function_exists('getAllExperiences')) {
     function getAllExperiences(Resume $cv) {
@@ -150,7 +151,7 @@ if (! function_exists('getAllLanguages')) {
 }
 
 if (! function_exists('generateCV')) {
-    function generateCV($user, $cv, $pdf='') {
+    function generateCV($user, $cv) {
         if($cv->description == null) $cv->description = auth()->user()->profile;
 
         $visibleSections = json_decode($cv->visible_sections);
@@ -192,10 +193,32 @@ if (! function_exists('generateCV')) {
         $offer = $cv->offer;
         //$colorIcons = config("colors.".$cv->color_2);
 
+        // coger los estilos por defecto de la plantilla
         $template = $cv->template;
         $settings = $template->settings ? $template->settings->toArray() : [];
 
 
+        $data = [
+            'user' => $user,
+            'experiences' => $experiences,
+            'formations' => $formations,
+            'complementary_formations' => $complementary_formations,
+            'skills' => $skills,
+            'languages' => $languages,
+            'visibleSections' => $visibleSections,
+            'profile' => $profile,
+            'color' => $color,
+            'colorIcons' => $colorIcons,
+            'offer' => $offer,
+            'settings' => $settings,
+        ];
+
+/*
         return view('cv.'.$cv->template->view.$pdf, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer', 'settings'));  
+
+*/
+
+        return $data;
+
     }
 }

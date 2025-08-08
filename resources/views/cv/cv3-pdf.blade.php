@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
 
     @include('cv.style-options.'.$color)
 
@@ -18,7 +17,7 @@
 
   </head>
 
-  <body style="width: 595px; height: 842px; font-size: 21.5px;">
+  <body style="font-size: 21.5px;">
 
       <div id="sidebar" class="block-25 ib height100 backprimary m-0 verticaltop">
         <div class="nametitle pt-3 px-2 pb-1" >
@@ -29,7 +28,7 @@
         </div>
 
         <div class="p-2">
-          <img src="{{ URL::asset('storage/images/' . $user->photo) }}" class="mb-1" >
+          <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" class="mb-1" alt="Foto" height="100">
         </div>
 
         <div class="section-sidebar-title p-2">
@@ -61,7 +60,7 @@
               <div class="ib block-45 text-right ">
                 @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
-                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons), 'size' => 15])
+                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
                   </div>
                  
                 @endfor
@@ -69,7 +68,7 @@
                 @if($skill->level < 5)
                   @for($j = 0; $j < 5 - $skill->level; $j++)
                     <div class="starblock">
-                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons), 'size' => 15])
+                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
                     </div>
                     
                   @endfor

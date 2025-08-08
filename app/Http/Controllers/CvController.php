@@ -14,7 +14,8 @@ use App\Models\Formation;
 use App\Models\Skill;
 use App\Models\Language;
 use App\Models\Template;
-use Barryvdh\DomPDF\Facade\Pdf;
+//use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 
 class CvController extends Controller
 {
@@ -160,7 +161,11 @@ class CvController extends Controller
 
         $cv = Resume::find($id);
 
-        return generateCV($user, $cv);
+       // return generateCV($user, $cv);
+
+        $data = generateCV($user, $cv);
+
+        return view('cv.'.$cv->template->view, $data);  
 
     }    
 
@@ -172,24 +177,32 @@ class CvController extends Controller
 
         $cv = Resume::find($id);
 
-        //$html = generateCV($user, $cv, '-pdf');
+        $data = generateCV($user, $cv);
 
-        $html = generateCV($user, $cv);
+        //$html = view('cv.'.$cv->template->view, $data); 
 
+        $pdf = SnappyPdf::loadView('cv.'.$cv->template->view.'-pdf', $data)
+            ->setOption('enable-local-file-access', true)
+            ->setOption('load-error-handling', 'ignore') // Opcional
+            ->setOption('margin-top', 0)
+            ->setOption('margin-bottom', 0)
+            ->setOption('margin-left', 0)
+            ->setOption('margin-right', 0);
+
+
+        return $pdf->inline('resume.pdf');
+
+
+
+/*
         $pdf = Pdf::loadHtml($html);
 
         $pdf->render();
 
         return $pdf->stream('cv2.pdf');   
-
-        //return response()->download($pdf->stream('cv2.pdf'));
-
-/*
-        $content = $pdf->download()->getOriginalContent();
-        Storage::put('public/pdfs/'.$user->name.'.pdf', $content);
-
-        return Redirect::route('dashboard');
 */
+
+
     }    
 
 
