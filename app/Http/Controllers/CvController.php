@@ -161,8 +161,6 @@ class CvController extends Controller
 
         $cv = Resume::find($id);
 
-       // return generateCV($user, $cv);
-
         $data = generateCV($user, $cv);
 
         return view('cv.'.$cv->template->view, $data);  
@@ -179,15 +177,16 @@ class CvController extends Controller
 
         $data = generateCV($user, $cv);
 
-        //$html = view('cv.'.$cv->template->view, $data); 
-
         $pdf = SnappyPdf::loadView('cv.'.$cv->template->view.'-pdf', $data)
+            ->setPaper('a4')
             ->setOption('enable-local-file-access', true)
             ->setOption('load-error-handling', 'ignore') // Opcional
             ->setOption('margin-top', 0)
             ->setOption('margin-bottom', 0)
             ->setOption('margin-left', 0)
-            ->setOption('margin-right', 0);
+            ->setOption('margin-right', 0)
+            ->setOption('dpi', 96) // Ajusta el DPI para igualar la resolución del navegador
+            ->setOption('zoom', 1.4); // Ajusta el zoom para evitar escalado
 
 
         return $pdf->inline('resume.pdf');

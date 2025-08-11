@@ -1,63 +1,38 @@
 <style type="text/css">
 
-
-.col-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap ;
+body {
+  font-size: 12pt;
 }
 
 .jobtitle {
-  font-size: {{ $settings['job_size'] }}em;
+  font-size: 18pt;  
 }
 
-.jobtitle2 {
-  font-size: 1.3em;
-}
 
 .nametitle {
-  font-size: {{ $settings['name_size'] }}em;
-  line-height: 2em;
+  font-size: 23pt;
+  
 }
 
-.nametitle2 {
-  font-size: 1.5em;
-  line-height: 1.7em;
-}
 
 .address {
-  font-size: {{ $settings['address_size'] }}em;
-  line-height: {{ $settings['address_line_height'] }}em;
+  font-size: 10pt;
+  line-height: 12pt;
 }
 
-.address2 {
-  font-size: 0.8em;
-  line-height: 1.2em;
-}
 
 .section {
-  font-size: {{ $settings['section_size'] }}em;
+  font-size: 16pt;
   
 }
 
-.section2 {
-  font-size: 1.3em;
-  
+
+.skill img {
+  width: 12pt;
+  height: 8pt;
+  vertical-align: baseline;
 }
 
-.address span {
-  width: 20px;
-  display: inline-block;
-  
-  height: 0.8rem;
-}
-
-.address2 span {
-  width: 15px;
-  display: inline-block;
-  
-  height: 0.8rem;
-}
 
 .bottomalign {
   display: flex;
@@ -65,26 +40,30 @@
   justify-content: flex-end;  
 }
 
-
+.col-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap ;
+}
 
 .text90 {
-  font-size: 0.em;
+  font-size: 20pt;
 }
 
 .text85 {
-  font-size: 0.85em;
+  font-size: 19pt;
 }
 
 .text83 {
-  font-size: 0.83em;
+  font-size: 17pt;
 }
 
 .text80 {
-  font-size: 0.8em;
+  font-size: 15pt;
 }
 
 .borde-a {
-  border: 1px solid blue;
+  border: 1pt solid blue;
 }
 
 .black {

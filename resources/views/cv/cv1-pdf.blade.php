@@ -6,8 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
+    <!-- Bootstrap CSS -->
 
+    <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
 @include('cv.style-options.'.$color)
 
 @include('cv.styles.'.'common-styles')
@@ -17,34 +18,61 @@
   <title>Hello, world!</title>
 
   </head>
-  <body>
-    <div >
+  <body class="p-3">
 
-      <div class="block-30 floatright ">
-        <div class="address textcolor">
-          <span class="textcolor">@include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->address }}, <br>
-          <span></span> {{ $user->zip }} {{ $user->city }} <br>
-          <span>@include('cv.icons.envelope-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->email }} <br>
-          <span>@include('cv.icons.telephone-fill', ['color' => config("colors.".$colorIcons), 'size' => 10])</span> {{ $user->phone }}
-        </div>
-      </div>
+      <table>
+        <tr>
+          <td class="block-10 ">
+            <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" alt="Foto" height="120">
+          </td>
+          <td class="block-50 ">
+            <div class="nametitle textcolor" >
+              {{ $user->name }} {{ $user->surname }}
+            </div>
+            <div class="jobtitle">
+              {{ $user->job }}
+            </div>           
+          </td>
+          <td class="block-30">
+            <div class="address textcolor">
+              <table>
+                <tr>
+                  <td class="block-10">
+                    @include('cv.icons.geo-alt-fill', ['color' => config("colors.".$colorIcons), 'size' => 18])
+                  </td>
+                  <td>
+                    {{ $user->address }},
+                  </td>
+                </tr>
 
-      <div class="block-10 ib mr-4">
-        <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" alt="Foto" height="100">
-      </div>
+                <tr>
+                  <td class="block10"></td>
+                  <td>{{ $user->zip }} {{ $user->city }}</td>
+                </tr>
+                
+                <tr>
+                  <td class="block-10">
+                    @include('cv.icons.envelope-fill', ['color' => config("colors.".$colorIcons), 'size' => 18])
+                  </td>
+                  <td>
+                    {{ $user->email }}
+                  </td>                  
+                </tr>
 
-      <div class="block-50 ib ml-2 ">
-        <div class="nametitle textcolor" >
-          {{ $user->name }} {{ $user->surname }}
-        </div>
-        <div class="jobtitle">
-          {{ $user->job }}
-        </div>
-      </div>
+                <tr>
+                  <td class="block-10">
+                    @include('cv.icons.telephone-fill', ['color' => config("colors.".$colorIcons), 'size' => 18])
+                  </td>
+                  <td>
+                    {{ $user->phone }}
+                  </td>
+                </tr>
+              </table>
 
-    </div>
-
-    <div class="clboth"></div>
+            </div>
+          </td>
+        </tr>
+      </table>
 
     <div id="profile" @class(['d-block' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections), 'my-3'])>
      <p>{{ $profile }}
@@ -112,19 +140,19 @@
 
       <div class="m-0 ">
         @foreach($skills as $skill)
-        <div class="block-32 ib py-1  m-0">
-          <div class="block-50 ib">
+        <div class="block-32 ib py-1 skill m-0 ">
+          <div class="block-45 ib ">
             <strong>{{ $skill->name }}</strong> 
           </div>
           
-          <div class="block-45 ib ">
+          <div class="block-50 ib ">
             @for($i = 0; $i < $skill->level; $i++)
-             @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
+             @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons), 'size' => 14])
             @endfor
 
             @if($skill->level < 5)
               @for($j = 0; $j < 5 - $skill->level; $j++)
-                @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
+                @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons), 'size' => 14])
               @endfor
             @endif
           </div>

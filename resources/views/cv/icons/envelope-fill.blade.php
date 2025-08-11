@@ -3,6 +3,7 @@
 $color = isset($color) ? $color : '#000';
 $vSize = isset($size) ? intval($size) : 12;
 
+
 $svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 '.$vSize.' '.$vSize.'" class="circular-chart">
     <path class="circle-bg"
           stroke-width="1"
@@ -11,7 +12,7 @@ $svg = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1
           />
 </svg>';
 
-$html = '<img src="data:image/svg+xml;base64,'.base64_encode($svg).'" width="'.$vSize.'" height="'.$vSize.'"  />';
+$html = '<img src="data:image/svg+xml;base64,'.base64_encode($svg).'" width="'.($vSize + 10).'" height="'.$vSize.'" />';
 
 echo $html;
 

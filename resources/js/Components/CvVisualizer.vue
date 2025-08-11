@@ -45,10 +45,10 @@ onMounted(() => {
 
 <style>
 .scaled-iframe {
-    width: 140%;
-    height: 86%;
+    width: 160%;
+    height: 100%;
     border: none;
-    transform: scale(0.65);
+    transform: scale(0.62);
     transform-origin: top left; /* Asegura que el escalado comience desde la esquina superior izquierda */
 }
 </style>
