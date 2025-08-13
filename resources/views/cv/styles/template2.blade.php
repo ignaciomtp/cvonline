@@ -8,6 +8,9 @@ p {
   text-align: justify;
 }
 
+table {
+  width: 100%;
+}
 
 .col-container {
   display: flex;
@@ -24,9 +27,10 @@ p {
   margin: 0 1px;
 }
 
-.starblock2 {
+.starblock2, .verticaltop {
   vertical-align: top;
 }
+
 
 .starblock svg {
     vertical-align: middle; /* Asegura alineación vertical */
@@ -104,8 +108,8 @@ p {
 }
 
 .smfont {
-  font-size: 10pt;
-  line-height: 12pt;
+  font-size: 9.5pt;
+  
 }
 
 

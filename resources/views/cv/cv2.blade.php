@@ -37,93 +37,94 @@
       <div class="block-70 ib ">
 
         <div id="experiencia" @class(['d-inline' => in_array('experience', $visibleSections), 'd-none' => ! in_array('experience', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
+          <div class=" bbottomcolor2 m-0 p-0 mb-1">
             <div class="ib section-icon mr-1 px-1">@include('cv.icons.briefcase-fill', ['color' => '#fff', 'size' => 15])</div>
             <span class="section-main-title textcolor ">Experiencia</span>
           </div>
 
+          <table>
           @foreach($experiences as $exp)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth smfont negrita">
+            <tr >
+              <td class="block-15 smfont negrita verticaltop">
                 {{ $exp->date_start }}<br>
                 {{ $exp->date_finish }}
-              </div>
-              <div class="block-83 ib floatright clboth fontbase ">
-                <span class="mayus">{{ $exp->title }}</span> - 
-                <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
-                <p class="m-0">{!! $exp->job_description !!}</p>
-              </div>
-            </div>
-          </div>
+              </td>
+              <td class="fontbase verticaltop ">
+                  <span >{{ $exp->title }}</span> - 
+                  <span class="m-0"><strong>{{ $exp->company_name }}</strong>, {{ $exp->company_city }}</span>
+                  <p class="m-0">{!! $exp->job_description !!}</p>
+              </td>
+            </tr>
           @endforeach   
+          </table> 
         </div>
 
         <div class="clboth mb-2"></div>
 
         <div id="formation" @class(['d-inline' => in_array('formation', $visibleSections), 'd-none' => ! in_array('formation', $visibleSections),])>
 
-          <div class=" bbottomcolor2 m-0 p-0">
+          <div class=" bbottomcolor2 m-0 p-0 mb-1">
             <div class="ib section-icon mr-1 px-1">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 15])</div>
             <span class="section-main-title textcolor">Formación</span>
           </div>
 
+          <table>
           @foreach($formations as $for)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita font90">{{ $for->date_finish }}</div>
-              <div class="block-83 ib floatright clboth ">
+            <tr >
+              <td class="block-15 smfont negrita verticaltop">
+               {{ $for->date_finish }}
+              </td>
+              <td class="fontbase verticaltop ">
                 <span class="font-weight-bold">{{ $for->title }} {{ $for->name }}</span><br>
                 <p>{{ $for->institution }}, {{ $for->institution_city }}</p> 
-              </div>            
-              
-            </div>
-          </div>
-          @endforeach      
+              </td>
+            </tr>
+          @endforeach   
+          </table>   
         </div>
 
         <div class="clboth mb-2"></div>
 
         <div id="complementary_formation" @class(['d-inline' => in_array('complementary_formation', $visibleSections), 'd-none' => ! in_array('complementary_formation', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
+          <div class=" bbottomcolor2 m-0 p-0 mb-1">
             <div class="ib section-icon mr-1 px-1">@include('cv.icons.mortarboard-fill', ['color' => '#fff', 'size' => 15])</div>
             <span class="section-main-title textcolor ">Formación Complementaria</span>
           </div>
 
-
+          <table>
           @foreach($complementary_formations as $cfor)
-          <div class="my-2">
-            <div class="sectioncontent">
-              <div class="block-12 ib clboth negrita font90">{{ $cfor->year }}</div>
-              <div class="block-83 ib floatright clboth ">
-                {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
-              </div>
-              
-              
-            </div>
-          </div>
+            <tr >
+              <td class="block-15 smfont negrita verticaltop">
+               {{ $cfor->year }}
+              </td>
+              <td class="fontbase verticaltop ">
+                 {{ $cfor->title }} <span class="font-weight-bold">{{ $cfor->name }}</span> ({{ $cfor->hours }} horas), {{ $cfor->institution }}, {{ $cfor->institution_city }} 
+              </td>
+            </tr>
           @endforeach
+          </table>
         </div>
 
         <div class="clboth mb-2"></div>
 
         <div id="languages" @class(['d-inline' => in_array('languages', $visibleSections), 'd-none' => ! in_array('languages', $visibleSections),])>
-          <div class=" bbottomcolor2 m-0 p-0">
+          <div class=" bbottomcolor2 m-0 p-0 mb-1">
             <div class="ib section-icon mr-1 px-1">@include('cv.icons.flag-fill', ['color' => '#fff', 'size' => 15])</div>
             <span class="section-main-title textcolor ">Idiomas</span>
           </div>
 
+          <table>
           @foreach($languages as $lang)
-            <div class="my-2">
-              <div class="sectioncontent">
-                <div class="block-12 ib clboth negrita">{{ $lang->name }}</div>
-                <div class="block-83 ib floatright clboth ">
-                  Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
-                </div>              
-                
-              </div>
-            </div>
+            <tr >
+              <td class="block-15 smfont negrita verticaltop">
+               {{ $lang->name }}
+              </td>
+              <td class="fontbase verticaltop ">
+                Nivel {{ $lang->level }} @if($lang->certification)<span>(Certificado <span class="font-weight-bold">{{ $lang->certification }}</span>)</span>@endif
+              </td>
+            </tr>
           @endforeach
+          </table>
         </div>
 
        

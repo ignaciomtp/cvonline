@@ -258,7 +258,7 @@ onMounted(() => {
 								   	</div>			
 
 								   	<div class="p-1 m-1 flex-auto w-1/3">
-								   		<InputLabel for="currently" value="Actualmente" />
+								   		<InputLabel for="currently" value="Actualidad" />
 
 						                <input						             
 						                    type="checkbox"

@@ -169,7 +169,7 @@ if (! function_exists('generateCV')) {
             if($exp->date_finish) {
                 $formattedFinish = date('m/Y', strtotime($exp->date_finish));
             } else {
-                $formattedFinish = "Actualmente";
+                $formattedFinish = "Actualidad";
             }
 
             $exp->date_start = $formattedStart;
