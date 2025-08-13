@@ -1,7 +1,7 @@
     <style type="text/css">
 
 body {
-  font-size: 1rem;
+  font-size: 12pt;
 }
 
 p {
@@ -9,23 +9,36 @@ p {
 }
 
 
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .col-container {
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap ;
 }
 
-.starblock {
+.starblock, .starblock2 {
   display: inline-block;
-  width: 8px;
-  height: 9px;
-  margin: 0 2px;
+  text-align: center; /* Centra horizontalmente elementos en línea */
+  line-height: 10px; /* Centra verticalmente ajustando al alto del contenedor */
+  width: 10px;
+  height: 10px;
+  margin: 0 1px;
+}
+
+.starblock2 {
+  vertical-align: top;
+}
+
+.starblock svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-bottom: 5px;
+}
+
+.starblock2 svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-top: 4px;
+
 }
 
 .floatright {
@@ -44,68 +57,33 @@ img {
   clear: both;
 }
 
+
+.nametitle {
+  font-size: 20pt;  
+  font-weight: bold;
+}
+
 .jobtitle {
-  font-size: 20px;
+  font-size: 16pt;
   
 }
 
-.jobtitle2 {
-  font-size: 1.3em;
-}
-
-.nametitle {
-  font-size: 30px;  
-  line-height: 35px;
-  font-weight: bold;
-}
-
-.nametitle2 {
-  font-size: 1.7em; 
-  font-weight: bold;
-}
-
 .section-main-title {
-  font-size: 25px;  
-  line-height: 30px;
+  font-size: 14pt;  
 
 }
 
-.section-main-title2 {
-  font-size: 1.35em;
-
-}
 
 .section-sidebar-title {
-  font-size: 18px;  
-
+  font-size: 12pt;  
   font-weight: bold;
-}
-
-.section-sidebar-title2 {
-  font-size: 1.1em;  
-
-  font-weight: bold;
-}
-
-
-.fs-2 {
-    font-size: 2rem !important;
-}
-
-.profile {
-
-  line-height: 1.2em;  
 }
 
 .fontbase {
-  font-size: 1.05em;
-  line-height: 1.2em;  
+  font-size: 12pt;
+  line-height: 15pt;
 }
 
-.fontbase2 {
-  font-size: 0.9em;
-  line-height: 1.15em;  
-}
 
 .font90 {
   font-size: 0.9em;
@@ -116,94 +94,75 @@ img {
 }
 
 .address {
-  font-size: 0.9rem;
-  line-height: 1.4rem;
+  font-size: 10pt;
+  line-height: 12pt;
 }
 
-.address2 {
-  font-size: 0.8em;
-  line-height: 1.5em;
-}
 
 .skilltag {
-  font-size: 0.75em;
+  font-size: 10pt;
 }
 
 .smfont {
-  font-size: 0.8rem;
-  line-height: 1rem;  
+  font-size: 10pt;
+  line-height: 12pt;
 }
 
-.smfont2 {
-  font-size: 0.7rem;
-  line-height: 0.9rem; 
-}
+
 
 .section {
-  font-size: 18px;
+  font-size: 18pt;
   
 }
 
-.sidebar-icon {
-  width: 12px;
-  height: 12px;
-  padding: 8px;
+.sidebar-icon, .sidebar-icon2 {
   background-color: {{ config("colors.".$colorIcons) }};
-  text-align: center;
-  line-height: 12px;
+  text-align: center; /* Centra horizontalmente elementos en línea */
+  line-height: 23px; /* Centra verticalmente ajustando al alto del contenedor */
+  height: 23px; /* Alto del contenedor */
+  width: 23px; /* Ancho del contenedor */
 }
 
 
-.sidebar-icon img {
-    position: relative;
-    top: -30%;
-    left: -30%;
-
+.sidebar-icon svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
 }
 
-.sidebar-icon2 {
-  width: 22px;
-  height: 24px;
-  padding: 4px;
+.sidebar-icon2 svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-right: 2px;
+    margin-bottom: 4px;
+}
+
+
+.section-icon, .section-icon2 {
+  /* width: 16pt; */
   background-color: {{ config("colors.".$colorIcons) }};
-  text-align: center;
-  line-height: 24px;
+  text-align: center; /* Centra horizontalmente elementos en línea */
+  line-height: 30px; /* Centra verticalmente ajustando al alto del contenedor */
+  height: 30px; /* Alto del contenedor */
+  width: 30px; /* Ancho del contenedor */
+}
+
+.section-icon svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
 }
 
 
-.sidebar-icon2 img {
-    position: relative;
-    top: -10%;
-    left: -10%;
-
+.section-icon2 svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-bottom: 7px;
 }
 
-.section-icon {
-  width: 16px;
-  height: 16px;
-  padding: 10px;
-  background-color: {{ config("colors.".$colorIcons) }};
-  text-align: center;
-  line-height: 16px;
-  outline: 2px solid {{ config("colors.".$colorIcons) }};
+.foto {
+  width: 100%;
+  object-fit: contain;
 }
 
-.section-icon2 {
-  width: 28px;
-  height: 28px;
-  padding: 5px;
-  background-color: {{ config("colors.".$colorIcons) }};
-  text-align: center;
-  line-height: 26px;
-  outline: 2px solid {{ config("colors.".$colorIcons) }};
-}
-
-.section-icon img {
-    position: relative;
-    top: -30%;
-    left: -30%;
-
-}
 
 .section-icon2 img {
     position: relative;
@@ -214,22 +173,24 @@ img {
   color: {{ config("colors.".$colorIcons) }};
 }
 
-
+.skills {
+  margin: 0;
+}
 
 .borde {
-  border: 1px solid black;
+  border: 1pt solid black;
 }
 
 .mb-neg10 {
-  margin-bottom: -5px !important;
+  margin-bottom: -5pt !important;
 }
 
 .mb-neg17 {
-  margin-bottom: -7px !important;
+  margin-bottom: -7pt !important;
 }
 
 .bbottomcolor2 {
-  border-bottom: 1px solid {{ config("colors.".$colorIcons) }};
+  border-bottom: 1pt solid {{ config("colors.".$colorIcons) }};
 }
 
 .offerbox {
