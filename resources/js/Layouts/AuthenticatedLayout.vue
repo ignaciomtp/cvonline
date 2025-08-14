@@ -91,6 +91,12 @@ onMounted(() => {
                                 </NavLink>
                             </div>
 
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink :href="route('templates')" :active="route().current('templates')">
+                                    Plantillas
+                                </NavLink>
+                            </div>
+
                             
                         </div>
 

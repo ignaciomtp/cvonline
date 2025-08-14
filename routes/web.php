@@ -7,6 +7,9 @@ use App\Http\Controllers\FormationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\CustomCategoryController;
+use App\Http\Controllers\DefaultTemplateSettingController;
+use App\Http\Controllers\TemplateController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -50,6 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/clonecv', [CvController::class, 'cloneCv'])->name('clonecv');
     Route::get('/editcv/{id}', [CvController::class, 'editCv'])->name('editcv');
     Route::delete('/mis-cvs/deletecv/{id}', [CvController::class, 'deleteCV'])->name('deletecv');
+
+    Route::get('/templates', [TemplateController::class, 'viewTemplates'])->name('templates');
 
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
     Route::get('/viewcv2/{id}', [CvController::class, 'viewCv'])->name('viewhtml.cv');
