@@ -11,7 +11,7 @@ use App\Models\Template;
 class TemplateController extends Controller
 {
     public function viewTemplates() {
-        $data = Template::with('settings')->get();
+        $data = Template::all();
 
         $templates = [];
 
@@ -22,4 +22,12 @@ class TemplateController extends Controller
 
         return Inertia::render('Templates', ['templates' => $templates]);
     }
+
+    public function editTemplate($id) {
+        $template = Template::find($id);
+        $settings = $template->settings->toArray();
+
+        return Inertia::render('TemplateEditor', ['template' => $template, 'settings' => $settings]);
+    }
+
 }

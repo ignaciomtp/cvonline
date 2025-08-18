@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/mis-cvs/deletecv/{id}', [CvController::class, 'deleteCV'])->name('deletecv');
 
     Route::get('/templates', [TemplateController::class, 'viewTemplates'])->name('templates');
+    Route::get('/template/{id}', [TemplateController::class, 'editTemplate'])->name('edit.template');
+    Route::post('/template/updatesettings', [DefaultTemplateSettingController::class, 'updateTemplateDefaults'])->name('update.template.settings');
+
 
     Route::get('/viewcv/{id}', [CvController::class, 'createPdfCv'])->name('view.cv');
     Route::get('/viewcv2/{id}', [CvController::class, 'viewCv'])->name('viewhtml.cv');
