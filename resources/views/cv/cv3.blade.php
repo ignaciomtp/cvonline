@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 
     @include('cv.style-options.'.$color)
 
@@ -18,9 +18,9 @@
 
   </head>
 
-  <body style="width: 595px; height: 842px; font-size: 21.5px;">
+  <body class="borde" >
 
-      <div id="sidebar" class="block-25 ib height100 backprimary m-0 verticaltop">
+      <div id="sidebar" class="block-25 height100 backprimary m-0 verticaltop">
         <div class="nametitle pt-3 px-2 pb-1" >
           {{ $user->name }} {{ $user->surname }}
         </div>
@@ -52,13 +52,12 @@
 
         <div class=" p-2 mb-2">
           @foreach($skills as $skill)
-          <div class="p-1 skills ">   
-            <div class="fonside ib block-50 ">
+          <div class=" skills ">   
+            <div class="fonside ib block-40 ">
               <strong>{{ $skill->name }}</strong>     
             </div>   
 
-
-              <div class="ib block-45 text-right ">
+              <div class="ib block-50 text-right ">
                 @for($i = 0; $i < $skill->level; $i++)
                   <div class="starblock">
                     @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons), 'size' => 15])
@@ -82,7 +81,7 @@
 
       </div> <!-- end sidebar -->
 
-      <div class="block-72 verticaltop pt-4 px-1 m-0 ib">
+      <div class="block-72 verticaltop pt-4 px-1 m-0 floatleft" id="maincontent">
         <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
          <p class="font80 mb-4">{{ $profile }}
          </p>

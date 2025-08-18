@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
 
     @include('cv.style-options.'.$color)

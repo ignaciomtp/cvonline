@@ -19,7 +19,7 @@
   </head>
 
   <body class="p-3">
-        <div class="p-0 mb-2">
+    <div class="p-0 mb-2">
       <div class="nametitle secondary-color p-0" >
         {{ $user->name }} {{ $user->surname }}
       </div>

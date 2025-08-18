@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="file:///{{ public_path('css/bootstrap.min.css') }}">
 
     @include('cv.style-options.'.$color)
@@ -17,9 +18,9 @@
 
   </head>
 
-  <body style="font-size: 21.5px;">
+  <body >
 
-      <div id="sidebar" class="block-25 ib height100 backprimary m-0 verticaltop">
+      <div id="sidebar" class="block-25  backprimary m-0 verticaltop height100">
         <div class="nametitle pt-3 px-2 pb-1" >
           {{ $user->name }} {{ $user->surname }}
         </div>
@@ -28,7 +29,7 @@
         </div>
 
         <div class="p-2">
-          <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" class="mb-1" alt="Foto" height="100">
+          <img src="file:///{{ public_path('storage/images/' . $user->photo) }}" class="mb-1" alt="Foto" >
         </div>
 
         <div class="section-sidebar-title p-2">
@@ -51,24 +52,23 @@
 
         <div class=" p-2 mb-2">
           @foreach($skills as $skill)
-          <div class="p-1 skills ">   
-            <div class="fonside ib block-50 ">
+          <div class=" skills ">   
+            <div class="fonside ib block-40 ">
               <strong>{{ $skill->name }}</strong>     
             </div>   
 
-
-              <div class="ib block-45 text-right ">
+              <div class="ib block-50 text-right ">
                 @for($i = 0; $i < $skill->level; $i++)
-                  <div class="starblock">
-                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons)])
+                  <div class="starblock2 ">
+                    @include('cv.icons.star-fill-pdf', ['color' => config("colors.".$colorIcons),'size' => 15])
                   </div>
                  
                 @endfor
 
                 @if($skill->level < 5)
                   @for($j = 0; $j < 5 - $skill->level; $j++)
-                    <div class="starblock">
-                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons)])
+                    <div class="starblock2 ">
+                      @include('cv.icons.star-pdf', ['color' => config("colors.".$colorIcons),'size' => 15])
                     </div>
                     
                   @endfor
@@ -81,7 +81,7 @@
 
       </div> <!-- end sidebar -->
 
-      <div class="block-72 verticaltop pt-4 px-1 m-0 ib">
+      <div class="block-72 verticaltop pt-4 px-1 m-0 height100" id="maincontent">
         <div id="profile" @class(['d-inline' => in_array('profile', $visibleSections), 'd-none' => ! in_array('profile', $visibleSections),])>
          <p class="font80 mb-4">{{ $profile }}
          </p>

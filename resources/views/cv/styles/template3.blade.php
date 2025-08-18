@@ -1,9 +1,28 @@
 <style type="text/css">
 body {
   
+  font-size: 21.5px;
+  margin: 0; /* Elimina márgenes por defecto */
+  height: 100%; /* Altura completa del contenedor */
+}
 
-  display: flex; 
-  flex-wrap: nowrap;
+html, body {
+  width: 100%; /* Asegura ancho completo */
+  height: 100%; /* Asegura altura completa */
+}
+
+#sidebar {
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0;
+  left: 0;
+}
+
+#maincontent {
+  /*width: 75%;  75% del ancho */
+  height: 100%; /* 100% de la altura del contenedor padre */
+  position: absolute; /* Posicionamiento absoluto */
+  top: 0;
+  left: 25%; /* Desplazado para empezar después del sidebar */  
 }
 
 table {
@@ -29,6 +48,9 @@ li {
     text-indent: 0;
 }
 
+.height100vh {
+  height: 842px; /* 100% del alto del viewport */
+}
 
 .dancing-script-maincontent {
   font-family: "Dancing Script", cursive;
@@ -37,11 +59,31 @@ li {
   font-style: normal;
 }
 
-.starblock {
+.starblock, .starblock2 {
   display: inline-block;
-  width: 0.6rem;
-  height: 0.6rem;
-  margin: 0;
+  text-align: center; /* Centra horizontalmente elementos en línea */
+  line-height: 9px; /* Centra verticalmente ajustando al alto del contenedor */
+  width: 8px;
+  height: 9px;
+  margin: 0 1px;
+}
+
+.starblock2, .verticaltop {
+  vertical-align: top;
+}
+
+
+.starblock svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-bottom: 4px;
+}
+
+.starblock2 svg {
+    vertical-align: middle; /* Asegura alineación vertical */
+    display: inline-block; /* Trata el SVG como un elemento en línea */
+    margin-top: 11px;
+
 }
 
 .jobtitle {
@@ -94,6 +136,7 @@ li {
 
 .fonside {
   font-size: 0.6em;
+
 }
 
 .smfont {
@@ -109,6 +152,7 @@ li {
 .skills {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
+
 }
 
 .sidebar-icon {

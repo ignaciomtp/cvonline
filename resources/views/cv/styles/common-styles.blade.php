@@ -22,7 +22,7 @@ p {
 }
 
 .height100 {
-  height: 842px;  
+  height: 100%;
 }
 
 .floatright {
