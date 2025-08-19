@@ -15,7 +15,7 @@ class DefaultTemplateSettingController extends Controller
         $default = DefaultTemplateSetting::findOrFail($request->id);
 
         $default->address_line_height = $request->address_line_height;
-        $default->address_size = $request->addres_size;
+        $default->address_size = $request->address_size;
         $default->base_font_size = $request->base_font_size;
         $default->base_line_height = $request->base_line_height;
         $default->job_line_height = $request->job_line_height;

@@ -1,8 +1,5 @@
     <style type="text/css">
 
-body {
-  font-size: 12pt;
-}
 
 p {
   text-align: justify;
@@ -63,29 +60,29 @@ table {
 
 
 .nametitle {
-  font-size: 20pt;  
+  font-size: {{ $settings['name_size']  }}pt;  
   font-weight: bold;
 }
 
 .jobtitle {
-  font-size: 16pt;
+  font-size: {{ $settings['job_size']  }}pt;
   
 }
 
 .section-main-title {
-  font-size: 14pt;  
+  font-size: {{ $settings['address_line_height']  }}pt;  
 
 }
 
 
 .section-sidebar-title {
-  font-size: 12pt;  
+  font-size: {{ $settings['sidebar_section_size']  }}pt;  
   font-weight: bold;
 }
 
 .fontbase {
-  font-size: 12pt;
-  line-height: 15pt;
+  font-size: {{ $settings['base_font_size']  }}pt;
+  line-height: {{ $settings['base_line_height']  }}pt;
 }
 
 
@@ -98,8 +95,8 @@ table {
 }
 
 .address {
-  font-size: 10pt;
-  line-height: 12pt;
+  font-size: {{ $settings['address_size']  }}pt;
+  line-height: {{ $settings['address_line_height']  }}pt;
 }
 
 
@@ -112,10 +109,8 @@ table {
   
 }
 
-
-
 .section {
-  font-size: 18pt;
+  font-size: {{ $settings['section_size']  }}pt;
   
 }
 

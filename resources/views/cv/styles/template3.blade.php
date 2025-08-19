@@ -1,7 +1,7 @@
 <style type="text/css">
 body {
   
-  font-size: 21.5px;
+  font-size: {{ $settings['base_font_size']  }}px;
   margin: 0; /* Elimina márgenes por defecto */
   height: 100%; /* Altura completa del contenedor */
 }
@@ -87,19 +87,19 @@ li {
 }
 
 .jobtitle {
-  font-size: 1.1em;
-  line-height: 1.15em;
+  font-size: {{ $settings['job_size']  }}px;
+  line-height: {{ $settings['job_line_height']  }}px;
 }
 
 .nametitle {
-  font-size: 1.3em; 
-  line-height: 1.45em;
+  font-size: {{ $settings['name_size']  }}px;
+  line-height: {{ $settings['name_line_height']  }}px;
   font-weight: bold;
 }
 
 .section-main-title {
-  font-size: 1.2em;  
-  line-height: 1.3em; 
+  font-size: {{ $settings['section_size']  }}px; 
+  
 
 }
 
@@ -126,12 +126,12 @@ li {
 }
 
 .address {
-  font-size: 0.7rem;
+  font-size: {{ $settings['address_size']  }}px;
   
 }
 
 .address2 {
-  font-size: 0.7em;
+  font-size: {{ $settings['address_size']  }}px;
 }
 
 .fonside {
@@ -145,7 +145,7 @@ li {
 }
 
 .section {
-  font-size: 18px;
+  {{ $settings['section_size']  }}px;
   
 }
 

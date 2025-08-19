@@ -1,28 +1,28 @@
 <style type="text/css">
 
 body {
-  font-size: 12pt;
+  font-size: {{ $settings['base_font_size']  }}pt;
 }
 
 .jobtitle {
-  font-size: 18pt;  
+  font-size: {{ $settings['job_size']  }}pt;  
 }
 
 
 .nametitle {
-  font-size: 23pt;
+  font-size: {{ $settings['name_size']  }}pt;
   
 }
 
 
 .address {
-  font-size: 10pt;
-  line-height: 12pt;
+  font-size: {{ $settings['address_size']  }}pt;
+  line-height: {{ $settings['address_line_height']  }}pt;
 }
 
 
 .section {
-  font-size: 16pt;
+  font-size: {{ $settings['address_line_height']  }}pt;
   
 }
 

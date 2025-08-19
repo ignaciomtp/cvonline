@@ -194,8 +194,15 @@ if (! function_exists('generateCV')) {
         //$colorIcons = config("colors.".$cv->color_2);
 
         // coger los estilos por defecto de la plantilla
-        $template = $cv->template;
-        $settings = $template->settings ? $template->settings->toArray() : [];
+        /*$template = $cv->template;
+        $settings = $template->settings ? $template->settings->toArray() : []; */
+
+        if($cv->settings) {
+            $settings = $cv->settings->toArray();
+        } else {
+            $template = $cv->template;
+            $settings = $template->settings->toArray();
+        }
 
 
         $data = [

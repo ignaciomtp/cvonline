@@ -70,4 +70,7 @@ class Resume extends Model
     }
 
 
+    public function settings() {
+        return $this->hasOne(CustomViewSetting::class);
+    }
 }
