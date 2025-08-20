@@ -6,6 +6,7 @@ use App\Models\Experience;
 use App\Models\Formation;
 use App\Models\Skill;
 use App\Models\DefaultTemplateSetting;
+use App\Models\CustomViewSetting;
 use Knp\Snappy\Pdf;
 
 if (! function_exists('getAllExperiences')) {
@@ -93,6 +94,7 @@ if (! function_exists('getAllComplementaryFormations')) {
         return $formations;
     }
 }
+
 
 if (! function_exists('getAllSkills')) {
     function getAllSkills(Resume $cv) {
@@ -220,12 +222,28 @@ if (! function_exists('generateCV')) {
             'settings' => $settings,
         ];
 
-/*
-        return view('cv.'.$cv->template->view.$pdf, compact('user', 'experiences', 'formations', 'complementary_formations', 'skills', 'languages', 'visibleSections', 'profile', 'color', 'colorIcons', 'offer', 'settings'));  
-
-*/
-
         return $data;
 
+    }
+
+    if (! function_exists('getResumeSettings')) {
+        function getResumeSettings(Resume $cv) {
+            
+            if($cv->settings) {
+                $settings = $cv->settings;
+            } else {
+                $template = $cv->template;
+                $settings = $template->settings;
+            }
+
+            /*            
+            echo "<pre>";
+            print_r($settings->toArray());
+            echo "</pre>";
+            die();
+            */
+
+            return $settings;
+        }
     }
 }

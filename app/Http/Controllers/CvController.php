@@ -129,6 +129,8 @@ class CvController extends Controller
 
         $languages = getAllLanguages($cv);
 
+        $settings = getResumeSettings($cv);
+
         return Inertia::render('CvEditor', [
             'cv' => $cv, 
             'experiences' => $experiences, 
@@ -139,6 +141,7 @@ class CvController extends Controller
             'incv_sections' => $visibleSections,
             'templates' => $templates,
             'custom_categories' => auth()->user()->customCategories()->get()->all(),
+            'settings' => $settings,
         ]);
 
     }

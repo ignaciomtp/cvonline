@@ -38,6 +38,7 @@ let props = defineProps({
     incv_sections: Array,
     templates: Array,
     custom_categories: Array,
+    settings: Object,
 });
 
 const cvUpdated = ref(false);
@@ -293,7 +294,7 @@ onMounted(() => {
 
     modal.value = new Modal($targetEl, options, instanceOptions);
 
-    //console.log(props.templates);
+    //console.log(props.settings);
 });
 
 
@@ -452,6 +453,7 @@ onMounted(() => {
 
                     <CvVisualizer 
                         :cv_id="props.cv.id"
+                        :settings="props.settings"
                         :updated="cvUpdated"
                         @view-updated="resetCvUpdated"
                     />
