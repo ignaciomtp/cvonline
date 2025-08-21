@@ -27,7 +27,7 @@ class CustomViewSettingController extends Controller
 
         $settings->resume_id = $request->cv_id;
         $settings->template_id = $request->template_id;
-        $settings[$request->field] = $request->value;
+        $settings[$request->field] = floatval($request->value);
 
         $settings->save();
 
