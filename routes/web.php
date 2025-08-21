@@ -8,6 +8,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\CustomCategoryController;
 use App\Http\Controllers\DefaultTemplateSettingController;
+use App\Http\Controllers\CustomViewSettingController;
 use App\Http\Controllers\TemplateController;
 
 use Illuminate\Foundation\Application;
@@ -74,6 +75,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/editcv/changetemplate', [CvController::class, 'changeResumeTemplate'])->name('template.change');
 
+    Route::post('/editcv/changesettings', [CustomViewSettingController::class, 'changeSettings'])->name('cv.changeSettings');
     Route::put('/editcv/', [CvController::class, 'updateCv'])->name('updatecv');
 
     Route::post('/editcv/addexperience/', [ExperienceController::class, 'addExperience'])->name('addexperience');

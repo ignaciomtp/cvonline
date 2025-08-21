@@ -8,6 +8,7 @@ let props = defineProps({
 const emit = defineEmits(['setting-selected', 'setting-changed']);
 
 const settingSelected = () => {
+	
 	const val = document.getElementById('selectId').value;
 
 	emit('setting-selected', val);
@@ -15,7 +16,8 @@ const settingSelected = () => {
 
 const applyNewValue = () => {
 	const newVal = document.getElementById('quantity-input').value;
-	emit('setting-changed', newVal);
+	const field = document.getElementById('selectId').value;
+	emit('setting-changed', {field: field, value: newVal});
 }
 
 </script>

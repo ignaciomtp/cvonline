@@ -7,6 +7,7 @@ let props = defineProps({
     updated: Boolean,
     cv_id: String,
     settings: Object,
+    template_id: Number,
 });
 
 const cvSettings = [
@@ -68,7 +69,7 @@ const cvSettings = [
 	}
 ];
 
-const emit = defineEmits(['view-updated']);
+const emit = defineEmits(['view-updated', 'bd-updated']);
 
 const route = ref('');
 
@@ -82,8 +83,21 @@ const settingSelected = (field) => {
 }
 
 const newValue = (newVal) => {
-	console.log('Old value: ', selectedSetting.value);
-	console.log('New value: ', newVal);
+	const request = {
+		cv_id: props.cv_id,
+		template_id: props.template_id,
+		field: newVal.field,
+		value: newVal.value
+	};
+
+	axios.post('changesettings', request)
+		.then(function(response) {
+			console.log(response);
+			emit('bd-updated');
+		})
+		.catch(function (error) {
+        console.log(error);
+    });
 }
 
 onUpdated(() => {

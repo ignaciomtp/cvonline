@@ -196,16 +196,13 @@ if (! function_exists('generateCV')) {
         //$colorIcons = config("colors.".$cv->color_2);
 
         // coger los estilos por defecto de la plantilla
-        /*$template = $cv->template;
-        $settings = $template->settings ? $template->settings->toArray() : []; */
+        $settings = $cv->settings()->where('template_id', $cv->template->id)->first();
 
-        if($cv->settings) {
-            $settings = $cv->settings->toArray();
-        } else {
+        if(!$settings) {
+            
             $template = $cv->template;
-            $settings = $template->settings->toArray();
+            $settings = $template->settings;
         }
-
 
         $data = [
             'user' => $user,
@@ -229,19 +226,14 @@ if (! function_exists('generateCV')) {
     if (! function_exists('getResumeSettings')) {
         function getResumeSettings(Resume $cv) {
             
-            if($cv->settings) {
-                $settings = $cv->settings;
-            } else {
+            $settings = $cv->settings()->where('template_id', $cv->template->id)->first();
+
+            if(!$settings) {
+                
                 $template = $cv->template;
                 $settings = $template->settings;
             }
 
-            /*            
-            echo "<pre>";
-            print_r($settings->toArray());
-            echo "</pre>";
-            die();
-            */
 
             return $settings;
         }

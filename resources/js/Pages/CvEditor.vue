@@ -455,7 +455,9 @@ onMounted(() => {
                         :cv_id="props.cv.id"
                         :settings="props.settings"
                         :updated="cvUpdated"
+                        :template_id="props.cv.template_id"
                         @view-updated="resetCvUpdated"
+                        @bd-updated="dbUpdated"
                     />
 
                 </div>
