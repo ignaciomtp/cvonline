@@ -8,6 +8,7 @@ let props = defineProps({
     cv_id: String,
     settings: Object,
     template_id: Number,
+    template_changed: Boolean,
 });
 
 const cvSettings = [
@@ -69,7 +70,7 @@ const cvSettings = [
 	}
 ];
 
-const emit = defineEmits(['view-updated', 'bd-updated']);
+const emit = defineEmits(['view-updated', 'bd-updated', 'template-changed']);
 
 const route = ref('');
 
@@ -106,6 +107,10 @@ onUpdated(() => {
 		document.getElementById('cvframe').contentWindow.location.reload(true);
 		emit('view-updated');
 	}
+
+	if(props.template_changed) {
+		emit('template-changed');
+	}
 });
 
 onMounted(() => {
@@ -122,7 +127,9 @@ onMounted(() => {
 			:cvSettings="cvSettings" 
 			@setting-selected="settingSelected" 
 			@setting-changed="newValue"
-			:value="selectedSetting" />
+			:value="selectedSetting" 
+			:templateChanged="props.template_changed"
+		/>
 
 		
 		<div class=" mt-2 mb-4">

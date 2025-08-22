@@ -42,6 +42,7 @@ let props = defineProps({
 });
 
 const cvUpdated = ref(false);
+const templateChanged = ref(false);
 const modal = ref();
 
 
@@ -80,6 +81,15 @@ const elemToDelete = reactive({
 const resetCvUpdated = () => {
     cvUpdated.value = false;
 }
+
+const resetTemplateChanged = () => {
+    templateChanged.value = false;
+}
+
+const templateJustChanged = () => {
+    templateChanged.value = true;
+}
+
 
 const deleteElement = () => {
 
@@ -343,6 +353,7 @@ onMounted(() => {
                             :templates="templates"
                             @toggled-section="toggleIncludedSection"
                             @bd-updated="dbUpdated"
+                            @template-changed="templateJustChanged"
                         />
 
                     </div>
@@ -456,8 +467,10 @@ onMounted(() => {
                         :settings="props.settings"
                         :updated="cvUpdated"
                         :template_id="props.cv.template_id"
+                        :template_changed="templateChanged"
                         @view-updated="resetCvUpdated"
                         @bd-updated="dbUpdated"
+                        @template-changed="resetTemplateChanged"
                     />
 
                 </div>

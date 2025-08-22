@@ -57,7 +57,7 @@ const changeTemplate = (template) => {
         console.log(response);
         props.cv.template_id = response.data.template_id;
         updateDB();   
-
+        templatChanged();
     })
     .catch(function (error) {
         console.log(error);
@@ -105,7 +105,7 @@ const submitOffer = () => {
     });   
 };
 
-const emit = defineEmits(['toggled-section', 'bd-updated']);
+const emit = defineEmits(['toggled-section', 'bd-updated', 'template-changed']);
 
 const toggleSection = (section) => {
 	emit('toggled-section', section);
@@ -113,6 +113,10 @@ const toggleSection = (section) => {
 
 const updateDB = () => {
 	emit('bd-updated');
+}
+
+const templatChanged = () => {
+	emit('template-changed');
 }
 
 </script>

@@ -1,25 +1,43 @@
 <script setup>
+import { ref, onUpdated, watch } from "vue";
 
 let props = defineProps({
 	cvSettings: Array,
 	value: Number,
+	templateChanged: Boolean,
 });
 
 const emit = defineEmits(['setting-selected', 'setting-changed']);
 
-const settingSelected = () => {
-	
-	const val = document.getElementById('selectId').value;
+const selectId = ref(null);
+const quantInput = ref(null);
+const localValue = ref(props.value); // Variable reactiva para el valor del input
 
-	emit('setting-selected', val);
-}
+// Sincroniza localValue con props.value cuando props.value cambia
+watch(() => props.value, (newValue) => {
+	console.log('local value changed');
+  localValue.value = newValue;
+});
+
+const settingSelected = () => {
+  emit("setting-selected", selectId.value.value);
+};
 
 const applyNewValue = () => {
-	const newVal = document.getElementById('quantity-input').value;
-	const field = document.getElementById('selectId').value;
-	emit('setting-changed', {field: field, value: newVal});
-}
+  emit("setting-changed", {
+    field: selectId.value.value,
+    value: quantInput.value.value,
+  });
+};
 
+onUpdated(() => {
+  if (props.templateChanged) {
+    selectId.value.value = "null";
+    localValue.value = null; // Limpia el valor del input
+    quantInput.value.value = null; // Limpia el valor del elemento DOM
+    
+  }
+});
 </script>
 
 <template>
@@ -27,7 +45,7 @@ const applyNewValue = () => {
 
 <div class="flex">
   <div class="w-40 flex-none my-2">
-  	<select id="selectId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" @change="settingSelected">
+  	<select id="selectId" ref="selectId" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" @change="settingSelected">
   		<option value="null">--</option>
 		<option v-for="(set, index) in cvSettings" :key="index" :value="set.field">{{ set.label }}</option>
 	</select>	
@@ -39,7 +57,7 @@ const applyNewValue = () => {
 	                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
 	            </svg>
 	        </button>
-	        <input type="text" id="quantity-input" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" :value="value" />
+	        <input type="text" id="quantity-input" ref="quantInput" data-input-counter aria-describedby="helper-text-explanation" class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" :value="localValue" @input="localValue = $event.target.value" />
 	        <button type="button" id="increment-button" data-input-counter-increment="quantity-input" class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
 	            <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
 	                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
